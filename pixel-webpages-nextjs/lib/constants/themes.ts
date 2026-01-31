@@ -1,0 +1,31 @@
+export const ADMIN_COLORS = [
+    { name: 'Lime', class: 'bg-[#bef264]', hex: '#bef264' },
+    { name: 'Purple', class: 'bg-[#c084fc]', hex: '#c084fc' },
+    { name: 'Blue', class: 'bg-[#60a5fa]', hex: '#60a5fa' },
+    { name: 'Green', class: 'bg-[#4ade80]', hex: '#4ade80' },
+    { name: 'Orange', class: 'bg-[#fb923c]', hex: '#fb923c' },
+    { name: 'Pink', class: 'bg-[#f472b6]', hex: '#f472b6' },
+    { name: 'Yellow', class: 'bg-[#facc15]', hex: '#facc15' },
+    { name: 'Red', class: 'bg-[#f87171]', hex: '#f87171' },
+    { name: 'Teal', class: 'bg-[#2dd4bf]', hex: '#2dd4bf' },
+    { name: 'Violet', class: 'bg-[#a855f7]', hex: '#a855f7' },
+    { name: 'Slate', class: 'bg-[#94a3b8]', hex: '#94a3b8' },
+    { name: 'Deep Blue', class: 'bg-blue-500', hex: '#3b82f6' },
+    { name: 'Deep Green', class: 'bg-green-500', hex: '#22c55e' },
+    { name: 'Deep Purple', class: 'bg-purple-500', hex: '#a855f7' },
+];
+
+export const PRODUCT_THEMES = [
+    { name: 'Blue', value: 'blue', hex: '#3b82f6' },
+    { name: 'Green', value: 'green', hex: '#22c55e' },
+    { name: 'Purple', value: 'purple', hex: '#a855f7' },
+    { name: 'Yellow', value: 'yellow', hex: '#eab308' },
+    { name: 'Red', value: 'red', hex: '#ef4444' },
+    { name: 'Orange', value: 'orange', hex: '#f97316' },
+    { name: 'Pink', value: 'pink', hex: '#ec4899' },
+    { name: 'Teal', value: 'teal', hex: '#14b8a6' },
+    { name: 'Cyan', value: 'cyan', hex: '#06b6d4' },
+    { name: 'Indigo', value: 'indigo', hex: '#6366f1' },
+    { name: 'Gray', value: 'gray', hex: '#6b7280' },
+    { name: 'Lime', value: 'lime', hex: '#84cc16' },
+];
