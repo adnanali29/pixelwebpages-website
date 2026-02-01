@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel WebPages - Gen Z Tech Firm</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background-color: black;
+            color: #f4f4f5;
+            overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+        }
+
+        /* Custom Scrollbar Hiding */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Animations */
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        @keyframes bounce-slow {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-bounce-slow { animation: bounce-slow 3s ease-in-out infinite; }
+    </style>
+
+    <!-- React & ReactDOM (Pinned Versions) -->
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        /* --- ICONS --- */
+        const IconBase = ({ size = 24, className, children, ...props }) => (
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width={size} 
+                height={size} 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className={className} 
+                {...props}
+            >
+                {children}
+            </svg>
+        );
+
+        const ArrowRight = (props) => <IconBase {...props}><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></IconBase>;
+        const ArrowLeft = (props) => <IconBase {...props}><path d="M19 12H5" /><path d="m12 19-7-7 7-7" /></IconBase>;
+        const Menu = (props) => <IconBase {...props}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></IconBase>;
+        const X = (props) => <IconBase {...props}><path d="M18 6 6 18" /><path d="m6 6 12 12" /></IconBase>;
+        const Code = (props) => <IconBase {...props}><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></IconBase>;
+        const Smartphone = (props) => <IconBase {...props}><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /><path d="M12 18h.01" /></IconBase>;
+        const Cloud = (props) => <IconBase {...props}><path d="M17.5 19c0-3.037-2.463-5.5-5.5-5.5S6.5 15.963 6.5 19" /><path d="M12 13.5V4.5" /></IconBase>;
+        const Linkedin = (props) => <IconBase {...props}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></IconBase>;
+        const Palette = (props) => <IconBase {...props}><circle cx="13.5" cy="6.5" r=".5" /><circle cx="17.5" cy="10.5" r=".5" /><circle cx="8.5" cy="7.5" r=".5" /><circle cx="6.5" cy="12.5" r=".5" /><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" /></IconBase>;
+        const Monitor = (props) => <IconBase {...props}><rect width="20" height="14" x="2" y="3" rx="2" /><line x1="8" x2="16" y1="21" y2="21" /><line x1="12" x2="12" y1="17" y2="21" /></IconBase>;
+        const Box = (props) => <IconBase {...props}><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" x2="12" y1="22.08" y2="12" /></IconBase>;
+        const Users = (props) => <IconBase {...props}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></IconBase>;
+        const CheckCircle = (props) => <IconBase {...props}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></IconBase>;
+        const Globe = (props) => <IconBase {...props}><circle cx="12" cy="12" r="10" /><line x1="2" x2="22" y1="12" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></IconBase>;
+        const Layout = (props) => <IconBase {...props}><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><line x1="3" x2="21" y1="9" y2="9" /><line x1="9" x2="9" y1="21" y2="9" /></IconBase>;
+        const ShoppingCart = (props) => <IconBase {...props}><circle cx="8" cy="21" r="1" /><circle cx="19" cy="21" r="1" /><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></IconBase>;
+        const Server = (props) => <IconBase {...props}><rect width="20" height="8" x="2" y="2" rx="2" ry="2" /><rect width="20" height="8" x="2" y="14" rx="2" ry="2" /><line x1="6" x2="6.01" y1="6" y2="6" /><line x1="6" x2="6.01" y1="18" y2="18" /></IconBase>;
+        const PenTool = (props) => <IconBase {...props}><path d="m12 19 7-7 3 3-7 7-3-3z" /><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" /><path d="m2 2 7.586 7.586" /><circle cx="11" cy="11" r="2" /></IconBase>;
+        const Send = (props) => <IconBase {...props}><line x1="22" x2="11" y1="2" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></IconBase>;
+        const ExternalLink = (props) => <IconBase {...props}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" x2="21" y1="14" y2="3" /></IconBase>;
+        const Cpu = (props) => <IconBase {...props}><rect width="16" height="16" x="4" y="4" rx="2" /><rect width="6" height="6" x="9" y="9" /><path d="M9 1v3" /><path d="M15 1v3" /><path d="M9 20v3" /><path d="M15 20v3" /><path d="M20 9h3" /><path d="M20 14h3" /><path d="M1 9h3" /><path d="M1 14h3" /></IconBase>;
+        const Database = (props) => <IconBase {...props}><ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" /></IconBase>;
+        const Terminal = (props) => <IconBase {...props}><polyline points="4 17 10 11 4 5" /><line x1="12" x2="20" y1="19" y2="19" /></IconBase>;
+        const Zap = (props) => <IconBase {...props}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></IconBase>;
+        const MousePointer = (props) => <IconBase {...props}><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z" /><path d="m13 13 6 6" /></IconBase>;
+        const TrendingUp = (props) => <IconBase {...props}><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></IconBase>;
+        const DollarSign = (props) => <IconBase {...props}><line x1="12" x2="12" y1="2" y2="22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></IconBase>;
+        const Calendar = (props) => <IconBase {...props}><rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" /></IconBase>;
+        const Shield = (props) => <IconBase {...props}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></IconBase>;
+        const Scale = (props) => <IconBase {...props}><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></IconBase>;
+        const Mail = (props) => <IconBase {...props}><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></IconBase>;
+        const Phone = (props) => <IconBase {...props}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></IconBase>;
+        const Instagram = (props) => <IconBase {...props}><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></IconBase>;
+        const Facebook = (props) => <IconBase {...props}><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></IconBase>;
+        const BarChart = (props) => <IconBase {...props}><line x1="12" x2="12" y1="20" y2="10" /><line x1="18" x2="18" y1="20" y2="4" /><line x1="6" x2="6" y1="20" y2="16" /></IconBase>;
+
+        /* --- DATA & CONTENT --- */
+
+        // REORDERED PROJECTS
+        const PROJECTS = [
+          { 
+            name: "Addy Fitness", 
+            url: "https://addyfitness.com/", 
+            desc: "Fitness & Training Hub", 
+            color: "bg-[#60a5fa]", 
+            imgBg: "#60a5fa", 
+            image: "https://i.ibb.co/kgBj0d0Z/5.png" 
+          },
+          { 
+            name: "Sikhaid NGO", 
+            url: "https://sikhaid.ngo/", 
+            desc: "Non-Profit Organization", 
+            color: "bg-[#fb923c]", 
+            imgBg: "#fb923c", 
+            image: "https://i.ibb.co/xqtNbtmF/4.png" 
+          },
+          { 
+            name: "Badsha magic world", 
+            url: "https://badasha-landing-page.vercel.app/", 
+            desc: "Brand Landing Page", 
+            color: "bg-[#f472b6]", 
+            imgBg: "#f472b6", 
+            image: "https://i.ibb.co/BKt0Wc74/1.png" 
+          },
+          { 
+            name: "Querent", 
+            url: "https://www.querent.xyz/", 
+            desc: "Astrology & Guidance Platform", 
+            color: "bg-[#d4b2ff]", 
+            imgBg: "#d4b2ff", 
+            image: "https://i.ibb.co/YTPj0HN5/3.png" 
+          },
+          { 
+            name: "Roxford Health", 
+            url: "https://master--roxfordhealthcaretest.netlify.app/", 
+            desc: "Medical Services Portal", 
+            color: "bg-[#a3e635]", 
+            imgBg: "#a3e635", 
+            image: "https://i.ibb.co/8gqbNzcb/2.png" 
+          }
+        ];
+
+        const SERVICE_CATEGORIES = [
+          {
+            id: 'web-dev',
+            title: 'Web Dev & Payments',
+            icon: <Globe size={32} />,
+            color: 'bg-[#bef264]',
+            textColor: 'text-black',
+            desc: 'Custom sites & secure payments.',
+            subServices: [
+              { title: 'E-Commerce Store', desc: 'Robust online stores with payment gateways.', points: ["Seamless Payment Integration", "Inventory Management System", "Customer Analytics Dashboard"], icon: <ShoppingCart /> },
+              { title: 'Corporate Portfolio', desc: 'Professional branding sites for firms.', points: ["Company History Timeline", "Team Member Showcases", "Careers & HR Portal"], icon: <Layout /> },
+              { title: 'Payment Integration', desc: 'Secure gateway setup for India & Global.', points: ["Razorpay & Easebuzz", "Cashfree Payments", "PhonePe & UPI"], icon: <DollarSign /> },
+              { title: 'Landing Pages', desc: 'High-conversion single-page sites.', points: ["A/B Testing Capable", "Fast Loading Speed", "Optimized Call-to-Actions"], icon: <ArrowRight /> },
+              { title: 'SaaS Dashboard', desc: 'Complex web applications.', points: ["User Authentication", "Real-time Data Vis", "Subscription Billing"], icon: <Database /> },
+              { title: 'CMS Blogs', desc: 'Content-heavy platforms.', points: ["Easy Admin Panel", "SEO Optimized Structure", "Multi-author Support"], icon: <PenTool /> },
+              { title: 'Non-Profit/NGO', desc: 'Donation-focused websites.', points: ["Secure Donation Gateway", "Event Management", "Volunteer Signups"], icon: <Users /> },
+              { title: 'Shopify Store', desc: 'Rapid retail setup.', points: ["Custom Theme Design", "App Integrations", "Dropshipping Ready"], icon: <ShoppingCart /> },
+              { title: 'WordPress Site', desc: 'Flexible content management.', points: ["Plugin Ecosystem", "Easy-to-Edit Content", "SEO Plugin Setup"], icon: <Globe /> }
+            ]
+          },
+          {
+            id: 'ui-ux',
+            title: 'UI/UX Designing',
+            icon: <Palette size={32} />,
+            color: 'bg-[#c084fc]',
+            textColor: 'text-black',
+            desc: 'User-centric interfaces.',
+            subServices: [
+              { title: 'Mobile App Design', desc: 'iOS and Android interface design.', points: ["iOS & Android Guidelines", "Touch Gesture Optimization", "Dark Mode Variants"], icon: <Smartphone /> },
+              { title: 'Wireframing', desc: 'Low-fidelity structural blueprints.', points: ["User Journey Mapping", "Information Architecture", "Structural Layouts"], icon: <Layout /> },
+              { title: 'Prototyping', desc: 'Interactive mockups.', points: ["Clickable Demos", "User Testing Ready", "Micro-interactions"], icon: <Code /> },
+              { title: 'Design Systems', desc: 'Comprehensive style guides.', points: ["Typography Rules", "Color Palettes", "Component Libraries"], icon: <Box /> }
+            ]
+          },
+          {
+            id: 'trademark',
+            title: 'Trademark Registration',
+            icon: <Shield size={32} />,
+            color: 'bg-[#a855f7]',
+            textColor: 'text-white',
+            desc: 'Protect your brand identity.',
+            subServices: [
+              { title: 'Brand Protection', desc: 'Secure your brand name and logo.', points: ["Class Selection", "Application Filing", "Status Tracking"], icon: <Shield /> },
+              { title: 'Objection Handling', desc: 'Legal replies to registry objections.', points: ["Drafting Responses", "Hearing Representation", "Affidavits"], icon: <FileTextIcon /> },
+              { title: 'Copyright Filing', desc: 'Protect creative assets and content.', points: ["Software Code", "Artistic Work", "Literary Content"], icon: <PenTool /> },
+              { title: 'Renewal Services', desc: 'Maintain valid trademark status.', points: ["Timely Alerts", "Fee Processing", "10-Year Extension"], icon: <ClockIcon /> }
+            ]
+          },
+          {
+            id: 'gst-legal',
+            title: 'GST & Legal',
+            icon: <Scale size={32} />,
+            color: 'bg-[#94a3b8]',
+            textColor: 'text-black',
+            desc: 'Compliance and business laws.',
+            subServices: [
+              { title: 'Company Inc.', desc: 'Pvt Ltd, LLP, or OPC registration.', points: ["DSC & DIN", "MoA & AoA", "Certificate of Inc."], icon: <Layout /> },
+              { title: 'GST Reg. & Filing', desc: 'New setup & monthly return filing.', points: ["New GSTIN Registration", "GSTR-1 & 3B Filing", "Input Tax Credit"], icon: <FileTextIcon /> },
+              { title: 'Legal Agreements', desc: 'Contracts, NDAs, and bonds.', points: ["Client Contracts", "Vendor Agreements", "Employment Bonds"], icon: <PenTool /> },
+              { title: 'Audit Support', desc: 'Financial compliance and audits.', points: ["Bookkeeping", "Tax Audit", "Balance Sheet"], icon: <TrendingUp /> }
+            ]
+          },
+          {
+            id: 'logo-design',
+            title: 'Logo Designing',
+            icon: <PenTool size={32} />,
+            color: 'bg-[#2dd4bf]', // Teal
+            textColor: 'text-black',
+            desc: 'Brand identity & visuals.',
+            subServices: [
+                { title: 'Brand Identity', desc: 'Complete visual language for your brand.', points: ["Visual Tone Voice", "Color Psychology", "Brand Guidelines"], icon: <Palette /> },
+                { title: 'Monograms', desc: 'Minimalist lettermark logos.', points: ["Initials Based", "Geometric Design", "Scalable Vector"], icon: <Layout /> },
+                { title: 'Wordmarks', desc: 'Typography-based logos.', points: ["Custom Fonts", "Kerning & Spacing", "Distinctive Style"], icon: <PenTool /> },
+                { title: 'Rebranding', desc: 'Modernizing existing brand assets.', points: ["Market Alignment", "Modern Aesthetics", "Asset Updates"], icon: <Zap /> }
+            ]
+          },
+          {
+            id: 'performance-marketing',
+            title: 'Performance Marketing',
+            icon: <TrendingUp size={32} />,
+            color: 'bg-[#f472b6]', // Pink
+            textColor: 'text-black',
+            desc: 'Data-driven growth.',
+            subServices: [
+                { title: 'SEO/SEM', desc: 'Search engine optimization & marketing.', points: ["Keyword Research", "On-Page Optimization", "Backlink Strategy"], icon: <Globe /> },
+                { title: 'Social Ads', desc: 'Targeted campaigns on IG, LinkedIn & FB.', points: ["Audience Targeting", "A/B Creative Testing", "ROI Tracking"], icon: <Smartphone /> },
+                { title: 'Analytics', desc: 'Deep dive into user behavior & conversion.', points: ["Funnel Analysis", "Heatmap Tracking", "Traffic Reports"], icon: <Database /> },
+                { title: 'Content Strategy', desc: 'Engaging content for higher retention.', points: ["Blog Planning", "Social Calendars", "Engagement Metrics"], icon: <PenTool /> }
+            ]
+          },
+          {
+            id: 'app-dev',
+            title: 'Application & Software',
+            icon: <Smartphone size={32} />,
+            color: 'bg-[#60a5fa]',
+            textColor: 'text-black',
+            desc: 'Mobile and desktop solutions.',
+            subServices: [
+              { title: 'Native iOS/Android', desc: 'High-performance mobile apps.', points: ["Swift & Kotlin", "Device Feature Access", "App Store Approval"], icon: <Smartphone /> },
+              { title: 'Cross-Platform', desc: 'React Native or Flutter apps.', points: ["Single Codebase", "Faster Delivery", "Cost Effective"], icon: <Code /> },
+              { title: 'Desktop Software', desc: 'Electron or native desktop apps.', points: ["Offline Capabilities", "System Integration", "Large Screen UX"], icon: <Monitor /> },
+              { title: 'Internal Tools', desc: 'Custom operations software.', points: ["Workflow Automation", "Data Entry Panels", "Admin Controls"], icon: <Terminal /> }
+            ]
+          },
+          {
+            id: 'cloud',
+            title: 'Cloud Migration',
+            icon: <Cloud size={32} />,
+            color: 'bg-[#fb923c]',
+            textColor: 'text-black',
+            desc: 'Scalable infrastructure.',
+            subServices: [
+              { title: 'AWS/Azure Setup', desc: 'Secure, scalable server environments.', points: ["Instance Configuration", "Load Balancing", "Security Groups"], icon: <Server /> },
+              { title: 'Database Migration', desc: 'Moving legacy data systems.', points: ["Zero Downtime", "Data Integrity", "Schema Mapping"], icon: <Database /> },
+              { title: 'Serverless Arch', desc: 'Cost-effective functions.', points: ["Pay-per-use", "Auto-scaling", "Event Driven"], icon: <Cloud /> }
+            ]
+          },
+          {
+            id: 'linkedin',
+            title: 'LinkedIn Management',
+            icon: <Linkedin size={32} />,
+            color: 'bg-[#2563eb]',
+            textColor: 'text-white',
+            desc: 'Professional branding growth.',
+            subServices: [
+              { title: 'Profile Optimization', desc: 'Revamping bios and headlines.', points: ["Headline Crafting", "Skill Tagging", "Banner Design"], icon: <Users /> },
+              { title: 'Content Strategy', desc: 'Ghostwriting thought leadership.', points: ["Industry Insights", "Storytelling", "Consistent Posting"], icon: <PenTool /> },
+              { title: 'Lead Generation', desc: 'Targeted outreach campaigns.', points: ["Connection Requests", "Cold Messaging", "Network Growth"], icon: <Send /> }
+            ]
+          },
+          {
+            id: 'graphics',
+            title: 'Poster/Flyer Design',
+            icon: <Layout size={32} />,
+            color: 'bg-[#e879f9]',
+            textColor: 'text-black',
+            desc: 'Print and digital visual assets.',
+            subServices: [
+              { title: 'Event Posters', desc: 'Eye-catching visuals.', points: ["High Resolution", "Visual Hierarchy", "Call To Action"], icon: <Palette /> },
+              { title: 'Business Flyers', desc: 'Informational handouts.', points: ["Compact Info", "Distributable Format", "QR Code Integration"], icon: <Layout /> },
+              { title: 'Print Management', desc: 'Technical details for printing.', points: ["CMYK Color Mode", "Bleed & Trim Setup", "Paper Selection"], icon: <Box /> }
+            ]
+          },
+          {
+            id: 'signage',
+            title: 'Signage Designing',
+            icon: <Monitor size={32} />,
+            color: 'bg-[#facc15]',
+            textColor: 'text-black',
+            desc: 'Large format outdoor advertising.',
+            subServices: [
+              { title: 'Billboards', desc: 'Large-scale visuals.', points: ["High Impact", "Simple Messaging", "Distance Readability"], icon: <Monitor /> },
+              { title: 'Storefronts', desc: 'Window decals and 3D lettering.', points: ["Vinyl Decals", "Channel Letters", "Lighting Effects"], icon: <Layout /> },
+              { title: 'Wayfinding', desc: 'Directional signage.', points: ["Clear Icons", "Directory Maps", "Accessibility"], icon: <ArrowRight /> }
+            ]
+          },
+          {
+            id: 'ppt',
+            title: 'PPT Making',
+            icon: <Box size={32} />,
+            color: 'bg-[#f87171]',
+            textColor: 'text-black',
+            desc: 'Professional decks.',
+            subServices: [
+              { title: 'Investor Pitch', desc: 'Compelling narratives.', points: ["Financial Projections", "Market Sizing", "Problem/Solution"], icon: <Users /> },
+              { title: 'Corporate Sales', desc: 'Standardized templates.', points: ["Product Specs", "Case Studies", "Pricing Tables"], icon: <BriefcaseIcon /> },
+              { title: 'Educational', desc: 'Clear, engaging slides.', points: ["Visual Aids", "Summaries", "Interactive Elements"], icon: <Monitor /> }
+            ]
+          },
+          {
+            id: 'sales-marketing',
+            title: 'Sales & Marketing',
+            icon: <BarChart size={32} />,
+            color: 'bg-[#4ade80]', // Green-400
+            textColor: 'text-black',
+            desc: 'Accelerate revenue and growth.',
+            subServices: [
+              { title: 'Sales Funnel', desc: 'Optimizing the customer journey.', points: ["Lead Magnet Design", "Landing Page Ops", "Conversion Tracking"], icon: <TrendingUp /> },
+              { title: 'Marketing Plans', desc: 'Strategic roadmaps for growth.', points: ["Competitor Analysis", "Channel Strategy", "Budget Allocation"], icon: <Globe /> },
+              { title: 'Lead Nurturing', desc: 'Automated email sequences.', points: ["Drip Campaigns", "CRM Integration", "Customer Segmentation"], icon: <Mail /> },
+              { title: 'Market Research', desc: 'Data-driven insights.', points: ["Customer Surveys", "Trend Analysis", "SWOT Analysis"], icon: <Database /> }
+            ]
+          }
+        ];
+
+        function BriefcaseIcon() { return <Box />; } 
+        function FileTextIcon() { return <Box />; } 
+        function ClockIcon() { return <Box />; } 
+
+        const BLOGS = [
+          { 
+            title: "Next.js vs React: Choosing the Right Framework for High-Performance Websites", 
+            date: "Dec 05, 2024", 
+            tag: "Tech", 
+            color: "bg-blue-400", 
+            image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=600&auto=format&fit=crop",
+            content: `In the rapidly evolving landscape of modern web development, the choice between using a library like React and a framework like Next.js is a pivotal decision for any project. React, developed by Facebook, revolutionized the way we build user interfaces by introducing a component-based architecture. However, React is strictly a view library; it handles what the user sees but leaves routing, data fetching, and rendering strategies up to the developer. This flexibility is powerful but can lead to "decision fatigue" and complex configurations for larger applications.
+
+Next.js, often described as "The React Framework for Production," builds upon React's strengths by offering a comprehensive suite of features out of the box. Its standout feature is its hybrid rendering capabilities. Unlike standard React apps that are Client-Side Rendered (CSR)—meaning the browser does the heavy lifting, often resulting in slower initial load times and poor SEO—Next.js allows for Server-Side Rendering (SSR) and Static Site Generation (SSG). This means pages can be pre-rendered on the server, delivering fully formed HTML to the browser instantly.
+
+For businesses, this difference is critical. SSR and SSG significantly improve Core Web Vitals, a key ranking factor for Google. If your goal is to build a public-facing marketing site, an e-commerce store, or a large-scale media platform where SEO and initial load speed are non-negotiable, Next.js is the clear winner. It handles image optimization, routing, and API endpoints seamlessly. Conversely, if you are building a highly interactive, private dashboard or a tool behind a login screen where SEO is irrelevant, standard React might offer a simpler, more lightweight development experience.`
+          },
+          { 
+            title: "The Psychology of Color in UI Design: How to Influence User Behavior", 
+            date: "Dec 03, 2024", 
+            tag: "UI/UX", 
+            color: "bg-purple-400", 
+            image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop",
+            content: `Color is one of the most fundamental elements of design, yet it is often treated as a mere aesthetic choice. In reality, color is a powerful psychological tool that can subconscious influence user behavior, perception, and decision-making. When a user lands on a website, their brain processes visual information 60,000 times faster than text, and color is the first thing they register. It sets the emotional tone before a single word is read.
+
+For instance, Blue is universally associated with trust, security, and professionalism, which is why it dominates the branding of banks (Chase, PayPal) and social media giants (Facebook, LinkedIn). Red, on the other hand, is a high-arousal color. It increases heart rate and creates a sense of urgency. This makes it perfect for clearance sales or "Buy Now" buttons but potentially overwhelming if used for a background. Green is synonymous with health, growth, and wealth, making it a staple for fitness apps and financial tools.
+
+Beyond individual colors, the contrast and hierarchy play a massive role in User Experience (UX). The "Von Restorff Effect" (or Isolation Effect) predicts that when multiple similar objects are present, the one that differs the most is most likely to be remembered. In UI design, this translates to using a distinct accent color for your primary Call to Action (CTA) button so it stands out against the rest of the interface. A well-strategized color palette doesn't just look good; it guides the user's eye, reduces cognitive load, and significantly boosts conversion rates.`
+          },
+          { 
+            title: "Trademarking in the Digital Age: Protecting Your Brand Identity Online", 
+            date: "Nov 28, 2024", 
+            tag: "Legal", 
+            color: "bg-yellow-400", 
+            image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=600&auto=format&fit=crop",
+            content: `In today's borderless digital economy, your brand is your most valuable asset. However, the ease of starting a business online has led to a surge in brand theft, cybersquatting, and counterfeiting. Many entrepreneurs make the mistake of thinking that registering a domain name or incorporating a company protects their brand name. It does not. Only a registered trademark grants you the exclusive legal right to use your brand name, logo, and slogan nationwide.
+
+Without a trademark, you are vulnerable. Competitors can use similar names or logos that confuse your customers, siphoning off your hard-earned traffic. Worse, if someone else registers the trademark for your name, they could legally force you to rebrand—costing you your website, social media handles, and years of built-up reputation. In the digital age, trademark protection extends to takedown rights on social media platforms and protection against "ad keyword hijacking" where competitors bid on your brand name in search engines.
+
+The process involves conducting a comprehensive search to ensure your mark is unique, filing with the appropriate government body (like the USPTO or IP India), and responding to any objections. While it might seem like a bureaucratic hurdle, early registration is an investment in your business's longevity. It turns your brand into an intangible asset that can be licensed, franchised, or sold, adding tangible value to your company valuation.`
+          },
+          { 
+            title: "5 Common Cloud Migration Pitfalls and How to Avoid Them", 
+            date: "Nov 25, 2024", 
+            tag: "Cloud", 
+            color: "bg-orange-400", 
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop",
+            content: `Migrating to the cloud is no longer a question of "if," but "when." The promises of scalability, flexibility, and cost reduction are alluring. However, cloud migration is complex, and without a strategic approach, it can lead to spiraling costs and security vulnerabilities. One of the most common pitfalls is the "Lift and Shift" approach, where legacy applications are moved to the cloud without any modification. While this is the fastest method, it often fails to leverage cloud-native features like auto-scaling, resulting in a system that is just as expensive and rigid as it was on-premise.
+
+Another major oversight is neglecting security compliance. The "Shared Responsibility Model" of cloud providers means that while AWS or Azure secures the infrastructure, you are responsible for securing your data and applications. Failing to configure access controls (IAM) correctly can leave sensitive data exposed to the public internet.
+
+Cost estimation is a third frequent stumbling block. Cloud pricing models are complex, based on compute time, data transfer, and storage class. Without proper monitoring and governance (FinOps), bills can skyrocket unexpectedly. To avoid these traps, businesses should conduct a thorough audit of their existing infrastructure, choose the right migration strategy (Rehost, Refactor, or Replatform), and invest in training their teams. A successful migration isn't just about moving data; it's about modernizing your entire IT operation.`
+          },
+          { 
+            title: "Unlocking Growth: The Ultimate Guide to Data-Driven Performance Marketing", 
+            date: "Nov 20, 2024", 
+            tag: "Marketing", 
+            color: "bg-pink-400", 
+            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop",
+            content: `Traditional marketing was often described as "spray and pray"—putting out a message and hoping it sticks. Performance marketing flips this script entirely. It is a comprehensive strategy where advertisers pay only when a specific action occurs, such as a click, a lead generation, or a sale. This makes it inherently data-driven and highly accountable. In an era where every marketing dollar counts, performance marketing offers the transparency businesses need.
+
+The core of this strategy lies in granular targeting and analytics. Platforms like Meta (Facebook/Instagram) and Google Ads allow us to target users not just by demographics, but by behavior, interests, and intent. We can track a user's journey from the first ad impression to the final checkout. Key metrics like Customer Acquisition Cost (CAC), Return on Ad Spend (ROAS), and Customer Lifetime Value (CLV) become the north stars of decision-making.
+
+However, data alone isn't enough. The "performance" comes from the continuous optimization loop. This involves A/B testing ad creatives (images vs. videos), refining ad copy, and optimizing landing pages for higher conversion rates. It also involves retargeting—showing ads to users who visited your site but didn't buy. By nurturing these warm leads, performance marketing maximizes the efficiency of your budget, turning your marketing department from a cost center into a revenue generator.`
+          },
+          { 
+            title: "Micro-Interactions: The Secret to Boosting User Engagement", 
+            date: "Nov 15, 2024", 
+            tag: "UI/UX", 
+            color: "bg-green-400", 
+            image: "https://images.unsplash.com/photo-1586717791821-3f44a5638d0f?q=80&w=600&auto=format&fit=crop",
+            content: `Great design is often invisible. It's in the details that don't scream for attention but make the experience intuitive and satisfying. Micro-interactions are these subtle moments: the satisfying 'ding' when you send a message, the vibration when you pull to refresh a feed, or the way a button transforms when you hover over it. While they may seem decorative, they serve essential functional purposes.
+
+Firstly, they provide **system status feedback**. When a user clicks "Submit," a spinning loader reassures them that the system is working. Without it, they might think the app has frozen and click again, causing errors. Secondly, they **guide the user**. A subtle shake animation on a password field tells the user "Incorrect Password" instantly without needing a popup error message. Thirdly, they **teach the user** how to interact with the interface, such as swiping a notification to dismiss it.
+
+From a psychological standpoint, micro-interactions create a "habit loop." The visual or haptic reward makes the interaction feel tangible and responsive, releasing a tiny dopamine hit. This emotional connection turns a cold, static interface into a living product. For Gen Z users who expect fluid, app-like experiences even on the web, investing in high-quality micro-interactions is a key differentiator that boosts retention and brand loyalty.`
+          },
+          { 
+            title: "GST Compliance for Tech Startups: A Comprehensive Guide", 
+            date: "Nov 10, 2024", 
+            tag: "Finance", 
+            color: "bg-red-400", 
+            image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=600&auto=format&fit=crop",
+            content: `For tech startups in India, the regulatory landscape can be daunting, and GST (Goods and Services Tax) is at the forefront of compliance. Unlike traditional businesses, tech startups often deal with intangible goods—software licenses, SaaS subscriptions, and consultancy services—all of which generally attract an 18% GST rate. Understanding the nuances of this tax regime is vital to avoid penalties and maintain cash flow.
+
+A critical concept for startups is the distinction between **Interstate vs. Intrastate** supply. Since tech companies serve clients globally or across India, knowing when to charge IGST versus CGST/SGST is mandatory. Furthermore, startups exporting services (e.g., selling software to US clients) need to understand the concept of "Zero-Rated Supply." If you register correctly, you can export services without paying GST, or claim a refund on the taxes paid on your inputs (laptops, server costs, rent).
+
+This brings us to **Input Tax Credit (ITC)**. Startups can reduce their tax liability by claiming credit for the GST they pay on business expenses. However, this requires vendors to file their returns on time. A common pitfall is hiring unregistered vendors, which blocks your ability to claim ITC. Automating this entire workflow—from invoicing to GSTR-1 and GSTR-3B filing—using modern accounting software is highly recommended to keep your startup audit-ready and focused on growth.`
+          },
+          { 
+            title: "Flutter vs React Native: The Battle for Cross-Platform Dominance", 
+            date: "Nov 05, 2024", 
+            tag: "Tech", 
+            color: "bg-cyan-400", 
+            image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=600&auto=format&fit=crop",
+            content: `The dream of "Write Once, Run Anywhere" has fueled the cross-platform mobile development race. Today, the two heavyweights are **Flutter** (by Google) and **React Native** (by Meta). Both allow developers to build iOS and Android apps from a single codebase, saving significant time and money compared to native development. But which one should you choose?
+
+**React Native** has the advantage of maturity and the JavaScript ecosystem. If your team already knows React for the web, the transition to React Native is seamless. It uses native components, meaning a button in React Native renders as a real native Android or iOS button. This gives apps a very "native" feel. However, it relies on a "bridge" to communicate between the JavaScript code and the native device, which can sometimes cause performance bottlenecks in complex animations.
+
+**Flutter**, on the other hand, takes a different approach. It renders its own UI widgets on a canvas, bypassing the native components entirely. This guarantees pixel-perfect consistency across all devices—your app looks exactly the same on an old Android as it does on a new iPhone. It compiles to native ARM code, offering superior performance, often hitting 60fps or 120fps easily. The downside is that it uses the Dart language, which has a steeper learning curve than JavaScript. Ultimately, React Native is better for teams with web backgrounds, while Flutter is ideal for apps requiring high-performance, custom-branded UIs.`
+          },
+          { 
+            title: "Logo Trends 2025: From 3D Minimalism to Abstract Gradients", 
+            date: "Oct 30, 2024", 
+            tag: "Design", 
+            color: "bg-indigo-400", 
+            image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=600&auto=format&fit=crop", 
+            content: `As we approach 2025, branding is breaking free from the ultra-flat, sterile aesthetic that dominated the 2010s. While simplicity remains key, personality is making a comeback. One of the biggest trends is **3D Minimalism**. Brands are taking simple vector shapes and adding subtle depth, soft shadows, and inflation effects (like "bubble" text) to make logos pop on high-resolution digital screens without looking cluttered.
+
+Another major shift is the use of **Abstract Gradients**. We aren't talking about the simple linear fades of the past. Designers are using mesh gradients and blur effects to create fluid, living colors that feel organic and dynamic. This reflects the fluid nature of the digital world.
+
+Typography is also taking center stage. Custom, experimental typefaces are replacing standard sans-serif fonts. Brands want to "own" their voice, and a unique font does that instantly. We are also seeing **Nostalgia Reimagined**—designs that borrow from the 90s and Y2K pixel aesthetics but polish them with modern precision. For Gen Z brands, a logo needs to be adaptable—it must look as good as a tiny app icon as it does on a massive billboard or an animated loading screen.`
+          },
+          { 
+            title: "Building Scalable SaaS Architectures: Best Practices for 2025", 
+            date: "Oct 25, 2024", 
+            tag: "Tech", 
+            color: "bg-teal-400", 
+            image: "https://images.unsplash.com/photo-1558494949-efc02570fbc9?q=80&w=600&auto=format&fit=crop",
+            content: `In the SaaS (Software as a Service) world, success can be your biggest problem. If your user base grows overnight, will your servers crash? Scalability is not an afterthought; it's an architectural requirement. Modern SaaS architecture has moved away from monolithic structures (where the whole app is one giant block of code) to **Microservices**. This involves breaking the app into small, independent services (e.g., auth, billing, notifications) that can be developed, deployed, and scaled independently.
+
+**Containerization** using Docker and Kubernetes has become the industry standard. It ensures that your application runs exactly the same on a developer's laptop as it does on a massive production server cluster. This eliminates the "it works on my machine" problem and allows for automated scaling.
+
+Another key trend is **Serverless Computing** (like AWS Lambda). Instead of paying for a server that runs 24/7, you write functions that only run (and charge you) when triggered by an event. This is incredibly cost-effective for startups. Finally, adopting an **API-First Strategy** is crucial. Your backend should expose data via APIs that can be consumed not just by your own frontend, but potentially by third-party integrations, mobile apps, or partners, opening up new revenue channels for your SaaS.`
+          }
+        ];
+
+        /* --- COMPONENTS --- */
+
+        const InteractiveRobot = () => {
+          const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+          useEffect(() => {
+            const handleMouseMove = (event) => {
+              const { innerWidth, innerHeight } = window;
+              const x = (event.clientX - innerWidth / 2) / 30;
+              const y = (event.clientY - innerHeight / 2) / 30;
+              setMousePos({ x, y });
+            };
+
+            window.addEventListener('mousemove', handleMouseMove);
+            return () => window.removeEventListener('mousemove', handleMouseMove);
+          }, []);
+
+          return (
+            <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto animate-float scale-75 md:scale-100 origin-center">
+               <div className="relative w-full h-full">
+                  <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-4 h-16 bg-zinc-600 rounded-full flex flex-col items-center justify-start">
+                     <div className="w-8 h-8 bg-red-500 rounded-full -mt-4 animate-pulse shadow-[0_0_20px_rgba(239,68,68,0.6)]"></div>
+                  </div>
+
+                  <div className="w-full h-full bg-white rounded-[3rem] border-8 border-black shadow-[15px_15px_0px_0px_rgba(255,255,255,0.2)] flex flex-col items-center justify-center relative overflow-hidden">
+                     <div className="w-5/6 h-4/6 bg-black rounded-[2rem] flex items-center justify-center gap-6 relative overflow-hidden border-4 border-zinc-800">
+                        <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_2px,3px_100%] pointer-events-none"></div>
+
+                        <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center overflow-hidden">
+                           <div className="w-8 h-8 bg-blue-500 rounded-full" style={{ transform: `translate(${mousePos.x}px, ${mousePos.y}px)` }}></div>
+                        </div>
+
+                        <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center overflow-hidden">
+                           <div className="w-8 h-8 bg-blue-500 rounded-full" style={{ transform: `translate(${mousePos.x}px, ${mousePos.y}px)` }}></div>
+                        </div>
+
+                        <div className="absolute bottom-8 w-12 h-2 bg-zinc-700 rounded-full"></div>
+                     </div>
+                     <div className="absolute bottom-12 left-8 w-6 h-6 bg-pink-300 rounded-full opacity-50 blur-sm"></div>
+                     <div className="absolute bottom-12 right-8 w-6 h-6 bg-pink-300 rounded-full opacity-50 blur-sm"></div>
+                  </div>
+
+                  <div className="absolute top-1/2 -left-16 w-16 h-16 bg-white border-4 border-black rounded-full flex items-center justify-center animate-bounce-slow">
+                    <Code size={24} className="text-black" />
+                  </div>
+                  <div className="absolute top-1/2 -right-16 w-16 h-16 bg-white border-4 border-black rounded-full flex items-center justify-center animate-bounce-slow delay-75">
+                    <Zap size={24} className="text-black" />
+                  </div>
+               </div>
+            </div>
+          );
+        };
+
+        const Navbar = ({ setPage, activePage }) => {
+          const [isOpen, setIsOpen] = useState(false);
+          const navItems = ['Home', 'About Us', 'Product', 'Services', 'Blogs', 'Contact'];
+
+          return (
+            <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-zinc-800">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-20">
+                  <div className="flex items-center gap-2 cursor-pointer group active:scale-95 transition-transform" onClick={() => setPage('Home')}>
+                    {/* LOGO IMAGE REPLACEMENT HERE */}
+                    <img 
+                      src="https://i.ibb.co/MDRZ7svJ/1.png" 
+                      alt="Pixel WebPages Logo" 
+                      className="w-10 h-10 rounded-xl object-contain group-hover:rotate-12 transition-transform"
+                    />
+                    <span className="text-white font-bold text-xl tracking-tighter">Pixel WebPages</span>
+                  </div>
+                  
+                  <div className="hidden md:block">
+                    <div className="ml-10 flex items-baseline space-x-8">
+                      {navItems.map((item) => (
+                        <button
+                          key={item}
+                          onClick={() => setPage(item)}
+                          className={`px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 border-2 active:scale-95 ${
+                            activePage === item 
+                              ? 'text-black bg-[#bef264] border-[#bef264] shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] -translate-y-1' 
+                              : 'text-zinc-400 border-transparent hover:text-white hover:border-zinc-700'
+                          }`}
+                        >
+                          {item}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="-mr-2 flex md:hidden">
+                    <button onClick={() => setIsOpen(!isOpen)} className="text-white p-2 active:scale-90 transition-transform">
+                      {isOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              {isOpen && (
+                <div className="md:hidden bg-zinc-950 border-b border-zinc-800 absolute w-full top-20 left-0 z-50 shadow-2xl h-screen">
+                  <div className="px-4 pt-4 pb-3 space-y-2">
+                    {navItems.map((item) => (
+                      <button
+                        key={item}
+                        onClick={() => { setPage(item); setIsOpen(false); }}
+                        className="block w-full text-left px-4 py-4 rounded-xl text-lg font-bold text-zinc-300 hover:text-black hover:bg-[#bef264] active:bg-[#bef264] active:text-black transition-all border border-zinc-800"
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </nav>
+          );
+        };
+
+        const Footer = ({ setPage }) => (
+          <footer className="bg-zinc-950 border-t border-zinc-900 pt-16 pb-12">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="bg-[#bef264] rounded-3xl p-8 md:p-12 mb-16 flex flex-col md:flex-row items-center justify-between shadow-[8px_8px_0px_0px_rgba(255,255,255,0.1)] transform hover:scale-[1.01] transition-transform">
+                 <div>
+                    <h2 className="text-3xl md:text-5xl font-black text-black mb-2">Have something in mind?</h2>
+                    <p className="text-zinc-800 font-medium">We might have missed it. Tell us!</p>
+                 </div>
+                 <button onClick={() => setPage('Contact')} className="mt-6 md:mt-0 px-8 py-4 bg-black text-white font-bold rounded-xl shadow-[6px_6px_0px_0px_rgba(255,255,255,0.5)] hover:translate-y-1 hover:shadow-none active:scale-95 transition-all">
+                    Contact Us
+                 </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-t border-zinc-900 pt-12">
+                <div className="col-span-1 md:col-span-2">
+                  <div className="flex items-center gap-2 mb-6">
+                    <img 
+                      src="https://i.ibb.co/MDRZ7svJ/1.png" 
+                      alt="Pixel WebPages Logo" 
+                      className="w-10 h-10 rounded-xl object-contain border border-zinc-800 bg-black"
+                    />
+                    <span className="text-white font-bold text-xl tracking-tighter">Pixel WebPages</span>
+                  </div>
+                  <p className="text-zinc-400 max-w-sm mb-8 leading-relaxed">
+                    Empowering your business to reach new heights and reinvent your brand with innovative tech solutions.
+                  </p>
+                  
+                  {/* Social Icons */}
+                  <div className="flex gap-4">
+                    <a href="https://www.linkedin.com/company/pixel-web-pages/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-[#bef264] hover:text-black transition-colors active:scale-90">
+                        <Linkedin size={18} />
+                    </a>
+                    <a href="https://www.instagram.com/_pixelpages_?igsh=MWI5dG04OXU2c3Q1YQ==" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-[#c084fc] hover:text-black transition-colors active:scale-90">
+                        <Instagram size={18} />
+                    </a>
+                    <a href="https://www.facebook.com/share/187ouFFZT7/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-400 hover:bg-[#60a5fa] hover:text-black transition-colors active:scale-90">
+                        <Facebook size={18} />
+                    </a>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-white font-bold mb-6 uppercase tracking-wider text-sm border-b border-zinc-800 pb-2 inline-block">Contact Us</h3>
+                  <ul className="space-y-4 text-zinc-400">
+                    <li className="flex items-center gap-3 group cursor-pointer active:opacity-70 transition-opacity">
+                       <div className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center text-[#bef264] group-hover:bg-[#bef264] group-hover:text-black transition-colors">
+                          <Phone size={16} />
+                       </div>
+                       <span className="group-hover:text-white transition-colors">+91 9778803677</span>
+                    </li>
+                    <li className="flex items-center gap-3 group cursor-pointer active:opacity-70 transition-opacity">
+                       <div className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center text-[#bef264] group-hover:bg-[#bef264] group-hover:text-black transition-colors">
+                          <Mail size={16} />
+                       </div>
+                       <span className="group-hover:text-white transition-colors">pixelwebpages@gmail.com</span>
+                    </li>
+                    <li className="flex items-start gap-3 mt-2">
+                        <div className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center text-[#bef264] shrink-0">
+                          <Globe size={16} />
+                        </div>
+                        <span>Cuttack, Odisha, India</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                    <h3 className="text-white font-bold mb-6 uppercase tracking-wider text-sm border-b border-zinc-800 pb-2 inline-block">Quick Links</h3>
+                    <ul className="space-y-2 text-zinc-500">
+                        <li><button onClick={() => setPage('Services')} className="hover:text-[#bef264] transition-colors text-left w-full">Our Services</button></li>
+                        <li><button onClick={() => setPage('Blogs')} className="hover:text-[#bef264] transition-colors text-left w-full">Blogs</button></li>
+                        <li><button onClick={() => setPage('Privacy')} className="hover:text-[#bef264] transition-colors text-left w-full">Privacy Policy</button></li>
+                        <li><button onClick={() => setPage('Terms')} className="hover:text-[#bef264] transition-colors text-left w-full">Terms of Service</button></li>
+                    </ul>
+                </div>
+              </div>
+              <div className="mt-16 text-center text-zinc-600 text-xs border-t border-zinc-900 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2025 Pixel WebPages. All Rights Reserved.</p>
+                <p className="mt-2 md:mt-0">Designed with <span className="text-red-500">♥</span></p>
+              </div>
+            </div>
+          </footer>
+        );
+
+        const PrivacyPage = () => {
+          return (
+            <div className="pt-32 pb-20 px-4 max-w-4xl mx-auto min-h-screen text-zinc-300">
+              <h1 className="text-4xl md:text-6xl font-black text-white mb-8">Privacy Policy</h1>
+              <p className="mb-8 text-sm text-zinc-500">Last updated: December 02, 2025</p>
+              
+              <div className="space-y-8">
+                <section>
+                    <h2 className="text-2xl font-bold text-white mb-4">1. Introduction</h2>
+                    <p>Pixel WebPages ("we," "our," or "us") respects your privacy and is committed to protecting it through our compliance with this policy. This policy describes the types of information we may collect from you or that you may provide when you visit the website pixelwebpages.com (our "Website") and our practices for collecting, using, maintaining, protecting, and disclosing that information.</p>
+                </section>
+                
+                <section>
+                    <h2 className="text-2xl font-bold text-white mb-4">2. Information We Collect</h2>
+                    <p className="mb-2">We collect several types of information from and about users of our Website, including information:</p>
+                    <ul className="list-disc list-inside pl-4 space-y-1">
+                        <li>By which you may be personally identified, such as name, postal address, e-mail address, or telephone number ("personal information").</li>
+                        <li>About your internet connection, the equipment you use to access our Website, and usage details.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 className="text-2xl font-bold text-white mb-4">3. Use of Your Information</h2>
+                    <p className="mb-2">We use information that we collect about you or that you provide to us, including any personal information:</p>
+                    <ul className="list-disc list-inside pl-4 space-y-1">
+                        <li>To present our Website and its contents to you.</li>
+                        <li>To provide you with information, products, or services that you request from us.</li>
+                        <li>To fulfill any other purpose for which you provide it.</li>
+                    </ul>
+                </section>
+                 <section>
+                    <h2 className="text-2xl font-bold text-white mb-4">4. Contact Us</h2>
+                    <p>To ask questions or comment about this privacy policy and our privacy practices, contact us at: pixelwebpages@gmail.com</p>
+                </section>
+              </div>
+            </div>
+          )
+        }
+
+        const TermsPage = () => {
+            return (
+            <div className="pt-32 pb-20 px-4 max-w-4xl mx-auto min-h-screen text-zinc-300">
+              <h1 className="text-4xl md:text-6xl font-black text-white mb-8">Terms of Service</h1>
+              <p className="mb-8 text-sm text-zinc-500">Last updated: December 02, 2025</p>
+              
+              <div className="space-y-8">
+                <section>
+                    <h2 className="text-2xl font-bold text-white mb-4">1. Acceptance of Terms</h2>
+                    <p>By accessing or using the Pixel WebPages website, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
+                </section>
+                
+                <section>
+                    <h2 className="text-2xl font-bold text-white mb-4">2. Use License</h2>
+                    <p>Permission is granted to temporarily download one copy of the materials (information or software) on Pixel WebPages' website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.</p>
+                </section>
+
+                <section>
+                    <h2 className="text-2xl font-bold text-white mb-4">3. Services</h2>
+                    <p>Pixel WebPages provides digital services including but not limited to web development, app development, and UI/UX design. The specific deliverables and timelines will be agreed upon in separate service agreements or contracts.</p>
+                </section>
+                
+                 <section>
+                    <h2 className="text-2xl font-bold text-white mb-4">4. Limitation of Liability</h2>
+                    <p>In no event shall Pixel WebPages or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Pixel WebPages' website.</p>
+                </section>
+                 <section>
+                    <h2 className="text-2xl font-bold text-white mb-4">5. Governing Law</h2>
+                    <p>These terms and conditions are governed by and construed in accordance with the laws of India and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>
+                </section>
+              </div>
+            </div>
+          )
+        }
+
+        // NEW BLOG MODAL COMPONENT
+        const BlogModal = ({ isOpen, onClose, blog }) => {
+          if (!isOpen || !blog) return null;
+          return (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+              <div className="bg-zinc-900 border-2 border-zinc-800 rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative animate-in fade-in zoom-in duration-300">
+                <button onClick={onClose} className="absolute top-4 right-4 bg-black text-white p-2 rounded-full hover:scale-110 transition-transform z-10">
+                  <X size={24} />
+                </button>
+                
+                <div className="h-64 md:h-80 w-full relative">
+                   <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
+                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 to-transparent"></div>
+                </div>
+
+                <div className="p-8 md:p-12">
+                   <div className={`inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 text-black ${blog.color.replace('bg-', 'bg-')}`}>
+                      {blog.tag}
+                   </div>
+                   <h2 className="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">{blog.title}</h2>
+                   <div className="flex items-center gap-2 text-zinc-500 text-sm mb-8 border-b border-zinc-800 pb-8">
+                      <Calendar size={16} />
+                      <span>{blog.date}</span>
+                      <span className="mx-2">•</span>
+                      <span>5 min read</span>
+                   </div>
+                   
+                   <div className="prose prose-invert prose-lg max-w-none text-zinc-300">
+                      <p className="leading-relaxed whitespace-pre-line">{blog.content}</p>
+                   </div>
+
+                   <div className="mt-12 pt-8 border-t border-zinc-800 flex justify-between items-center">
+                      <span className="text-zinc-500 text-sm">Share this article</span>
+                      <div className="flex gap-4">
+                         <button className="text-white hover:text-[#bef264]"><Linkedin size={20} /></button>
+                         <button className="text-white hover:text-[#bef264]"><Facebook size={20} /></button>
+                      </div>
+                   </div>
+                </div>
+              </div>
+            </div>
+          );
+        };
+
+        const Modal = ({ isOpen, onClose, serviceName }) => {
+          const [isSubmitted, setIsSubmitted] = useState(false);
+
+          if (!isOpen) return null;
+
+          const handleSubmit = (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+
+            const subject = `Service Request: ${serviceName}`;
+            const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0AService: ${serviceName}`;
+
+            window.location.href = `mailto:pixelwebpages@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+            setIsSubmitted(true);
+            // Reset after 3 seconds or keep showing success message
+            setTimeout(() => {
+                setIsSubmitted(false);
+                onClose();
+            }, 4000);
+          };
+
+          return (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+              <div className="bg-[#f0fdf4] border-4 border-black rounded-3xl w-full max-w-md p-6 relative animate-in fade-in zoom-in duration-300 shadow-[10px_10px_0px_0px_rgba(255,255,255,0.2)]">
+                <button onClick={onClose} className="absolute top-4 right-4 bg-black text-white p-1 rounded-full hover:scale-110 transition-transform">
+                  <X size={20} />
+                </button>
+                
+                {isSubmitted ? (
+                    <div className="text-center py-12">
+                        <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white">
+                            <CheckCircle size={32} />
+                        </div>
+                        <h2 className="text-2xl font-black text-black mb-2">Request Initiated!</h2>
+                        <p className="text-zinc-600">We've opened your email client to send the details to us. See you in our inbox!</p>
+                    </div>
+                ) : (
+                    <>
+                        <h2 className="text-3xl font-black text-black mb-2 uppercase">Let's Build It.</h2>
+                        <p className="text-zinc-600 mb-6 text-sm font-medium">Requesting: <span className="bg-[#bef264] px-1 text-black border border-black">{serviceName}</span></p>
+                        
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                          <input name="name" required type="text" className="w-full bg-white border-2 border-black rounded-xl p-3 text-black font-bold placeholder:text-zinc-400 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all" placeholder="Your Name" />
+                          <input name="email" required type="email" className="w-full bg-white border-2 border-black rounded-xl p-3 text-black font-bold placeholder:text-zinc-400 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all" placeholder="Your Email" />
+                           <input name="phone" required type="tel" className="w-full bg-white border-2 border-black rounded-xl p-3 text-black font-bold placeholder:text-zinc-400 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all" placeholder="Your Number" />
+                          <button type="submit" className="w-full bg-black text-white font-bold py-3 rounded-xl hover:bg-[#bef264] hover:text-black border-2 border-black hover:shadow-[4px_4px_0px_0px_#000] transition-all active:scale-95">Send Request</button>
+                        </form>
+                    </>
+                )}
+              </div>
+            </div>
+          );
+        };
+
+        const HomePage = ({ setPage, onBlogClick }) => {
+          const scrollContainerRef = useRef(null);
+
+          const scrollLeft = () => {
+            if (scrollContainerRef.current) {
+              scrollContainerRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+            }
+          };
+
+          const scrollRight = () => {
+            if (scrollContainerRef.current) {
+              scrollContainerRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+            }
+          };
+
+          return (
+            <div className="space-y-16 md:space-y-24 pb-20 overflow-x-hidden">
+              {/* HERO SECTION UPDATED */}
+              <section className="relative min-h-screen flex flex-col-reverse md:flex-row items-center justify-center gap-8 md:gap-12 px-4 max-w-7xl mx-auto pt-24 md:pt-28">
+                 <div className="flex-1 text-center md:text-left z-10">
+                    {/* Est 2025 Card: Hidden on Mobile (hidden), Visible on Desktop (md:inline-block) */}
+                    <div className="hidden md:inline-block mb-6 px-6 py-2 rounded-full border-2 border-black bg-[#bef264] text-black font-bold uppercase tracking-wider text-sm shadow-[4px_4px_0px_0px_rgba(255,255,255,0.5)] transform hover:-translate-y-1 transition-transform cursor-default">
+                       Pixel WebPages • Est 2025
+                    </div>
+                    <h1 className="text-4xl md:text-8xl font-black text-white leading-[0.9] mb-6 tracking-tighter">
+                       BUILDING <br/>
+                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#bef264] to-[#a3e635]">THE FUTURE</span> <br/>
+                       FOR YOu.
+                    </h1>
+                    <p className="text-zinc-400 text-lg md:text-xl max-w-xl mb-10 font-medium">
+                       We don't just build websites. We craft digital experiences that pop, snap, and engage. Your brand, reinvented.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                       <button onClick={() => setPage('Contact')} className="px-8 py-4 bg-white text-black border-2 border-black font-black rounded-xl shadow-[6px_6px_0px_0px_#bef264] hover:shadow-none hover:translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2">
+                          START PROJECT <ArrowRight size={24} strokeWidth={3} />
+                       </button>
+                       <button onClick={() => setPage('Product')} className="px-8 py-4 bg-black text-white border-2 border-zinc-800 font-bold rounded-xl hover:bg-zinc-900 active:scale-95 transition-all">
+                          EXPLORE PRODUCTS
+                       </button>
+                    </div>
+                 </div>
+
+                 <div className="flex-1 w-full max-w-lg z-10">
+                    <InteractiveRobot />
+                 </div>
+
+                 <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,_rgba(190,242,100,0.1),transparent_50%)] pointer-events-none"></div>
+              </section>
+
+              <section className="max-w-7xl mx-auto px-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="group p-8 rounded-[2rem] bg-[#c084fc] border-4 border-black shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,0.4)] hover:-translate-y-2 active:scale-95 transition-all cursor-default">
+                    <div className="bg-black w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 group-hover:rotate-12 transition-transform">
+                       <Zap size={32} />
+                    </div>
+                    <h3 className="text-3xl font-black text-black mb-2">Blazing Fast</h3>
+                    <p className="text-black font-bold opacity-80">Next.js powered sites that load before you can blink.</p>
+                  </div>
+                  
+                  <div className="group p-8 rounded-[2rem] bg-[#60a5fa] border-4 border-black shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,0.4)] hover:-translate-y-2 active:scale-95 transition-all cursor-default">
+                    <div className="bg-black w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 group-hover:rotate-12 transition-transform">
+                       <MousePointer size={32} />
+                    </div>
+                    <h3 className="text-3xl font-black text-black mb-2">Interactive</h3>
+                    <p className="text-black font-bold opacity-80">Animations that follow your every move and click.</p>
+                  </div>
+                  
+                  <div className="group p-8 rounded-[2rem] bg-[#fb923c] border-4 border-black shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[12px_12px_0px_0px_rgba(255,255,255,0.4)] hover:-translate-y-2 active:scale-95 transition-all cursor-default">
+                    <div className="bg-black w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 group-hover:rotate-12 transition-transform">
+                       <Database size={32} />
+                    </div>
+                    <h3 className="text-3xl font-black text-black mb-2">Scalable</h3>
+                    <p className="text-black font-bold opacity-80">Built to grow with your business from day one.</p>
+                  </div>
+                </div>
+              </section>
+
+              <section className="w-full overflow-hidden py-10">
+                <h2 className="text-center text-3xl md:text-5xl font-black text-white mb-10 uppercase tracking-widest">
+                   Featured <span className="text-[#bef264]">Projects</span>
+                </h2>
+                <div 
+                  ref={scrollContainerRef}
+                  className="flex gap-8 overflow-x-auto pb-12 px-4 no-scrollbar snap-x snap-mandatory scroll-smooth cursor-grab active:cursor-grabbing"
+                >
+                  {PROJECTS.map((project, index) => (
+                    <div key={index} className={`snap-center shrink-0 w-[85vw] md:w-[350px] h-[550px] md:h-[600px] ${project.color} rounded-[2.5rem] border-4 border-black p-8 flex flex-col justify-between shadow-[8px_8px_0px_0px_#fff] hover:-translate-y-2 active:scale-95 transition-all group relative overflow-hidden`}>
+                       <div className="relative z-10">
+                          <div className="bg-black text-white text-xs font-bold px-3 py-1 rounded-full inline-block mb-4">LIVE</div>
+                          <h3 className="text-3xl md:text-4xl font-black text-black leading-tight mb-2">{project.name}</h3>
+                          <p className="text-black font-bold opacity-70 text-sm line-clamp-2">{project.desc}</p>
+                       </div>
+                       
+                       {/* FEATURED PROJECT IMAGE HERE - Edge to Edge, Rounded, Same Size */}
+                       <div className="w-full h-64 mt-4 relative rounded-3xl overflow-hidden group-hover:scale-105 transition-transform border-4 border-black/10 shadow-inner">
+                           <img src={project.image} alt={project.name} className="w-full h-full object-cover" />
+                       </div>
+                       
+                       <a href={project.url} target="_blank" rel="noopener noreferrer" className="bg-black text-white w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 group-hover:scale-105 active:scale-95 transition-transform mt-4 border-2 border-transparent hover:border-white">
+                          Visit Site <ExternalLink size={18} />
+                       </a>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Scroll Buttons */}
+                <div className="flex justify-center gap-4 mt-6">
+                  <button onClick={scrollLeft} className="p-4 bg-zinc-900 border border-zinc-800 rounded-full text-white hover:bg-[#bef264] hover:text-black transition-colors active:scale-95">
+                    <ArrowLeft size={24} />
+                  </button>
+                  <button onClick={scrollRight} className="p-4 bg-zinc-900 border border-zinc-800 rounded-full text-white hover:bg-[#bef264] hover:text-black transition-colors active:scale-95">
+                    <ArrowRight size={24} />
+                  </button>
+                </div>
+              </section>
+
+              <section className="max-w-5xl mx-auto px-4">
+                 <div className="bg-zinc-900 border-2 border-zinc-800 p-8 md:p-16 rounded-[3rem] relative overflow-hidden text-center">
+                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#bef264] via-[#c084fc] to-[#60a5fa]"></div>
+                    <p className="text-xl md:text-4xl font-black text-white leading-tight mb-8">
+                       "Pixel Webpages has become a trusted partner. We've experienced a significant improvement in uptime, security, and overall IT performance."
+                    </p>
+                    <div className="inline-flex items-center gap-4 bg-black border border-zinc-800 p-2 pr-6 rounded-full">
+                       <div className="w-10 h-10 bg-[#bef264] rounded-full flex items-center justify-center font-bold text-black">TC</div>
+                       <div className="text-left">
+                          <div className="text-white font-bold text-sm">Trusted Client</div>
+                          <div className="text-zinc-500 text-xs font-bold uppercase">Business Owner</div>
+                       </div>
+                    </div>
+                 </div>
+              </section>
+
+              {/* LATEST INSIGHTS - RESTORED IMAGES EDGE-TO-EDGE */}
+              <section className="max-w-7xl mx-auto px-4 pb-12">
+                <div className="flex justify-between items-end mb-8">
+                   <h2 className="text-3xl md:text-5xl font-black text-white">Latest Insights</h2>
+                   <button onClick={() => setPage('Blogs')} className="text-zinc-400 hover:text-white underline underline-offset-4 text-sm font-bold">View all blogs</button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {BLOGS.slice(0, 3).map((blog, idx) => (
+                     <div key={idx} onClick={() => onBlogClick(blog)} className="group cursor-pointer active:scale-95 transition-transform">
+                       {/* BLOG CARD IMAGE CONTAINER */}
+                       <div className={`h-56 ${blog.color} rounded-[2rem] mb-4 border-4 border-black relative overflow-hidden shadow-[6px_6px_0px_0px_#333] group-hover:shadow-none group-hover:translate-x-1 group-hover:translate-y-1 transition-all`}>
+                         <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
+                       </div>
+                       <h3 className="text-xl font-bold text-white group-hover:text-[#bef264] transition-colors">{blog.title}</h3>
+                       <p className="text-zinc-500 text-sm font-bold mt-2">{blog.date} • {blog.tag}</p>
+                     </div>
+                  ))}
+                </div>
+              </section>
+            </div>
+          );
+        };
+
+        const ServicesPage = () => {
+          const [activeCategory, setActiveCategory] = useState(null);
+          const [modalOpen, setModalOpen] = useState(false);
+          const [selectedSubService, setSelectedSubService] = useState('');
+
+          // Scroll to top when entering/exiting a service category
+          useEffect(() => {
+            window.scrollTo(0, 0);
+          }, [activeCategory]);
+
+          const handleSubServiceClick = (subTitle) => {
+            setSelectedSubService(subTitle);
+            setModalOpen(true);
+          };
+
+          if (!activeCategory) {
+            return (
+              <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
+                <h1 className="text-4xl md:text-8xl font-black text-white mb-8">OUR <span className="text-[#bef264]">SERVICES.</span></h1>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {SERVICE_CATEGORIES.map((cat, i) => (
+                    <div 
+                      key={cat.id}
+                      onClick={() => setActiveCategory(cat)}
+                      className={`
+                        group relative p-8 rounded-[2.5rem] cursor-pointer transition-all duration-300 
+                        ${cat.color} border-4 border-black shadow-[8px_8px_0px_0px_#fff]
+                        hover:shadow-[12px_12px_0px_0px_#fff] hover:-translate-y-2 active:scale-95
+                        ${i === 0 || i === 3 || i === 12 ? 'md:col-span-2' : ''}
+                        min-h-[250px] flex flex-col justify-between overflow-hidden
+                      `}
+                    >
+                      <div className="flex justify-between items-start relative z-10">
+                         <div className="bg-black/20 p-3 rounded-2xl text-black">
+                           {cat.icon}
+                         </div>
+                         <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all -rotate-45 group-hover:rotate-0">
+                            <ArrowRight size={20}/>
+                         </div>
+                      </div>
+                      
+                      <div className="relative z-10">
+                        <h3 className={`text-3xl font-black leading-tight mb-2 ${cat.textColor}`}>{cat.title}</h3>
+                        <p className={`font-bold text-sm ${cat.textColor === 'text-white' ? 'text-white/80' : 'text-black/70'}`}>{cat.desc}</p>
+                      </div>
+
+                      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-white opacity-20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
+              <button 
+                onClick={() => setActiveCategory(null)}
+                className="flex items-center gap-2 text-white font-bold mb-8 hover:text-[#bef264] transition-colors active:scale-95"
+              >
+                <div className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+                    <ArrowRight className="rotate-180" size={20} />
+                </div>
+                <span>Back to Categories</span>
+              </button>
+
+              <div className={`p-8 rounded-[3rem] ${activeCategory.color} border-4 border-black mb-12 flex flex-col md:flex-row items-center gap-8`}>
+                <div className="bg-black/10 p-6 rounded-[2rem]">{activeCategory.icon}</div>
+                <div>
+                   <h1 className={`text-4xl md:text-6xl font-black ${activeCategory.textColor} mb-2`}>{activeCategory.title}</h1>
+                   <p className={`text-xl font-bold ${activeCategory.textColor} opacity-80`}>{activeCategory.desc}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {activeCategory.subServices.map((sub, index) => (
+                  <div key={index} className="bg-zinc-900 border-2 border-zinc-800 rounded-[2rem] p-8 hover:border-[#bef264] transition-all group flex flex-col justify-between min-h-[250px]">
+                    <div>
+                       <div className="text-zinc-500 mb-6 group-hover:text-[#bef264] group-hover:scale-110 transition-all origin-left">
+                          {React.cloneElement(sub.icon, { size: 40 })}
+                       </div>
+                       <h3 className="text-2xl font-black text-white mb-2">{sub.title}</h3>
+                       <p className="text-zinc-400 text-sm font-medium leading-relaxed mb-4">{sub.desc}</p>
+                       <ul className="space-y-1">
+                          {sub.points && sub.points.map((point, i) => (
+                            <li key={i} className="flex items-start gap-2 text-xs text-zinc-500">
+                              <span className="w-1 h-1 bg-zinc-500 rounded-full mt-1.5 shrink-0"></span>
+                              {point}
+                            </li>
+                          ))}
+                       </ul>
+                    </div>
+                    <button 
+                      onClick={() => handleSubServiceClick(sub.title)}
+                      className="mt-6 w-full py-4 bg-black border border-zinc-700 rounded-xl text-white font-bold hover:bg-[#bef264] hover:text-black hover:border-black transition-all active:scale-95"
+                    >
+                      Start Project
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} serviceName={`${activeCategory.title} - ${selectedSubService}`} />
+            </div>
+          );
+        };
+
+        const AboutPage = ({ setPage }) => {
+          return (
+            <div className="pt-32 pb-20 px-4 max-w-5xl mx-auto min-h-screen">
+              <h1 className="text-4xl md:text-8xl font-black text-white mb-6">ABOUT <span className="text-[#bef264]">US.</span></h1>
+              
+              <div className="mb-16">
+                 <p className="text-zinc-300 text-xl md:text-2xl leading-relaxed font-light mb-8">
+                   Identifying and Developing Solutions to fill gaps in the Digital World. We develop and plan your entry into the digital world. Our group of developers and designers work hard for your business to expand and prosper.
+                 </p>
+                 <div className="border-l-4 border-[#bef264] pl-6 py-2">
+                    <h3 className="text-white font-bold text-lg mb-2">Why We Help</h3>
+                    <p className="text-zinc-400 text-lg leading-relaxed mb-6">
+                        We started from zero, observing the struggles of small businesses in adopting technology. Our goal is to fill these gaps by building affordable, high-growth applications that ensure your business not only enters the digital world but sustains and prospers within it.
+                    </p>
+                    <p className="text-zinc-400 text-lg leading-relaxed">
+                       We have struggled building businesses across different sectors—healthcare tech, food & beverages, and more. We know that when you start, you are often confused, stuck, and lost. We were too. But by learning from every mistake, we gained the experience to guide you. We don't want you to suffer. We understand that when you are building, you often don't have the capacity to pay for expensive annual contracts. We all have doubts when we start: "What will happen? What will be the outcome?" We help you navigate this journey in a better, easier, and more affordable way.
+                    </p>
+                 </div>
+              </div>
+
+              {/* MISSION & VISION - COLORFUL CARDS WITH WHITE BG */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+                 <div className="bg-white p-10 rounded-[2.5rem] border-4 border-green-500 shadow-[8px_8px_0px_0px_#22c55e] transform hover:-translate-y-1 transition-transform">
+                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white mb-4">
+                        <TrendingUp size={24} />
+                    </div>
+                    <h2 className="text-3xl font-black text-green-900 mb-4">OUR MISSION</h2>
+                    <p className="text-green-800 font-medium leading-relaxed text-lg">
+                       Empowering your business to reach new heights and reinvent your brand with innovative tech solutions. We don't settle for average.
+                    </p>
+                 </div>
+                 <div className="bg-white p-10 rounded-[2.5rem] border-4 border-blue-500 shadow-[8px_8px_0px_0px_#3b82f6] transform hover:-translate-y-1 transition-transform">
+                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white mb-4">
+                        <Globe size={24} />
+                    </div>
+                    <h2 className="text-3xl font-black text-blue-900 mb-4">OUR VISION</h2>
+                    <p className="text-blue-800 font-medium leading-relaxed text-lg">
+                       To be the leading provider of innovative tech solutions, driving business growth and brand transformation through cutting-edge technology.
+                    </p>
+                 </div>
+              </div>
+
+              <h2 className="text-4xl font-black text-white mb-10 text-center">FOUNDING TEAM</h2>
+              <div className="flex flex-col md:flex-row justify-center gap-10 mb-20">
+                 
+                 {/* Ayush Card */}
+                 <a href="https://ayushportfolio123.netlify.app/" target="_blank" rel="noopener noreferrer" className="group block bg-zinc-900 border-4 border-black p-8 rounded-[2rem] text-center w-full md:w-80 hover:-translate-y-2 hover:bg-[#bef264] transition-all cursor-pointer shadow-[8px_8px_0px_0px_#fff] active:scale-95">
+                    {/* FOUNDING TEAM IMAGE - AYUSH - EDGE TO EDGE */}
+                    <div className="w-full h-72 rounded-2xl mx-auto mb-6 overflow-hidden border-2 border-white group-hover:border-black bg-zinc-800">
+                       <img src="https://i.ibb.co/Fbf7fBzC/Ayush.jpg" alt="Ayush" className="w-full h-full object-cover" />
+                    </div>
+                    <p className="text-white text-lg italic mb-4 group-hover:text-black">"Code to create, act to innovate"</p>
+                    <h3 className="text-xl font-black text-white uppercase group-hover:text-black">- Ayush</h3>
+                 </a>
+
+                 {/* Adnan Card */}
+                 <a href="https://sayedadnanali-uxmtfi0.gamma.site/" target="_blank" rel="noopener noreferrer" className="group block bg-zinc-900 border-4 border-black p-8 rounded-[2rem] text-center w-full md:w-80 hover:-translate-y-2 hover:bg-[#c084fc] transition-all cursor-pointer shadow-[8px_8px_0px_0px_#fff] active:scale-95">
+                    {/* FOUNDING TEAM IMAGE - ADNAN - EDGE TO EDGE */}
+                    <div className="w-full h-72 rounded-2xl mx-auto mb-6 overflow-hidden border-2 border-white group-hover:border-black bg-zinc-800">
+                        <img src="https://i.ibb.co/fGFZVb43/PHOTO-2025-10-17-16-18-48.jpg" alt="Adnan" className="w-full h-full object-cover" />
+                    </div>
+                    <p className="text-white text-lg italic mb-4 group-hover:text-black">"Observe to learn, execute to lead"</p>
+                    <h3 className="text-xl font-black text-white uppercase group-hover:text-black">- Adnan</h3>
+                 </a>
+              </div>
+
+
+              <h2 className="text-4xl font-black text-white mb-8 text-center">CORE VALUES</h2>
+              <div className="flex flex-wrap justify-center gap-4">
+                 {/* CORE VALUES - MULTI COLORED HOVER */}
+                 {[
+                    {name: 'Innovation', color: 'hover:bg-red-400 hover:border-red-400'}, 
+                    {name: 'Integrity', color: 'hover:bg-blue-400 hover:border-blue-400'}, 
+                    {name: 'Customer-Centricity', color: 'hover:bg-green-400 hover:border-green-400'}, 
+                    {name: 'Excellence', color: 'hover:bg-purple-400 hover:border-purple-400'}, 
+                    {name: 'Collaboration', color: 'hover:bg-yellow-400 hover:border-yellow-400'}
+                 ].map((val, i) => (
+                    <div key={i} className={`px-8 py-4 bg-zinc-900 rounded-full border border-zinc-800 ${val.color} hover:text-black hover:scale-105 active:scale-95 transition-all cursor-default group`}>
+                       <span className="font-bold text-lg">{val.name}</span>
+                    </div>
+                 ))}
+              </div>
+            </div>
+          );
+        };
+
+        const BlogsPage = ({ setPage, onBlogClick }) => {
+          return (
+            <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
+              <h1 className="text-4xl md:text-8xl font-black text-white mb-12">OUR <span className="text-[#bef264]">BLOGS.</span></h1>
+              <p className="text-zinc-400 text-xl mb-16 max-w-2xl">
+                Insights, trends, and strategies to keep you ahead in the digital world.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {BLOGS.map((blog, idx) => (
+                   <div key={idx} onClick={() => onBlogClick(blog)} className="group cursor-pointer active:scale-95 transition-transform">
+                     <div className={`h-64 ${blog.color} rounded-[2rem] mb-6 border-4 border-black relative overflow-hidden shadow-[8px_8px_0px_0px_#fff] group-hover:shadow-none group-hover:translate-x-1 group-hover:translate-y-1 transition-all`}>
+                       <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
+                     </div>
+                     <div className="flex gap-3 text-xs font-bold text-[#bef264] uppercase tracking-wider mb-3">
+                       <span>{blog.date}</span>
+                       <span>•</span>
+                       <span>{blog.tag}</span>
+                     </div>
+                     <h3 className="text-2xl font-black text-white group-hover:text-[#bef264] transition-colors leading-tight">{blog.title}</h3>
+                   </div>
+                ))}
+              </div>
+            </div>
+          );
+        };
+
+        const ProductPage = ({ setPage }) => {
+          return (
+            <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
+              <h1 className="text-4xl md:text-8xl font-black text-white mb-16">OUR <span className="text-blue-400">PRODUCTS.</span></h1>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                {/* CRM */}
+                <div className="bg-[#1e1e1e] rounded-[3rem] border-4 border-zinc-800 p-10 relative overflow-hidden group hover:border-blue-500 transition-colors">
+                   <div className="absolute top-0 right-0 p-32 bg-blue-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                   <Users className="text-blue-400 mb-8" size={64} />
+                   <h2 className="text-4xl font-black text-white mb-4">Pixel CRM</h2>
+                   <p className="text-zinc-400 text-lg mb-8 font-medium">Manage leads like a pro. The ultimate tool for modern sales teams.</p>
+                   <button onClick={() => setPage('Contact')} className="w-full py-4 bg-blue-500 text-black font-black rounded-xl hover:bg-white transition-colors active:scale-95">REQUEST DEMO</button>
+                </div>
+
+                {/* Inventory */}
+                <div className="bg-[#1e1e1e] rounded-[3rem] border-4 border-zinc-800 p-10 relative overflow-hidden group hover:border-green-500 transition-colors">
+                   <div className="absolute top-0 right-0 p-32 bg-green-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                   <Box className="text-green-400 mb-8" size={64} />
+                   <h2 className="text-4xl font-black text-white mb-4">Inventory OS</h2>
+                   <p className="text-zinc-400 text-lg mb-8 font-medium">Real-time tracking. Never run out of stock again.</p>
+                   <button onClick={() => setPage('Contact')} className="w-full py-4 bg-green-500 text-black font-black rounded-xl hover:bg-white transition-colors active:scale-95">REQUEST DEMO</button>
+                </div>
+
+                 {/* Event Management */}
+                <div className="bg-[#1e1e1e] rounded-[3rem] border-4 border-zinc-800 p-10 relative overflow-hidden group hover:border-purple-500 transition-colors">
+                   <div className="absolute top-0 right-0 p-32 bg-purple-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                   <Calendar className="text-purple-400 mb-8" size={64} />
+                   <h2 className="text-4xl font-black text-white mb-4">Event Flow</h2>
+                   <p className="text-zinc-400 text-lg mb-8 font-medium">Seamless event organization. From ticketing to guest management.</p>
+                   <button onClick={() => setPage('Contact')} className="w-full py-4 bg-purple-500 text-black font-black rounded-xl hover:bg-white transition-colors active:scale-95">REQUEST DEMO</button>
+                </div>
+
+                 {/* Finance Management */}
+                <div className="bg-[#1e1e1e] rounded-[3rem] border-4 border-zinc-800 p-10 relative overflow-hidden group hover:border-yellow-500 transition-colors">
+                   <div className="absolute top-0 right-0 p-32 bg-yellow-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                   <DollarSign className="text-yellow-400 mb-8" size={64} />
+                   <h2 className="text-4xl font-black text-white mb-4">Finance Hub</h2>
+                   <p className="text-zinc-400 text-lg mb-8 font-medium">Track expenses, invoices, and growth. Your financial health in one dashboard.</p>
+                   <button onClick={() => setPage('Contact')} className="w-full py-4 bg-yellow-500 text-black font-black rounded-xl hover:bg-white transition-colors active:scale-95">REQUEST DEMO</button>
+                </div>
+              </div>
+            </div>
+          );
+        };
+
+        const ContactPage = () => {
+          const [isSubmitted, setIsSubmitted] = useState(false);
+
+          const handleSubmit = (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const message = formData.get('message');
+
+            const subject = `New Inquiry from ${name}`;
+            const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+
+            // Open email client
+            window.location.href = `mailto:pixelwebpages@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+            
+            // Show confirmation message
+            setIsSubmitted(true);
+          };
+
+          return (
+            <div className="pt-32 pb-20 px-4 max-w-5xl mx-auto min-h-screen">
+               <div className="bg-[#facc15] rounded-[3rem] p-8 md:p-16 border-4 border-black shadow-[12px_12px_0px_0px_#fff]">
+                  <h1 className="text-4xl md:text-6xl font-black text-black mb-8 uppercase">Let's Talk Business.</h1>
+                  
+                  {isSubmitted ? (
+                      <div className="bg-white rounded-3xl p-8 text-center border-4 border-black py-16 animate-in fade-in zoom-in duration-300">
+                          <div className="w-20 h-20 bg-black rounded-full flex items-center justify-center mx-auto mb-6 text-[#bef264]">
+                              <CheckCircle size={40} />
+                          </div>
+                          <h2 className="text-3xl font-black text-black mb-4">Message Initiated!</h2>
+                          <p className="text-xl text-zinc-600 mb-2 max-w-lg mx-auto">
+                            Your message has been prepared in your email app.
+                          </p>
+                          <p className="text-lg font-bold text-black mb-8">
+                            We will respond in 24-48 hours.
+                          </p>
+                          <button onClick={() => setIsSubmitted(false)} className="bg-black text-white font-bold py-3 px-8 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-black hover:bg-white hover:text-black">
+                            Send Another Message
+                          </button>
+                      </div>
+                  ) : (
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <input name="name" required type="text" placeholder="Name" className="w-full bg-white border-4 border-black p-4 rounded-xl text-black font-bold placeholder:text-zinc-500 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all"/>
+                            <input name="email" required type="email" placeholder="Email" className="w-full bg-white border-4 border-black p-4 rounded-xl text-black font-bold placeholder:text-zinc-500 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all"/>
+                         </div>
+                         <input name="phone" required type="tel" placeholder="Phone Number" className="w-full bg-white border-4 border-black p-4 rounded-xl text-black font-bold placeholder:text-zinc-500 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all"/>
+                         <textarea name="message" required rows="4" placeholder="Write to us..." className="w-full bg-white border-4 border-black p-4 rounded-xl text-black font-bold placeholder:text-zinc-500 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all"></textarea>
+                         <button type="submit" className="bg-black text-white font-black text-xl py-5 px-10 rounded-xl w-full hover:bg-white hover:text-black border-4 border-black transition-all active:scale-95 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] hover:shadow-none hover:translate-y-1">
+                            SEND MESSAGE
+                         </button>
+                      </form>
+                  )}
+               </div>
+            </div>
+          );
+        };
+
+        const App = () => {
+          const [currentPage, setCurrentPage] = useState('Home');
+          const [activeBlog, setActiveBlog] = useState(null); // State for opening the blog modal
+
+          useEffect(() => {
+            window.scrollTo(0, 0);
+          }, [currentPage]);
+
+          const renderPage = () => {
+            switch(currentPage) {
+              case 'Home': return <HomePage setPage={setCurrentPage} onBlogClick={setActiveBlog} />; // Pass onBlogClick to Home
+              case 'About Us': return <AboutPage setPage={setCurrentPage} />;
+              case 'Product': return <ProductPage setPage={setCurrentPage} />;
+              case 'Services': return <ServicesPage />;
+              case 'Blogs': return <BlogsPage setPage={setCurrentPage} onBlogClick={setActiveBlog} />; // Pass onBlogClick to Blogs
+              case 'Contact': return <ContactPage />;
+              case 'Privacy': return <PrivacyPage />;
+              case 'Terms': return <TermsPage />;
+              default: return <HomePage setPage={setCurrentPage} onBlogClick={setActiveBlog} />;
+            }
+          };
+
+          return (
+            <div className="min-h-screen">
+              <Navbar setPage={setCurrentPage} activePage={currentPage} />
+              <main className="min-h-screen">{renderPage()}</main>
+              <Footer setPage={setCurrentPage} />
+              
+              {/* RENDER BLOG MODAL AT APP LEVEL */}
+              <BlogModal 
+                isOpen={!!activeBlog} 
+                onClose={() => setActiveBlog(null)} 
+                blog={activeBlog} 
+              />
+            </div>
+          );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
