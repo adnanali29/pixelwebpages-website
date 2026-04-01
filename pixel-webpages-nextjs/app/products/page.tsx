@@ -134,18 +134,17 @@ export default function ProductsPage() {
                     });
                 }
 
-                setIsSubmitted(true);
-                form.reset();
-
-                // If it's an "Explore" request, redirect to the product URL
+                // If it's an "Explore" request, redirect INSTANTLY
                 if (type === 'explore') {
                     const product = products.find(p => p.name === selectedExploreProduct);
                     if (product && product.explore_url && product.explore_url !== '#') {
-                        setTimeout(() => {
-                            window.location.href = product.explore_url;
-                        }, 1000); // Small delay to show checkmark
+                        window.location.href = product.explore_url;
+                        return; 
                     }
                 }
+
+                setIsSubmitted(true);
+                form.reset();
             } else {
                 alert('Error sending request. Please try again.');
             }
