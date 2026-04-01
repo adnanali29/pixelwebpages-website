@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase/client';
+import { getBlogs } from '@/lib/actions';
 import { Calendar, X } from '@/components/icons';
 import type { Blog } from '@/lib/types';
 
@@ -15,15 +15,16 @@ export default function BlogsPage() {
     }, []);
 
     const loadBlogs = async () => {
-        const { data, error } = await supabase
-            .from('blogs')
-            .select('*')
-            .order('created_at', { ascending: false });
-
-        if (!error && data) {
-            setBlogs(data);
+        try {
+            const data = await getBlogs();
+            if (data) {
+                setBlogs(data);
+            }
+        } catch (error) {
+            console.error('Error loading blogs:', error);
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     };
 
     if (isLoading) {

@@ -2,7 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { 
+    getAllData, 
+    updateRecord, 
+    insertRecord, 
+    deleteRecord as dbDeleteRecord,
+    updateAdminPassword
+} from '@/lib/actions';
 import {
     Activity, Box, Users, PenTool, Send, Calendar, Check, CheckCircle, Clock, Edit2, Eye, FileText, HomeIcon, Info, Mail, Menu, Palette, Phone, Plus, Search, SettingsIcon, Trash2, X, Bell, LogOut, ArrowRight, Terminal, Zap, ExternalLink
 } from '@/components/icons';
@@ -51,6 +57,7 @@ const getSmartIcon = (name: string = "", size: number = 24, className: string = 
 interface ContactSubmission {
     id: string;
     created_at: string;
+    submitted_at?: string;
     name: string;
     email: string;
     phone: string;
@@ -58,6 +65,7 @@ interface ContactSubmission {
     type?: string;
     service_name?: string;
     product_name?: string;
+    description?: string;
 }
 
 export default function AdminDashboard() {
@@ -86,8 +94,6 @@ export default function AdminDashboard() {
     const [notifications, setNotifications] = useState<any[]>([]);
     const [showNotifications, setShowNotifications] = useState(false);
 
-    const supabase = createClient();
-
     useEffect(() => {
         const isAuthenticated = sessionStorage.getItem('admin_authenticated');
         if (!isAuthenticated) {
@@ -95,84 +101,60 @@ export default function AdminDashboard() {
             return;
         }
         loadAllData();
-
-        // Setup realtime subscription for notifications (simulated with interval or just load)
-        const interval = setInterval(() => {
-            // In a real app, you'd use supabase realtime
-        }, 30000);
-
-        return () => clearInterval(interval);
     }, [router]);
 
     const loadAllData = async () => {
         setIsLoading(true);
         try {
-            const [
-                projectsData,
-                testimonialsData,
-                teamData,
-                productsData,
-                servicesData,
-                blogsData,
-                contactsData,
-                demoData,
-                exploreData
-            ] = await Promise.all([
-                supabase.from('projects').select('*').order('created_at', { ascending: false }),
-                supabase.from('testimonials').select('*').order('created_at', { ascending: false }),
-                supabase.from('team_members').select('*').order('created_at', { ascending: true }),
-                supabase.from('products').select('*').order('created_at', { ascending: false }),
-                supabase.from('services').select('*').order('created_at', { ascending: false }),
-                supabase.from('blogs').select('*').order('created_at', { ascending: false }),
-                supabase.from('contact_submissions').select('*').order('created_at', { ascending: false }),
-                supabase.from('demo_requests').select('*').order('created_at', { ascending: false }),
-                supabase.from('explore_leads').select('*').order('created_at', { ascending: false }),
-            ]);
+            const data = await getAllData();
 
-            setProjects(projectsData.data || []);
-            setTestimonials(testimonialsData.data || []);
-            setTeamMembers(teamData.data || []);
-            setProducts(productsData.data || []);
-            setServices(servicesData.data || []);
-            setBlogs(blogsData.data || []);
-            setContacts(contactsData.data || []);
-            setDemos(demoData.data || []);
-            setExplores(exploreData.data || []);
+            setProjects(data.projects as Project[]);
+            setTestimonials(data.testimonials as Testimonial[]);
+            setTeamMembers(data.team_members as TeamMember[]);
+            setProducts(data.products as Product[]);
+            setServices(data.services as Service[]);
+            setBlogs(data.blogs as Blog[]);
+            setContacts(data.contact_submissions as ContactSubmission[]);
+            setDemos(data.demo_requests as ContactSubmission[]);
+            setExplores(data.explore_leads as ContactSubmission[]);
 
-            // Generate notifications with stable IDs
+            // Generate notifications
             const newNotifications: any[] = [];
-            if (demoData.data && demoData.data.length > 0) {
+            const latestDemo = data.demo_requests[0];
+            const latestExplore = data.explore_leads[0];
+            const latestContact = data.contact_submissions[0];
+
+            if (latestDemo) {
                 newNotifications.push({
-                    id: `demo-${demoData.data[0].id}`,
+                    id: `demo-${latestDemo.id}`,
                     type: 'New Lead',
-                    title: `New Demo Request from ${demoData.data[0].name}`,
-                    message: demoData.data[0].email,
+                    title: `New Demo Request from ${latestDemo.name}`,
+                    message: latestDemo.email,
                     time: 'Just now'
                 });
             }
-            if (exploreData.data && exploreData.data.length > 0) {
+            if (latestExplore) {
                 newNotifications.push({
-                    id: `explore-${exploreData.data[0].id}`,
+                    id: `explore-${latestExplore.id}`,
                     type: 'New Lead',
-                    title: `New Product Interest from ${exploreData.data[0].name}`,
-                    message: exploreData.data[0].product_name,
+                    title: `New Product Interest from ${latestExplore.name}`,
+                    message: latestExplore.product_name,
                     time: '5 mins ago'
                 });
             }
-            if (contactsData.data && contactsData.data.length > 0) {
+            if (latestContact) {
                 newNotifications.push({
-                    id: `contact-${contactsData.data[0].id}`,
+                    id: `contact-${latestContact.id}`,
                     type: 'New Message',
-                    title: `New Contact Message from ${contactsData.data[0].name}`,
-                    message: contactsData.data[0].message,
+                    title: `New Contact Message from ${latestContact.name}`,
+                    message: latestContact.description || latestContact.message,
                     time: '10 mins ago'
                 });
             }
             setNotifications(newNotifications);
 
         } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error('Error loading data:', error);
+            // Error loading data
         }
         setIsLoading(false);
     };
@@ -191,25 +173,20 @@ export default function AdminDashboard() {
             const table = tableMap[section];
 
             if (data.id) {
-                // Update existing
-                const { error } = await supabase.from(table).update(data).eq('id', data.id);
-                if (error) throw error;
+                await updateRecord(table, data.id, data);
             } else {
-                // Insert new
                 if (data.desc && !data.description) {
                     data.description = data.desc;
                     delete data.desc;
                 }
-                const { error } = await supabase.from(table).insert([data]);
-                if (error) throw error;
+                await insertRecord(table, data);
             }
 
             loadAllData();
             setEditItem(null);
             setEditSection(null);
         } catch (error: any) {
-            console.error('Error saving:', error);
-            alert(`Error saving item: ${error.message || 'Check console for details'}`);
+            alert(`Error saving item: ${error.message || 'Check connection'}`);
         }
     };
 
@@ -217,12 +194,10 @@ export default function AdminDashboard() {
         if (!deleteConfirm) return;
 
         try {
-            const { error } = await supabase.from(deleteConfirm.table).delete().eq('id', deleteConfirm.id);
-            if (error) throw error;
+            await dbDeleteRecord(deleteConfirm.table, deleteConfirm.id);
             loadAllData();
             setDeleteConfirm(null);
         } catch (error) {
-            // eslint-disable-next-line no-console
             console.error('Error deleting item:', error);
             alert('Failed to delete item.');
         }
@@ -358,7 +333,7 @@ export default function AdminDashboard() {
                                 </div>
                             </div>
                             <div className="bg-white p-4 rounded-xl border border-zinc-200 mt-2">
-                                <p className="text-zinc-700 font-medium whitespace-pre-wrap">{contact.message}</p>
+                                <p className="text-zinc-700 font-medium whitespace-pre-wrap">{contact.description || contact.message}</p>
                             </div>
                             <p className="text-xs font-bold text-zinc-400 mt-3 flex items-center gap-1">
                                 <Clock size={12} /> {new Date(contact.created_at).toLocaleDateString()}
@@ -741,15 +716,22 @@ export default function AdminDashboard() {
 
     const [newPassword, setNewPassword] = useState('');
 
-    const handlePasswordChange = (e: React.FormEvent) => {
+    const handlePasswordChange = async (e: React.FormEvent) => {
         e.preventDefault();
         if (newPassword.length < 4) {
             alert("Password too short");
             return;
         }
-        sessionStorage.setItem('admin_password', newPassword);
-        setNewPassword('');
-        alert("Password Updated Successfully!");
+        setIsLoading(true);
+        try {
+            await updateAdminPassword(newPassword);
+            setNewPassword('');
+            alert("Password Updated Successfully in Database!");
+        } catch (error) {
+            alert("Error updating password.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const renderSettings = () => (

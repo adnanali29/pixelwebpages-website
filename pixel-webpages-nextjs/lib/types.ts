@@ -81,8 +81,8 @@ export interface ContactSubmission {
     name: string;
     email: string;
     phone: string;
-    description: string;
-    submitted_at: string;
+    message: string;
+    created_at: string;
 }
 
 export interface AdminSettings {

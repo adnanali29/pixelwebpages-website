@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase/client';
+import { getProducts, addDemoRequest, addExploreLead } from '@/lib/actions';
 import type { Product } from '@/lib/types';
 import {
     Box, ShoppingCart, DollarSign, TrendingUp, Shield, Scale, Brain, Globe, Smartphone, Cloud, Database, Code, Rocket, Palette, Video, Music, Monitor, Users, CheckCircle, FileText, Mail, Phone, Linkedin, Calendar, Coffee, Heart, Truck, Zap, X, Check, ExternalLink, ArrowRight
@@ -78,15 +78,16 @@ export default function ProductsPage() {
     }, []);
 
     const loadProducts = async () => {
-        const { data, error } = await supabase
-            .from('products')
-            .select('*')
-            .order('created_at', { ascending: true });
-
-        if (!error && data) {
-            setProducts(data);
+        try {
+            const data = await getProducts();
+            if (data) {
+                setProducts(data);
+            }
+        } catch (error) {
+            console.error('Error loading products:', error);
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     };
 
     const handleRequestDemo = (productName: string) => {
@@ -114,27 +115,37 @@ export default function ProductsPage() {
                 headers: { Accept: 'application/json' },
             });
             if (response.ok) {
-                // Also save to Supabase for Admin Dashboard
+                // Also save to Neon for Admin Dashboard
                 if (type === 'demo') {
-                    await supabase.from('demo_requests').insert([{
+                    await addDemoRequest({
                         name: formData.get('name'),
                         email: formData.get('email'),
                         phone: formData.get('number'),
                         product_name: formData.get('product'),
                         message: formData.get('description'),
-                    }]);
+                    });
                 } else {
-                    await supabase.from('explore_leads').insert([{
+                    await addExploreLead({
                         name: formData.get('name'),
                         email: formData.get('email'),
                         phone: formData.get('number'),
                         product_name: formData.get('product'),
                         message: formData.get('description'),
-                    }]);
+                    });
                 }
 
                 setIsSubmitted(true);
                 form.reset();
+
+                // If it's an "Explore" request, redirect to the product URL
+                if (type === 'explore') {
+                    const product = products.find(p => p.name === selectedExploreProduct);
+                    if (product && product.explore_url && product.explore_url !== '#') {
+                        setTimeout(() => {
+                            window.location.href = product.explore_url;
+                        }, 1000); // Small delay to show checkmark
+                    }
+                }
             } else {
                 alert('Error sending request. Please try again.');
             }

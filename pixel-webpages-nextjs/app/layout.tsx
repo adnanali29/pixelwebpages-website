@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`
   },
   description: siteConfig.description,
-  keywords: ['web development', 'next.js', 'react', 'tailwind', 'supabase', 'pixel webpages'],
+  keywords: ['web development', 'next.js', 'react', 'tailwind', 'neon', 'pixel webpages'],
   authors: [{ name: 'Pixel WebPages' }],
   creator: 'Pixel WebPages',
   openGraph: {

@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import { createServerClient } from '@/lib/supabase/server';
+import { getProjects, getTestimonials } from '@/lib/actions';
 import { Project, Testimonial } from '@/lib/types';
 import { ArrowRight, Zap, MousePointer, Database } from '@/components/icons';
 import Link from 'next/link';
@@ -7,58 +6,40 @@ import ProjectsScroller from '@/components/ui/ProjectsScroller';
 import TestimonialsScroller from '@/components/ui/TestimonialsScroller';
 import InteractiveRobot from '@/components/ui/InteractiveRobot';
 
-async function getProjects(): Promise<Project[]> {
-  const supabase = createServerClient();
+async function fetchHomeProjects(): Promise<Project[]> {
+  try {
+    const data = await getProjects();
+    const priority = ['Addy Fitness', 'Sikhaid NGO'];
 
-  const { data, error } = await supabase
-    .from('projects')
-    .select('*')
-    .order('created_at', { ascending: false });
+    return [...data].sort((a, b) => {
+      const aIndex = priority.indexOf(a.name);
+      const bIndex = priority.indexOf(b.name);
 
-  if (error) {
+      if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
+      if (aIndex !== -1) return -1;
+      if (bIndex !== -1) return 1;
+      return 0;
+    });
+  } catch (error) {
     console.error('Error fetching projects:', error);
     return [];
   }
-
-  if (!data) return [];
-
-  const priority = ['Addy Fitness', 'Sikhaid NGO'];
-
-  return [...data].sort((a, b) => {
-    const aIndex = priority.indexOf(a.name);
-    const bIndex = priority.indexOf(b.name);
-
-    if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
-
-    if (aIndex !== -1) return -1;
-
-    if (bIndex !== -1) return 1;
-
-    return 0;
-  });
 }
 
-
-
-
-async function getTestimonials(): Promise<Testimonial[]> {
-  const supabase = createServerClient();
-  const { data, error } = await supabase
-    .from('testimonials')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error) {
+async function fetchHomeTestimonials(): Promise<Testimonial[]> {
+  try {
+    const data = await getTestimonials();
+    return data || [];
+  } catch (error) {
     console.error('Error fetching testimonials:', error);
     return [];
   }
-
-  return data || [];
 }
 
 export default async function HomePage() {
-  const projects = await getProjects();
-  const testimonials = await getTestimonials();
+  const projects = await fetchHomeProjects();
+  const testimonials = await fetchHomeTestimonials();
+
   return (
     <div className="bg-black space-y-10 md:space-y-10 pb-12 overflow-x-hidden relative">
       {/* Dynamic Background Overlays */}

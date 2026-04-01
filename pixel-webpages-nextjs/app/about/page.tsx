@@ -1,7 +1,6 @@
-import { createServerClient } from '@/lib/supabase/server';
+import { getTeamMembers } from '@/lib/actions';
 import { TeamMember } from '@/lib/types';
 import { TrendingUp, Globe } from '@/components/icons';
-
 
 const TAILWIND_BG_TO_HEX: Record<string, string> = {
     'bg-red-400': '#f87171',
@@ -14,23 +13,15 @@ const TAILWIND_BG_TO_HEX: Record<string, string> = {
     'bg-orange-400': '#fb923c',
 };
 
-
 function getRolePriority(role: string | null | undefined): number {
     if (!role) return 3;
-
     const r = role.toLowerCase().trim();
-
-    // Founder ONLY (must come first)
     if (r.includes('founder') && !r.includes('co-founder') && !r.includes('co founder')) {
         return 1;
     }
-
-    // All Co-Founders (second)
     if (r.includes('co-founder') || r.includes('co founder')) {
         return 2;
     }
-
-    // Everyone else
     return 3;
 }
 
@@ -40,21 +31,16 @@ function sortFounderFirst(members: TeamMember[]) {
     });
 }
 
-
-async function getTeamMembers(): Promise<TeamMember[]> {
-    const supabase = createServerClient();
-    const { data, error } = await supabase
-        .from('team_members')
-        .select('*')
-        .order('created_at', { ascending: true });
-
-    if (error) {
+async function fetchTeamMembers(): Promise<TeamMember[]> {
+    try {
+        const data = await getTeamMembers();
+        return data || [];
+    } catch (error) {
         console.error('Error fetching team members:', error);
         return [];
     }
-
-    return data || [];
 }
+
 
 export const metadata = {
     title: 'About Us',
@@ -63,7 +49,7 @@ export const metadata = {
 };
 
 export default async function AboutPage() {
-    const teamMembers = sortFounderFirst(await getTeamMembers());
+    const teamMembers = sortFounderFirst(await fetchTeamMembers());
 
 
     const coreValues = [

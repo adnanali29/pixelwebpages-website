@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { getAdminPassword } from '@/lib/actions';
 
 export default function AdminLogin() {
     const [password, setPassword] = useState('');
@@ -14,16 +15,17 @@ export default function AdminLogin() {
         setIsLoading(true);
         setError('');
 
-        // Check for custom password in session storage, fallback to env/default
-        const storedPassword = typeof window !== 'undefined' ? sessionStorage.getItem('admin_password') : null;
-        const adminPassword = storedPassword || process.env.NEXT_PUBLIC_ADMIN_PASSWORD || '12345';
-
-        if (password === adminPassword) {
-            // Store session
-            sessionStorage.setItem('admin_authenticated', 'true');
-            router.push('/admin/dashboard');
-        } else {
-            setError('Incorrect Password');
+        try {
+            const adminPassword = await getAdminPassword();
+            if (password === adminPassword) {
+                sessionStorage.setItem('admin_authenticated', 'true');
+                router.push('/admin/dashboard');
+            } else {
+                setError('Incorrect Password');
+            }
+        } catch (error) {
+            setError('System error. Contact developer.');
+        } finally {
             setIsLoading(false);
         }
     };

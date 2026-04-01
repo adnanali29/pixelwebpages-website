@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase/client';
+import { addContactSubmission } from '@/lib/actions';
 import { CheckCircle, Check } from '@/components/icons';
 
 export default function ContactPage() {
@@ -17,34 +17,31 @@ export default function ContactPage() {
 
         try {
             // 1. Send to Formspree
-            const formspreeResponse = await fetch(`https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID}`, {
+            const formspreeResponse = await fetch('https://formspree.io/f/xvgeqoag', {
                 method: 'POST',
                 body: formData,
                 headers: { Accept: 'application/json' },
             });
 
-            // 2. Save to Supabase (for Admin Panel)
-            const { error } = await supabase
-                .from('contact_submissions')
-                .insert([
-                    {
-                        name: data.name,
-                        email: data.email,
-                        phone: data.number, // Note: DB column is 'phone', form input is 'number'
-                        message: data.description // Note: DB column is 'message', form input is 'description'
-                    }
-                ]);
+            // 2. Save to Neon (for Admin Panel)
+            try {
+                await addContactSubmission({
+                    name: data.name as string,
+                    email: data.email as string,
+                    phone: data.number as string,
+                    message: data.description as string
+                });
+            } catch (authError) {
+                // Silently handle or handle with UI
+            }
 
-            if (formspreeResponse.ok && !error) {
+            if (formspreeResponse.ok) {
                 setIsSubmitted(true);
                 form.reset();
             } else {
-                // eslint-disable-next-line no-console
-                console.error('Submission error:', error);
                 alert('Error submitting form. Please try again.');
             }
         } catch (err) {
-            // eslint-disable-next-line no-console
             console.error(err);
             alert('Error submitting form. Please check your connection.');
         }

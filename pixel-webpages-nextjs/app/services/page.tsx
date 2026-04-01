@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase/client';
+import { getServices, addContactSubmission } from '@/lib/actions';
 import {
     ArrowRight, ShoppingCart, DollarSign, TrendingUp, Shield, Scale, Brain, Globe, Smartphone, Cloud, Database, Code, Rocket, Palette, Video, Music, Monitor, Users, CheckCircle, FileText, Mail, Phone, Linkedin, Calendar, Coffee, Heart, Truck, Zap, Box, X, Check
 } from '@/components/icons';
@@ -79,15 +79,16 @@ export default function ServicesPage() {
     }, [activeCategory]);
 
     const loadServices = async () => {
-        const { data, error } = await supabase
-            .from('services')
-            .select('*')
-            .order('created_at', { ascending: true });
-
-        if (!error && data) {
-            setServices(data);
+        try {
+            const data = await getServices();
+            if (data) {
+                setServices(data);
+            }
+        } catch (error) {
+            console.error('Error loading services:', error);
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     };
 
     const handleSubServiceClick = (subTitle: string) => {
@@ -109,13 +110,13 @@ export default function ServicesPage() {
                 headers: { Accept: 'application/json' },
             });
             if (response.ok) {
-                // Also save to Supabase for Admin Dashboard
-                await supabase.from('contact_submissions').insert([{
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    phone: formData.get('number'),
+                // Also save to Neon for Admin Dashboard
+                await addContactSubmission({
+                    name: formData.get('name') as string,
+                    email: formData.get('email') as string,
+                    phone: formData.get('number') as string,
                     message: `Service Request: ${selectedSubService}. Description: ${formData.get('description')}`,
-                }]);
+                });
 
                 setIsSubmitted(true);
                 form.reset();
