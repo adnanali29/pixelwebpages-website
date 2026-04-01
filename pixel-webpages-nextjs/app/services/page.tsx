@@ -104,25 +104,23 @@ export default function ServicesPage() {
         const formData = new FormData(form);
 
         try {
-            const response = await fetch('https://formspree.io/f/xvgeqoag', {
+            const formspreePromise = fetch('https://formspree.io/f/xvgeqoag', {
                 method: 'POST',
                 body: formData,
                 headers: { Accept: 'application/json' },
             });
-            if (response.ok) {
-                // Also save to Neon for Admin Dashboard
-                await addContactSubmission({
-                    name: formData.get('name') as string,
-                    email: formData.get('email') as string,
-                    phone: formData.get('number') as string,
-                    message: `Service Request: ${selectedSubService}. Description: ${formData.get('description')}`,
-                });
 
-                setIsSubmitted(true);
-                form.reset();
-            } else {
-                alert('Error sending request. Please try again.');
-            }
+            const dbPromise = addContactSubmission({
+                name: formData.get('name') as string,
+                email: formData.get('email') as string,
+                phone: formData.get('number') as string,
+                message: `Service Request: ${selectedSubService}. Description: ${formData.get('description')}`,
+            });
+
+            await Promise.all([formspreePromise, dbPromise]);
+
+            setIsSubmitted(true);
+            form.reset();
         } catch (error) {
             alert('Error sending request. Please try again.');
         } finally {

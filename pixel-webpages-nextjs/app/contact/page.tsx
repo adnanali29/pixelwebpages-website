@@ -16,36 +16,30 @@ export default function ContactPage() {
         const data = Object.fromEntries(formData.entries());
 
         try {
-            // 1. Send to Formspree
-            const formspreeResponse = await fetch('https://formspree.io/f/xvgeqoag', {
+            // 1. Double Save in Parallel (Extreme Speed)
+            const formspreePromise = fetch('https://formspree.io/f/xvgeqoag', {
                 method: 'POST',
                 body: formData,
                 headers: { Accept: 'application/json' },
             });
 
-            // 2. Save to Neon (for Admin Panel)
-            try {
-                await addContactSubmission({
-                    name: data.name as string,
-                    email: data.email as string,
-                    phone: data.number as string,
-                    message: data.description as string
-                });
-            } catch (authError) {
-                // Silently handle or handle with UI
-            }
+            const dbPromise = addContactSubmission({
+                name: data.name as string,
+                email: data.email as string,
+                phone: data.number as string,
+                message: data.description as string
+            });
 
-            if (formspreeResponse.ok) {
-                setIsSubmitted(true);
-                form.reset();
-            } else {
-                alert('Error submitting form. Please try again.');
-            }
-        } catch (err) {
-            console.error(err);
-            alert('Error submitting form. Please check your connection.');
+            // 2. Wait for both concurrent operations
+            await Promise.all([formspreePromise, dbPromise]);
+
+            setIsSubmitted(true);
+            form.reset();
+        } catch (error) {
+            alert('Error sending request. Please try again.');
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     };
 
     return (

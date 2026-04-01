@@ -109,45 +109,43 @@ export default function ProductsPage() {
         const formData = new FormData(form);
 
         try {
-            const response = await fetch('https://formspree.io/f/xvgeqoag', {
+            // 1. Start Both Saves in Parallel (Much Faster!)
+            const formspreePromise = fetch('https://formspree.io/f/xvgeqoag', {
                 method: 'POST',
                 body: formData,
                 headers: { Accept: 'application/json' },
             });
-            if (response.ok) {
-                // Also save to Neon for Admin Dashboard
-                if (type === 'demo') {
-                    await addDemoRequest({
-                        name: formData.get('name'),
-                        email: formData.get('email'),
-                        phone: formData.get('number'),
-                        product_name: formData.get('product'),
-                        message: formData.get('description'),
-                    });
-                } else {
-                    await addExploreLead({
-                        name: formData.get('name'),
-                        email: formData.get('email'),
-                        phone: formData.get('number'),
-                        product_name: formData.get('product'),
-                        message: formData.get('description'),
-                    });
-                }
 
-                // If it's an "Explore" request, redirect INSTANTLY
-                if (type === 'explore') {
-                    const product = products.find(p => p.name === selectedExploreProduct);
-                    if (product && product.explore_url && product.explore_url !== '#') {
-                        window.location.href = product.explore_url;
-                        return; 
-                    }
-                }
+            const dbPromise = type === 'demo' 
+                ? addDemoRequest({
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('number'),
+                    product_name: formData.get('product'),
+                    message: formData.get('description') || "Demo Request",
+                }) 
+                : addExploreLead({
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('number'),
+                    product_name: formData.get('product'),
+                    message: formData.get('description') || "Explore Product",
+                });
 
-                setIsSubmitted(true);
-                form.reset();
-            } else {
-                alert('Error sending request. Please try again.');
+            // 2. Wait for both concurrent operations
+            await Promise.all([formspreePromise, dbPromise]);
+
+            // 3. If it's an "Explore" request, redirect INSTANTLY
+            if (type === 'explore') {
+                const product = products.find(p => p.name === selectedExploreProduct);
+                if (product && product.explore_url && product.explore_url !== '#') {
+                    window.location.href = product.explore_url;
+                    return; 
+                }
             }
+
+            setIsSubmitted(true);
+            form.reset();
         } catch (error) {
             alert('Error sending request. Please try again.');
         } finally {
