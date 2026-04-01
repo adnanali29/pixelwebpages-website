@@ -300,6 +300,7 @@ export default function ServicesPage() {
                                         name="number"
                                         required
                                         type="tel"
+                                        onInput={(e) => e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '')}
                                         className="w-full bg-white border-2 border-black rounded-xl p-3 text-black font-bold placeholder:text-zinc-400 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all"
                                         placeholder="Your Phone Number"
                                     />

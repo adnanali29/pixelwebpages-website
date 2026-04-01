@@ -93,6 +93,7 @@ export default function ContactPage() {
                             name="number"
                             required
                             type="tel"
+                            onInput={(e) => e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '')}
                             placeholder="Phone Number"
                             className="w-full bg-white border-4 border-black p-4 rounded-xl text-black font-bold placeholder:text-zinc-500 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all"
                         />
