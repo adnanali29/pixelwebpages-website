@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getTeamMembers } from '@/lib/actions';
 import { TeamMember } from '@/lib/types';
 import { TrendingUp, Globe } from '@/components/icons';

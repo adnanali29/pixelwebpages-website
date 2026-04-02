@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getProjects, getTestimonials } from '@/lib/actions';
 import { Project, Testimonial } from '@/lib/types';
 import { ArrowRight, Zap, MousePointer, Database } from '@/components/icons';

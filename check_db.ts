@@ -1,8 +1,8 @@
-import { sql } from './lib/db';
+import { getSql } from './lib/db';
 
 async function checkTables() {
     try {
-        const tables = await sql`
+        const tables = await getSql()`
             SELECT table_name 
             FROM information_schema.tables 
             WHERE table_schema = 'public'

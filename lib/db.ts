@@ -1,7 +1,14 @@
 import { neon } from '@neondatabase/serverless';
+import type { NeonQueryFunction } from '@neondatabase/serverless';
 
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL is not defined');
+let _sql: NeonQueryFunction<false, false> | null = null;
+
+export function getSql(): NeonQueryFunction<false, false> {
+  if (!_sql) {
+    if (!process.env.DATABASE_URL) {
+      throw new Error('DATABASE_URL is not defined');
+    }
+    _sql = neon(process.env.DATABASE_URL);
+  }
+  return _sql;
 }
-
-export const sql = neon(process.env.DATABASE_URL);
