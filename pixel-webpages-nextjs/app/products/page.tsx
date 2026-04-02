@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getProducts, addDemoRequest, addExploreLead } from '@/lib/actions';
-import type { Product } from '@/lib/types';
 import {
     Box, ShoppingCart, DollarSign, TrendingUp, Shield, Scale, Brain, Globe, Smartphone, Cloud, Database, Code, Rocket, Palette, Video, Music, Monitor, Users, CheckCircle, FileText, Mail, Phone, Linkedin, Calendar, Coffee, Heart, Truck, Zap, X, Check, ExternalLink, ArrowRight
 } from '@/components/icons';
+import TestimonialsScroller from '@/components/ui/TestimonialsScroller';
+import type { Testimonial, Product } from '@/lib/types';
+import { getProducts, addDemoRequest, addExploreLead, getTestimonials } from '@/lib/actions';
 
 const colorMap: Record<string, string> = {
     blue: '#3b82f6',
@@ -23,7 +24,7 @@ const getSmartIcon = (name: string = "", size: number = 32, className: string = 
     const props = { size, className };
 
     // 1. Retail & Commerce
-    if (lowerName.match(/retail|shop|store|cart|buy|sell|commerce|order|pos|inventory|stock|catalog/)) return <ShoppingCart {...props} />;
+    if (lowerName.match(/retail|shop|store|cart|buy|sell|commerce|order|pos|inventory|stock|catalog|billing/)) return <ShoppingCart {...props} />;
     // 2. Finance & Money
     if (lowerName.match(/money|cash|pay|card|bank|financ|dollar|price|cost|bill|invoice|account|tax|gst|audit/)) return <DollarSign {...props} />;
     // 3. Growth, Marketing & Analytics
@@ -64,6 +65,7 @@ const getSmartIcon = (name: string = "", size: number = 32, className: string = 
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([]);
+    const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
     const [detailsModalProduct, setDetailsModalProduct] = useState<Product | null>(null);
     const [demoModalOpen, setDemoModalOpen] = useState(false);
     const [exploreModalOpen, setExploreModalOpen] = useState(false);
@@ -74,17 +76,19 @@ export default function ProductsPage() {
     const [isSending, setIsSending] = useState(false);
 
     useEffect(() => {
-        loadProducts();
+        loadData();
     }, []);
 
-    const loadProducts = async () => {
+    const loadData = async () => {
         try {
-            const data = await getProducts();
-            if (data) {
-                setProducts(data);
-            }
+            const [productData, testimonialData] = await Promise.all([
+                getProducts(),
+                getTestimonials()
+            ]);
+            if (productData) setProducts(productData);
+            if (testimonialData) setTestimonials(testimonialData);
         } catch (error) {
-            console.error('Error loading products:', error);
+            console.error('Error loading page data:', error);
         } finally {
             setIsLoading(false);
         }
@@ -199,10 +203,6 @@ export default function ProductsPage() {
                             >
                                 <div className="transition-transform duration-500 group-hover:scale-110 origin-left">
                                     {getSmartIcon(prod.name, 64, '')}
-                                    <style jsx global>{`
-                                        .group:hover svg { color: ${colorHex} !important; }
-                                        svg { transition: color 0.3s; }
-                                    `}</style>
                                 </div>
                                 <h2 className="text-4xl font-black text-white mb-4">{prod.name}</h2>
                                 <p className="text-zinc-400 text-lg mb-8 font-medium line-clamp-2">{prod.short_desc}</p>
@@ -251,7 +251,10 @@ export default function ProductsPage() {
             {/* Product Details Modal */}
             {detailsModalProduct && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
-                    <div className={`bg-zinc-900 border-4 border-${detailsModalProduct.color}-500/50 rounded-[3rem] w-full max-w-4xl overflow-hidden relative animate-in fade-in zoom-in duration-500 shadow-[0_0_100px_rgba(0,0,0,0.5)]`}>
+                    <div 
+                        className={`bg-zinc-900 border-4 rounded-[3rem] w-full max-w-4xl overflow-hidden relative animate-in fade-in zoom-in duration-500 shadow-[0_0_100px_rgba(0,0,0,0.5)]`}
+                        style={{ borderColor: `${colorMap[detailsModalProduct.color] || '#3b82f6'}80` }}
+                    >
                         <button
                             onClick={() => setDetailsModalProduct(null)}
                             className="absolute top-8 right-8 bg-white/10 text-white p-3 rounded-full hover:bg-white/20 hover:scale-110 transition-all z-20 border border-white/10"
@@ -262,10 +265,16 @@ export default function ProductsPage() {
                         <div className="flex flex-col md:flex-row h-full max-h-[90vh]">
                             {/* Left Column: Icon and Title */}
                             <div className={`md:w-[40%] p-12 bg-gradient-to-br from-zinc-800 to-zinc-950 flex flex-col items-center justify-center text-center relative overflow-hidden border-b md:border-b-0 md:border-r-2 border-zinc-800`}>
-                                <div className={`absolute top-0 left-0 w-full h-full bg-${detailsModalProduct.color}-500/5 blur-[120px] pointer-events-none`} />
+                                <div 
+                                    className={`absolute top-0 left-0 w-full h-full blur-[120px] pointer-events-none opacity-20`} 
+                                    style={{ backgroundColor: colorMap[detailsModalProduct.color] || '#3b82f6' }}
+                                />
                                 <div className="relative z-10">
                                     <div className="bg-zinc-900/50 p-8 rounded-[2.5rem] border-2 border-zinc-700/50 mb-8 inline-block shadow-2xl">
-                                        {getSmartIcon(detailsModalProduct.name, 100, `text-${detailsModalProduct.color}-400`)}
+                                        {getSmartIcon(detailsModalProduct.name, 100, '')}
+                                        <style jsx global>{`
+                                            svg { color: ${colorMap[detailsModalProduct.color] || '#3b82f6'}; }
+                                        `}</style>
                                     </div>
                                     <h2 className="text-5xl font-black text-white mb-6 leading-tight tracking-tight">{detailsModalProduct.name}</h2>
                                     <div className="inline-flex items-center gap-2 px-6 py-2 bg-blue-600/10 border-2 border-blue-500/30 rounded-full">
@@ -285,9 +294,12 @@ export default function ProductsPage() {
 
                                     <h3 className="text-xl font-black text-white mb-6 uppercase tracking-[0.1em]">Why Choose {detailsModalProduct.name}?</h3>
                                     <div className="space-y-5 mb-12">
-                                        {detailsModalProduct.benefits.map((benefit, i) => (
+                                        {detailsModalProduct.benefits.map((benefit: string, i: number) => (
                                             <div key={i} className="flex items-start gap-5 group/item">
-                                                <div className={`w-8 h-8 rounded-full border-2 border-${detailsModalProduct.color}-500/50 flex items-center justify-center text-${detailsModalProduct.color}-400 shrink-0 group-hover/item:bg-${detailsModalProduct.color}-500 group-hover/item:text-black transition-all duration-300`}>
+                                                <div 
+                                                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-300`}
+                                                    style={{ borderColor: `${colorMap[detailsModalProduct.color] || '#3b82f6'}80`, color: colorMap[detailsModalProduct.color] || '#3b82f6' }}
+                                                >
                                                     <Check size={18} strokeWidth={4} />
                                                 </div>
                                                 <p className="text-white text-lg font-bold opacity-90 group-hover/item:opacity-100 transition-opacity">{benefit}</p>
@@ -302,7 +314,8 @@ export default function ProductsPage() {
                                             handleRequestDemo(detailsModalProduct.name);
                                             setDetailsModalProduct(null);
                                         }}
-                                        className={`w-full py-6 bg-${detailsModalProduct.color}-500 text-black font-black rounded-2xl hover:bg-white transition-all active:scale-95 border-2 border-transparent text-xl shadow-xl hover:shadow-${detailsModalProduct.color}-500/20`}
+                                        className={`w-full py-6 text-black font-black rounded-2xl hover:bg-white transition-all active:scale-95 border-2 border-transparent text-xl shadow-xl`}
+                                        style={{ backgroundColor: colorMap[detailsModalProduct.color] || '#3b82f6' }}
                                     >
                                         REQUEST DEMO
                                     </button>
@@ -312,7 +325,16 @@ export default function ProductsPage() {
                                             handleExploreProduct(detailsModalProduct.name);
                                             setDetailsModalProduct(null);
                                         }}
-                                        className={`block w-full py-6 border-2 border-zinc-800 text-white font-black rounded-2xl hover:bg-zinc-800 transition-all active:scale-95 text-center text-xl hover:border-zinc-700`}
+                                        className={`block w-full py-6 border-2 text-white font-black rounded-2xl transition-all active:scale-95 text-center text-xl`}
+                                        style={{ borderColor: colorMap[detailsModalProduct.color] || '#3b82f6' }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.backgroundColor = colorMap[detailsModalProduct.color] || '#3b82f6';
+                                            e.currentTarget.style.color = 'black';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.backgroundColor = 'transparent';
+                                            e.currentTarget.style.color = 'white';
+                                        }}
                                     >
                                         EXPLORE PRODUCT
                                     </button>
@@ -459,6 +481,10 @@ export default function ProductsPage() {
                     </div>
                 </div>
             )}
+
+            <div className="mt-20">
+                <TestimonialsScroller testimonials={testimonials} />
+            </div>
         </div>
     );
 }
