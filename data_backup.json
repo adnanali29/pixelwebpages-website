@@ -1,0 +1,1857 @@
+{
+  "admin_settings": [
+    {
+      "id": "9344d38f-fa25-44d4-9ad1-347b08a32f52",
+      "setting_key": "admin_password",
+      "setting_value": "pixelad98!!",
+      "created_at": "2026-04-01T16:58:47.119Z",
+      "updated_at": "2026-04-01T16:58:47.119Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "e1a2b3c4-5d6e-7f8a-9b0c-1d2e3f4a5b6c",
+      "name": "Addy Meals",
+      "url": "https://www.addymeals.com/",
+      "description": "Fit Food & Healthy Meal Prep Platform",
+      "color": "bg-[#60a5fa]",
+      "image": "https://i.ibb.co/cc1RgLLz/BEIGE-VERTICAL-LOGO-ALT.png",
+      "text_color": "text-white",
+      "created_at": "2026-10-05T17:46:10.999Z"
+    },
+    {
+      "id": "c6ab92ed-4f62-41c4-b2cf-e438d55166b8",
+      "name": "Dee Pets",
+      "url": "https://pethealth.deepetservices.com/",
+      "description": "Veterinary & Pet Health Blood Test Services",
+      "color": "bg-[#fb923c]",
+      "image": "https://i.ibb.co/MDRZ7svJ/1.png",
+      "text_color": "text-white",
+      "created_at": "2026-10-04T19:56:59.871Z"
+    },
+    {
+      "id": "434eead7-d31b-4636-b028-821724fa9fde",
+      "name": "Beluga Global Exports",
+      "url": "https://www.belugaglobalexports.com/",
+      "description": "Seafood Cold-Chain & Global Logistics",
+      "color": "bg-[#f472b6]",
+      "image": "https://i.ibb.co/kgBj0d0Z/5.png",
+      "text_color": "text-white",
+      "created_at": "2026-10-04T19:57:00.116Z"
+    },
+    {
+      "id": "1e894789-f59a-4197-b3ca-4740232120da",
+      "name": "Viberoot Essentials",
+      "url": "https://www.viberootessentials.com/",
+      "description": "Organic Beauty & Wellness Store",
+      "color": "bg-[#c084fc]",
+      "image": "https://i.ibb.co/YTPj0HN5/3.png",
+      "text_color": "text-white",
+      "created_at": "2026-10-04T19:57:00.356Z"
+    },
+    {
+      "id": "9a9cbd14-e29c-483d-bcf6-a86e43561bd7",
+      "name": "Addy Fitness",
+      "url": "https://addyfitness.com/",
+      "description": "Fitness & Training Hub",
+      "color": "bg-[#60a5fa]",
+      "image": "https://i.ibb.co/kgBj0d0Z/5.png",
+      "text_color": "text-white",
+      "created_at": "2026-01-31T17:01:56.743Z"
+    },
+    {
+      "id": "d6fa4c5f-b17d-40b2-b64a-3da580e8fb7d",
+      "name": "Sikhaid NGO",
+      "url": "https://sikhaid.ngo/",
+      "description": "Non-Profit Organization",
+      "color": "bg-[#fb923c]",
+      "image": "https://i.ibb.co/xqtNbtmF/4.png",
+      "text_color": "text-white",
+      "created_at": "2026-01-31T17:01:56.743Z"
+    },
+    {
+      "id": "8384c811-849d-4717-ae76-946cb85e366f",
+      "name": "Badsha magic world",
+      "url": "https://badasha-landing-page.vercel.app/",
+      "description": "Brand Landing Page",
+      "color": "bg-[#f472b6]",
+      "image": "https://i.ibb.co/BKt0Wc74/1.png",
+      "text_color": "text-white",
+      "created_at": "2026-01-31T17:01:56.743Z"
+    },
+    {
+      "id": "65467588-a57e-4604-9906-719e64ee30ef",
+      "name": "Roxford Health",
+      "url": "https://master--roxfordhealthcaretest.netlify.app/",
+      "description": "Medical Services Portal",
+      "color": "bg-[#facc15]",
+      "image": "https://i.ibb.co/8gqbNzcb/2.png",
+      "text_color": "text-black",
+      "created_at": "2026-01-31T17:05:24.242Z"
+    },
+    {
+      "id": "c2cc2913-0f34-42a6-92df-b4d017defb29",
+      "name": "Querent",
+      "url": "https://www.querent.xyz/",
+      "description": "Astrology & Guidance Platform",
+      "color": "bg-blue-500",
+      "image": "https://i.ibb.co/YTPj0HN5/3.png",
+      "text_color": "text-black",
+      "created_at": "2026-01-31T17:05:24.242Z"
+    },
+    {
+      "id": "29d20513-b2c5-49d9-877a-fb5e2670bab1",
+      "name": "Astrohealer4u",
+      "url": "https://www.astrohealer4u.in/",
+      "description": "Astrology and Healing",
+      "color": "bg-[#2dd4bf]",
+      "image": "https://i.ibb.co/rRY6syv4/Insta-Posts.jpg",
+      "text_color": null,
+      "created_at": "2026-06-24T18:02:20.512Z"
+    }
+  ],
+  "blogs": [
+    {
+      "id": "32bbaabd-155d-403e-a8cf-48e10f47c4e6",
+      "title": "Next.js vs React: High-Performance Websites",
+      "date": "Dec 05, 2024",
+      "tag": "Tech",
+      "color": "bg-blue-400",
+      "image": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=600&auto=format&fit=crop",
+      "content": "In the rapidly evolving landscape of modern web development, the choice between using a library like React and a framework like Next.js is a pivotal decision...",
+      "created_at": "2026-01-31T17:05:24.242Z"
+    },
+    {
+      "id": "a0bb7945-955a-49fb-91fc-b88bbed33a7b",
+      "title": "Psychology of Color in UI Design",
+      "date": "Dec 03, 2024",
+      "tag": "UI/UX",
+      "color": "bg-purple-400",
+      "image": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop",
+      "content": "Color is one of the most fundamental elements of design, yet it is often treated as a mere aesthetic choice. In reality, color is a powerful psychological tool...",
+      "created_at": "2026-01-31T17:05:24.242Z"
+    },
+    {
+      "id": "82fbc0b8-2331-4c6d-96c0-d56293df3fc7",
+      "title": "Building Scalable SaaS Architectures",
+      "date": "Oct 25, 2024",
+      "tag": "Tech",
+      "color": "bg-teal-400",
+      "image": "https://thumbs.dreamstime.com/z/saas-software-as-service-application-licensing-model-outline-diagram-labeled-educational-scheme-centrally-hosted-apps-260201057.jpg",
+      "content": "In the SaaS world, success can be your biggest problem. If your user base grows overnight, will your servers crash? Scalability is not an afterthought...",
+      "created_at": "2026-01-31T17:05:24.242Z"
+    }
+  ],
+  "contact_submissions": [
+    {
+      "id": "10c75222-d983-4012-8c89-63e9427ffe94",
+      "name": "Adnan Ali",
+      "email": "addyfitness21@gmail.com",
+      "phone": "98617873335",
+      "message": "qqqqqqqqqq",
+      "created_at": "2026-02-01T15:14:29.615Z"
+    },
+    {
+      "id": "3e1b20c5-3579-49f3-ab81-10ec06c1879f",
+      "name": "Saloni",
+      "email": "sayedadnanali905@gmail.com",
+      "phone": "09778803677",
+      "message": "I want to build website",
+      "created_at": "2026-02-02T09:51:58.186Z"
+    },
+    {
+      "id": "55f835f7-d412-4636-9d78-6908da154b6d",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "message": "sadasdsad",
+      "created_at": "2026-02-13T11:09:01.650Z"
+    },
+    {
+      "id": "069ec7d1-f882-446d-a16a-df74f6d3ce51",
+      "name": "ANUP ANIL OJHAdasd",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "message": "sdsadasd",
+      "created_at": "2026-04-01T16:42:37.013Z"
+    },
+    {
+      "id": "0054748f-5d7b-40d9-bc3a-406a5bd01c26",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "message": "asdasdad",
+      "created_at": "2026-04-01T16:43:20.642Z"
+    },
+    {
+      "id": "ff018d21-6df3-42eb-9b0f-6545a76371d8",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "message": "Hello my boy",
+      "created_at": "2026-04-01T17:34:18.381Z"
+    },
+    {
+      "id": "f4434aea-e417-4b60-bc43-376c49ac20ed",
+      "name": "dasdasdasdasdasdas",
+      "email": "asdsada@gmail.com",
+      "phone": "09309109229",
+      "message": "asdasdsa",
+      "created_at": "2026-04-01T17:46:27.361Z"
+    },
+    {
+      "id": "29df623d-de19-4a50-9b43-bff4065eff95",
+      "name": "32asdasd",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "3214123132132312",
+      "message": "asdsadasdsad",
+      "created_at": "2026-04-01T17:47:12.484Z"
+    },
+    {
+      "id": "26d09a62-283b-4845-9a39-4411797f07cb",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "1321234123",
+      "message": "1we21e1",
+      "created_at": "2026-04-01T17:49:10.548Z"
+    },
+    {
+      "id": "f744ce8c-626a-421c-8598-5ea0888a3dfc",
+      "name": "bwlSLwwEOzIFEcAvNDP",
+      "email": "ik.i.ta.l.ab0.9.1@gmail.com",
+      "phone": "6084699506",
+      "message": "fCZEDZOVgKMeGiYaaWrq",
+      "created_at": "2026-04-05T04:15:00.658Z"
+    },
+    {
+      "id": "9b6b5f87-21f6-4046-ae05-ac89444a30a4",
+      "name": "bwlSLwwEOzIFEcAvNDP",
+      "email": "ik.i.ta.l.ab0.9.1@gmail.com",
+      "phone": "6084699506",
+      "message": "fCZEDZOVgKMeGiYaaWrq",
+      "created_at": "2026-04-05T04:15:05.289Z"
+    },
+    {
+      "id": "4318b268-dc77-477a-884a-8c81e53eb946",
+      "name": "bwlSLwwEOzIFEcAvNDP",
+      "email": "ik.i.ta.l.ab0.9.1@gmail.com",
+      "phone": "6084699506",
+      "message": "fCZEDZOVgKMeGiYaaWrq",
+      "created_at": "2026-04-05T04:15:10.239Z"
+    },
+    {
+      "id": "5db39c7b-d744-4fbe-ab5a-549a454048cd",
+      "name": "MhLYLERbHOUbfxQWFp",
+      "email": "u.g.u.ce.me.k.950@gmail.com",
+      "phone": "7592497240",
+      "message": "rTMMcMwoWiWCOUTKBKHKmK",
+      "created_at": "2026-04-23T07:17:21.282Z"
+    },
+    {
+      "id": "493d2eb2-1559-456d-ac8e-1aebc57358e5",
+      "name": "MhLYLERbHOUbfxQWFp",
+      "email": "u.g.u.ce.me.k.950@gmail.com",
+      "phone": "7592497240",
+      "message": "rTMMcMwoWiWCOUTKBKHKmK",
+      "created_at": "2026-04-23T07:17:25.582Z"
+    },
+    {
+      "id": "06a94051-b8a8-4d8c-a7d4-434fd9296192",
+      "name": "MhLYLERbHOUbfxQWFp",
+      "email": "u.g.u.ce.me.k.950@gmail.com",
+      "phone": "7592497240",
+      "message": "rTMMcMwoWiWCOUTKBKHKmK",
+      "created_at": "2026-04-23T07:17:30.582Z"
+    },
+    {
+      "id": "136578b5-7a58-4cf8-9014-58f60010b50a",
+      "name": "GuyLgbmdWWkJssXkrftcOm",
+      "email": "al.inuco.r.a.vu71.6@gmail.com",
+      "phone": "3985314150",
+      "message": "lvbfCvsepMSDxoXG",
+      "created_at": "2026-04-23T14:55:57.695Z"
+    },
+    {
+      "id": "c1945d03-ebe9-425d-9c2e-19e3cab95352",
+      "name": "GuyLgbmdWWkJssXkrftcOm",
+      "email": "al.inuco.r.a.vu71.6@gmail.com",
+      "phone": "3985314150",
+      "message": "lvbfCvsepMSDxoXG",
+      "created_at": "2026-04-23T14:56:01.610Z"
+    },
+    {
+      "id": "115feb80-1711-4c17-b225-62f582faebe7",
+      "name": "GuyLgbmdWWkJssXkrftcOm",
+      "email": "al.inuco.r.a.vu71.6@gmail.com",
+      "phone": "3985314150",
+      "message": "lvbfCvsepMSDxoXG",
+      "created_at": "2026-04-23T14:56:06.234Z"
+    },
+    {
+      "id": "8013b2f7-5f73-486a-a2ba-e1f02113a3df",
+      "name": "Anup Ojha",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "message": "sadsadsadasdasd",
+      "created_at": "2026-04-27T06:29:11.354Z"
+    },
+    {
+      "id": "049fde38-b74d-4687-8b07-7079fd1a72ae",
+      "name": "Anup Ojha",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "9309109229",
+      "message": "dsadsadsadasd",
+      "created_at": "2026-04-27T06:50:41.631Z"
+    },
+    {
+      "id": "537693f2-0436-4991-95ea-1d71a343ec22",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "9309109229",
+      "message": "asdasdasd",
+      "created_at": "2026-04-27T06:54:40.599Z"
+    },
+    {
+      "id": "40ae2440-5b7a-4d99-9a8d-1f4148a785b3",
+      "name": "Adnan Ali",
+      "email": "addyfitness21@gmail.com",
+      "phone": "9778803677",
+      "message": "test please 27/4/2026",
+      "created_at": "2026-04-27T07:01:00.986Z"
+    },
+    {
+      "id": "f7224ade-c043-4e8f-853d-c66c23f0b0ac",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "9309109229",
+      "message": "sdafsdfds",
+      "created_at": "2026-04-27T07:04:06.440Z"
+    },
+    {
+      "id": "7a22f29d-06be-4338-9e0f-5b0354e15001",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "9309109229",
+      "message": "dsaDSSAdAD",
+      "created_at": "2026-04-27T07:26:52.313Z"
+    },
+    {
+      "id": "1a483c7e-4465-4e8d-b1d1-9af38ee78870",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "9309109229",
+      "message": "sadsasad",
+      "created_at": "2026-04-27T08:03:46.133Z"
+    },
+    {
+      "id": "9038fc4e-ed32-4cfd-ab98-eee4efce1654",
+      "name": "Dipti Sarangi",
+      "email": "drdipti@vediwellness.com",
+      "phone": "8637219530",
+      "message": "checkin",
+      "created_at": "2026-04-27T10:25:57.571Z"
+    },
+    {
+      "id": "b0ad69e0-7222-4326-a5e0-15b9d4843a15",
+      "name": "tes \\t",
+      "email": "addyfitness21@gmail.com",
+      "phone": "8617873335",
+      "message": "sshsadbjdkekd",
+      "created_at": "2026-04-27T11:17:32.355Z"
+    },
+    {
+      "id": "40131d63-d67d-44f3-94f7-06e18149227f",
+      "name": "ewnIikEnGncQZEQfHH",
+      "email": "ke.luhi.kun.e199@gmail.com",
+      "phone": "4683057155",
+      "message": "rbWVZqorHeBPrXXTCZoryi",
+      "created_at": "2026-05-14T14:43:33.496Z"
+    },
+    {
+      "id": "47e415eb-83e6-4030-871c-19e92ae79a3e",
+      "name": "ewnIikEnGncQZEQfHH",
+      "email": "ke.luhi.kun.e199@gmail.com",
+      "phone": "4683057155",
+      "message": "rbWVZqorHeBPrXXTCZoryi",
+      "created_at": "2026-05-14T14:43:37.724Z"
+    },
+    {
+      "id": "bf802f73-d93e-47bb-ae13-79cfa24ed940",
+      "name": "ewnIikEnGncQZEQfHH",
+      "email": "ke.luhi.kun.e199@gmail.com",
+      "phone": "4683057155",
+      "message": "rbWVZqorHeBPrXXTCZoryi",
+      "created_at": "2026-05-14T14:43:42.763Z"
+    },
+    {
+      "id": "c338d3ee-b665-4951-8520-a475956097e2",
+      "name": "TAYZagZdvhwPhzvU",
+      "email": "be.t.e.su.d.ika1.3.3@gmail.com",
+      "phone": "2676746945",
+      "message": "HzgQFUnBiXsNdmfIAbgjH",
+      "created_at": "2026-05-21T21:43:24.156Z"
+    },
+    {
+      "id": "056249eb-8613-4f60-9cc8-31b49d00652f",
+      "name": "jFMHmzlIdzzxLAPcC",
+      "email": "ituxac.u.k37@gmail.com",
+      "phone": "2385509999",
+      "message": "pLHFvLOiQBcJLHjEcAQmQwGl",
+      "created_at": "2026-05-26T21:04:32.331Z"
+    },
+    {
+      "id": "3da683ec-b362-4e81-80c1-db632378217f",
+      "name": "jFMHmzlIdzzxLAPcC",
+      "email": "ituxac.u.k37@gmail.com",
+      "phone": "2385509999",
+      "message": "pLHFvLOiQBcJLHjEcAQmQwGl",
+      "created_at": "2026-05-26T21:04:36.323Z"
+    },
+    {
+      "id": "e81522f2-1d52-4c69-aa2c-3769ce128b12",
+      "name": "QnWBibUwCxemDOqonURPg",
+      "email": "k.s.a.n.derwa.rne.r.3.4.8@gmail.com",
+      "phone": "3497383097",
+      "message": "ytNatxeldThONxRWyYCu",
+      "created_at": "2026-05-27T00:50:17.463Z"
+    },
+    {
+      "id": "2ff54581-24f2-45a9-927d-1370ba5c544d",
+      "name": "QnWBibUwCxemDOqonURPg",
+      "email": "k.s.a.n.derwa.rne.r.3.4.8@gmail.com",
+      "phone": "3497383097",
+      "message": "ytNatxeldThONxRWyYCu",
+      "created_at": "2026-05-27T00:50:21.743Z"
+    },
+    {
+      "id": "15855c78-f3c9-4e84-b7f6-6068e38fe448",
+      "name": "QnWBibUwCxemDOqonURPg",
+      "email": "k.s.a.n.derwa.rne.r.3.4.8@gmail.com",
+      "phone": "3497383097",
+      "message": "ytNatxeldThONxRWyYCu",
+      "created_at": "2026-05-27T00:50:26.571Z"
+    },
+    {
+      "id": "939e2325-57a7-4f7c-8962-83b9a2f639bf",
+      "name": "IxcZldZqcZiExCUfWyG",
+      "email": "q.iwicemej.ep.62.8@gmail.com",
+      "phone": "5894931391",
+      "message": "CppsioqPOsWPOoIG",
+      "created_at": "2026-05-30T19:33:11.320Z"
+    },
+    {
+      "id": "4d35f253-f849-41b7-bcb3-026cb17ea805",
+      "name": "IxcZldZqcZiExCUfWyG",
+      "email": "q.iwicemej.ep.62.8@gmail.com",
+      "phone": "5894931391",
+      "message": "CppsioqPOsWPOoIG",
+      "created_at": "2026-05-30T19:33:16.582Z"
+    },
+    {
+      "id": "cd73080d-b42c-4662-a505-873fc70f43f3",
+      "name": "IxcZldZqcZiExCUfWyG",
+      "email": "q.iwicemej.ep.62.8@gmail.com",
+      "phone": "5894931391",
+      "message": "CppsioqPOsWPOoIG",
+      "created_at": "2026-05-30T19:33:19.961Z"
+    },
+    {
+      "id": "ab5cd8ee-bfe3-4cdb-ab7f-1684e1de8bfe",
+      "name": "mbsFyIkmCnPZBvtzOohWW",
+      "email": "se.w.aqi.po.22@gmail.com",
+      "phone": "3793146279",
+      "message": "mclhciXuKaAHpDmtaATr",
+      "created_at": "2026-06-11T02:47:11.665Z"
+    },
+    {
+      "id": "668e858d-61d4-45b7-9be9-481296f096c6",
+      "name": "mbsFyIkmCnPZBvtzOohWW",
+      "email": "se.w.aqi.po.22@gmail.com",
+      "phone": "3793146279",
+      "message": "mclhciXuKaAHpDmtaATr",
+      "created_at": "2026-06-11T02:47:15.606Z"
+    },
+    {
+      "id": "e50518c6-8792-4317-8327-acd585e91d37",
+      "name": "mbsFyIkmCnPZBvtzOohWW",
+      "email": "se.w.aqi.po.22@gmail.com",
+      "phone": "3793146279",
+      "message": "mclhciXuKaAHpDmtaATr",
+      "created_at": "2026-06-11T02:47:20.619Z"
+    },
+    {
+      "id": "9d6a5509-0be9-4598-8512-135e88c1474d",
+      "name": "FSdZclawDFDFrzkG",
+      "email": "ih.ijeyuper1.3@gmail.com",
+      "phone": "8940784879",
+      "message": "OecErPdydeJhHUgTikIsxEeH",
+      "created_at": "2026-06-17T22:05:09.788Z"
+    },
+    {
+      "id": "17a24c3a-de78-4f58-99d1-1e2fcc55acf4",
+      "name": "FSdZclawDFDFrzkG",
+      "email": "ih.ijeyuper1.3@gmail.com",
+      "phone": "8940784879",
+      "message": "OecErPdydeJhHUgTikIsxEeH",
+      "created_at": "2026-06-17T22:05:13.533Z"
+    },
+    {
+      "id": "f8641b6d-f5a3-45ff-87cf-c36aa37e6b83",
+      "name": "FSdZclawDFDFrzkG",
+      "email": "ih.ijeyuper1.3@gmail.com",
+      "phone": "8940784879",
+      "message": "OecErPdydeJhHUgTikIsxEeH",
+      "created_at": "2026-06-17T22:05:18.646Z"
+    },
+    {
+      "id": "6ec8f462-b25c-42eb-a0a2-07634d308be5",
+      "name": "Lakshay Arora",
+      "email": "lakshayarora135@gmail.com",
+      "phone": "08557898909",
+      "message": "website creation",
+      "created_at": "2026-07-02T11:46:04.309Z"
+    },
+    {
+      "id": "22bbabe1-6bdb-485e-b8a3-67e2e7e9c95e",
+      "name": "CWuHklTxWgaBHDrwvzVsiWh",
+      "email": "c.u.fo.vu.pu.m0.03@gmail.com",
+      "phone": "5669272226",
+      "message": "GAvvatgUwUyVgFpNurmxIcyK",
+      "created_at": "2026-07-07T07:44:13.229Z"
+    },
+    {
+      "id": "37165602-84d2-46e7-b52e-555f66305f50",
+      "name": "CWuHklTxWgaBHDrwvzVsiWh",
+      "email": "c.u.fo.vu.pu.m0.03@gmail.com",
+      "phone": "5669272226",
+      "message": "GAvvatgUwUyVgFpNurmxIcyK",
+      "created_at": "2026-07-07T07:44:17.509Z"
+    },
+    {
+      "id": "9f2b2124-bda4-4f65-88ac-86ee2032eb83",
+      "name": "CWuHklTxWgaBHDrwvzVsiWh",
+      "email": "c.u.fo.vu.pu.m0.03@gmail.com",
+      "phone": "5669272226",
+      "message": "GAvvatgUwUyVgFpNurmxIcyK",
+      "created_at": "2026-07-07T07:44:22.326Z"
+    },
+    {
+      "id": "e2cd723b-e30e-4bb8-9842-db8fd8390eb3",
+      "name": "ssTLDzaUTcVdEvBwxJ",
+      "email": "i.r.ac.e.da53.7@gmail.com",
+      "phone": "8046385865",
+      "message": "inmpNkyMOAsuGWEYnyDfqelP",
+      "created_at": "2026-07-09T04:07:01.133Z"
+    },
+    {
+      "id": "6eefdca2-5cdf-4a72-a00b-24376ae02763",
+      "name": "ssTLDzaUTcVdEvBwxJ",
+      "email": "i.r.ac.e.da53.7@gmail.com",
+      "phone": "8046385865",
+      "message": "inmpNkyMOAsuGWEYnyDfqelP",
+      "created_at": "2026-07-09T04:07:04.657Z"
+    },
+    {
+      "id": "a3373aec-b655-4d4a-bc9a-d7371968e21b",
+      "name": "ssTLDzaUTcVdEvBwxJ",
+      "email": "i.r.ac.e.da53.7@gmail.com",
+      "phone": "8046385865",
+      "message": "inmpNkyMOAsuGWEYnyDfqelP",
+      "created_at": "2026-07-09T04:07:10.318Z"
+    },
+    {
+      "id": "cc8bc671-305c-48a1-9256-b05caade0935",
+      "name": "gNwbYHkJLwEIusui",
+      "email": "mo.f.enehu.93.8@gmail.com",
+      "phone": "2423036132",
+      "message": "XvghTTHmwBqQgcIIJpzSOkD",
+      "created_at": "2026-07-14T23:26:19.392Z"
+    },
+    {
+      "id": "90b72fcf-cc37-48a3-b600-756e1dfdbc69",
+      "name": "gNwbYHkJLwEIusui",
+      "email": "mo.f.enehu.93.8@gmail.com",
+      "phone": "2423036132",
+      "message": "XvghTTHmwBqQgcIIJpzSOkD",
+      "created_at": "2026-07-14T23:26:23.675Z"
+    },
+    {
+      "id": "ad123e18-9bfe-472f-90ce-622699053d33",
+      "name": "gNwbYHkJLwEIusui",
+      "email": "mo.f.enehu.93.8@gmail.com",
+      "phone": "2423036132",
+      "message": "XvghTTHmwBqQgcIIJpzSOkD",
+      "created_at": "2026-07-14T23:26:28.625Z"
+    },
+    {
+      "id": "b5c8b28f-462c-45ca-8139-fc22d348d529",
+      "name": "fSsEHlmXnWJJhwLf",
+      "email": "b.a.n.ac.ex.ac.63@gmail.com",
+      "phone": "3637852532",
+      "message": "MCScjVnQXzefbZYRALXf",
+      "created_at": "2026-07-17T07:44:45.184Z"
+    },
+    {
+      "id": "539f0b6c-02a1-4d49-b7a4-c6656b23b7a0",
+      "name": "fSsEHlmXnWJJhwLf",
+      "email": "b.a.n.ac.ex.ac.63@gmail.com",
+      "phone": "3637852532",
+      "message": "MCScjVnQXzefbZYRALXf",
+      "created_at": "2026-07-17T07:44:49.336Z"
+    },
+    {
+      "id": "086adca4-27ee-44e9-8bef-4bdbf2ca6a7b",
+      "name": "fSsEHlmXnWJJhwLf",
+      "email": "b.a.n.ac.ex.ac.63@gmail.com",
+      "phone": "3637852532",
+      "message": "MCScjVnQXzefbZYRALXf",
+      "created_at": "2026-07-17T07:44:54.354Z"
+    },
+    {
+      "id": "b4517b7b-c1a8-4879-a641-55ff1ea44de2",
+      "name": "wRrTTnIzjatqMYJWrFeG",
+      "email": "m.es.of.em.u.r.ofi5.9@gmail.com",
+      "phone": "2661979307",
+      "message": "ARagrdaAdwyvDvspXWRdz",
+      "created_at": "2026-07-23T08:45:44.606Z"
+    },
+    {
+      "id": "6bcc7731-5dae-47eb-b257-599f3225b225",
+      "name": "wRrTTnIzjatqMYJWrFeG",
+      "email": "m.es.of.em.u.r.ofi5.9@gmail.com",
+      "phone": "2661979307",
+      "message": "ARagrdaAdwyvDvspXWRdz",
+      "created_at": "2026-07-23T08:45:47.560Z"
+    },
+    {
+      "id": "15ca7f4a-61bd-409d-b0cc-515a55bb9772",
+      "name": "wRrTTnIzjatqMYJWrFeG",
+      "email": "m.es.of.em.u.r.ofi5.9@gmail.com",
+      "phone": "2661979307",
+      "message": "ARagrdaAdwyvDvspXWRdz",
+      "created_at": "2026-07-23T08:45:52.619Z"
+    },
+    {
+      "id": "87f840a6-52fb-4592-9a74-5f236e2f9c82",
+      "name": "VIchEUdnpCjbFTrQpS",
+      "email": "anih.i.c.u.dat04.2@gmail.com",
+      "phone": "5459815007",
+      "message": "bxQBCsamqLxOsaHVJqKd",
+      "created_at": "2026-07-23T11:46:16.104Z"
+    },
+    {
+      "id": "61836f17-57b6-4c8b-a995-d101afbc59cb",
+      "name": "BQTZbkKvtjjYErNylVhpozQ",
+      "email": "s.alva.ra.doyg45@gmail.com",
+      "phone": "2555759187",
+      "message": "hUgcBYzpJQzaPxwvtAWClU",
+      "created_at": "2026-07-24T15:11:32.697Z"
+    },
+    {
+      "id": "d07beeb3-81b0-44b1-a7f9-b3d9914d3884",
+      "name": "BQTZbkKvtjjYErNylVhpozQ",
+      "email": "s.alva.ra.doyg45@gmail.com",
+      "phone": "2555759187",
+      "message": "hUgcBYzpJQzaPxwvtAWClU",
+      "created_at": "2026-07-24T15:11:36.585Z"
+    },
+    {
+      "id": "adb3cd57-90c7-466f-85e0-8e5bf4318daa",
+      "name": "BQTZbkKvtjjYErNylVhpozQ",
+      "email": "s.alva.ra.doyg45@gmail.com",
+      "phone": "2555759187",
+      "message": "hUgcBYzpJQzaPxwvtAWClU",
+      "created_at": "2026-07-24T15:11:41.629Z"
+    },
+    {
+      "id": "eed07fbe-e493-47c9-9f92-7e87662cbf34",
+      "name": "MGXJciebJaUWyJxoBrpFBg",
+      "email": "u.wa.p.i.yu.n.105@gmail.com",
+      "phone": "7321882414",
+      "message": "FaJQCAkCFhYGuLLf",
+      "created_at": "2026-07-25T15:05:56.273Z"
+    },
+    {
+      "id": "b4cc57a0-e400-457f-a7b7-04a27ed1371b",
+      "name": "MGXJciebJaUWyJxoBrpFBg",
+      "email": "u.wa.p.i.yu.n.105@gmail.com",
+      "phone": "7321882414",
+      "message": "FaJQCAkCFhYGuLLf",
+      "created_at": "2026-07-25T15:06:00.445Z"
+    },
+    {
+      "id": "5fda4a46-04d2-472d-b4fd-a9d742be7efc",
+      "name": "MGXJciebJaUWyJxoBrpFBg",
+      "email": "u.wa.p.i.yu.n.105@gmail.com",
+      "phone": "7321882414",
+      "message": "FaJQCAkCFhYGuLLf",
+      "created_at": "2026-07-25T15:06:06.157Z"
+    },
+    {
+      "id": "32019569-5f53-4699-b4b7-e800c41c04e2",
+      "name": "cXTWydfQnquJxuowvzDmdzz",
+      "email": "pel.a.kuyu01@gmail.com",
+      "phone": "3636625956",
+      "message": "QWsGLHuZlemhLqnffAUEWUSq",
+      "created_at": "2026-07-27T10:11:32.810Z"
+    },
+    {
+      "id": "84cfb44b-e6fd-4f64-8b06-d49bc357f446",
+      "name": "cXTWydfQnquJxuowvzDmdzz",
+      "email": "pel.a.kuyu01@gmail.com",
+      "phone": "3636625956",
+      "message": "QWsGLHuZlemhLqnffAUEWUSq",
+      "created_at": "2026-07-27T10:11:36.928Z"
+    },
+    {
+      "id": "2d710ff4-ac5b-4f61-90f0-f53f815abb17",
+      "name": "cXTWydfQnquJxuowvzDmdzz",
+      "email": "pel.a.kuyu01@gmail.com",
+      "phone": "3636625956",
+      "message": "QWsGLHuZlemhLqnffAUEWUSq",
+      "created_at": "2026-07-27T10:11:41.980Z"
+    },
+    {
+      "id": "1f69e367-d30d-483f-843d-60b68111b188",
+      "name": "hnOfcgUfBtNfsoixpGw",
+      "email": "ra.t.e.nu.k.a1.8@gmail.com",
+      "phone": "2473811137",
+      "message": "XJWPHtPbYXnoREqRZQGlGD",
+      "created_at": "2026-07-29T02:32:09.289Z"
+    },
+    {
+      "id": "86e93da6-9ca8-4835-b121-90b6eee0b412",
+      "name": "hnOfcgUfBtNfsoixpGw",
+      "email": "ra.t.e.nu.k.a1.8@gmail.com",
+      "phone": "2473811137",
+      "message": "XJWPHtPbYXnoREqRZQGlGD",
+      "created_at": "2026-07-29T02:32:16.055Z"
+    },
+    {
+      "id": "8ccde2f2-b276-48ce-9fe8-7e2ed58866b7",
+      "name": "hnOfcgUfBtNfsoixpGw",
+      "email": "ra.t.e.nu.k.a1.8@gmail.com",
+      "phone": "2473811137",
+      "message": "XJWPHtPbYXnoREqRZQGlGD",
+      "created_at": "2026-07-29T02:32:24.071Z"
+    },
+    {
+      "id": "2ed3ddb2-92e5-4935-85db-d813e96ce130",
+      "name": "IlFksHGFjUfmQpeDPuIva",
+      "email": "fov.e.x.i.ki.582@gmail.com",
+      "phone": "3084307168",
+      "message": "YbxeQRxJSLRRccHzTJ",
+      "created_at": "2026-07-30T08:38:34.954Z"
+    },
+    {
+      "id": "b53101f7-8df2-4805-a4df-b847c3f83116",
+      "name": "IlFksHGFjUfmQpeDPuIva",
+      "email": "fov.e.x.i.ki.582@gmail.com",
+      "phone": "3084307168",
+      "message": "YbxeQRxJSLRRccHzTJ",
+      "created_at": "2026-07-30T08:38:39.313Z"
+    },
+    {
+      "id": "da8efe96-e8e9-47ce-bafc-e4e583a1845f",
+      "name": "IlFksHGFjUfmQpeDPuIva",
+      "email": "fov.e.x.i.ki.582@gmail.com",
+      "phone": "3084307168",
+      "message": "YbxeQRxJSLRRccHzTJ",
+      "created_at": "2026-07-30T08:38:44.377Z"
+    },
+    {
+      "id": "fabc450a-ed30-4ca6-ae73-02092bb93da2",
+      "name": "TbbWIPWkQhrUBUxSsSeBVJS",
+      "email": "z.ec.i.q.e.v.uh5.30@gmail.com",
+      "phone": "3584744707",
+      "message": "XcHNbmNrMtHEXUyLw",
+      "created_at": "2026-08-15T10:01:49.411Z"
+    },
+    {
+      "id": "6001073d-5d89-4b88-90bf-1852e930c643",
+      "name": "TbbWIPWkQhrUBUxSsSeBVJS",
+      "email": "z.ec.i.q.e.v.uh5.30@gmail.com",
+      "phone": "3584744707",
+      "message": "XcHNbmNrMtHEXUyLw",
+      "created_at": "2026-08-15T10:01:53.683Z"
+    },
+    {
+      "id": "9dec853a-7692-4b79-a26d-f65246fddc67",
+      "name": "TbbWIPWkQhrUBUxSsSeBVJS",
+      "email": "z.ec.i.q.e.v.uh5.30@gmail.com",
+      "phone": "3584744707",
+      "message": "XcHNbmNrMtHEXUyLw",
+      "created_at": "2026-08-15T10:01:58.788Z"
+    },
+    {
+      "id": "1068c519-1007-48d4-a2c8-49e3343fcd05",
+      "name": "BpdbiVtTCTmIJdelJSPUPLcN",
+      "email": "lihalo.ci.6.9@gmail.com",
+      "phone": "8750934681",
+      "message": "VbwAseRSbeCTpYPI",
+      "created_at": "2026-08-24T21:33:36.190Z"
+    },
+    {
+      "id": "89c78374-c3bd-486c-9a8b-bde1d07cd89b",
+      "name": "BpdbiVtTCTmIJdelJSPUPLcN",
+      "email": "lihalo.ci.6.9@gmail.com",
+      "phone": "8750934681",
+      "message": "VbwAseRSbeCTpYPI",
+      "created_at": "2026-08-24T21:33:41.357Z"
+    },
+    {
+      "id": "5a2029ba-d0e5-4fcf-a064-7962e49e6af2",
+      "name": "BpdbiVtTCTmIJdelJSPUPLcN",
+      "email": "lihalo.ci.6.9@gmail.com",
+      "phone": "8750934681",
+      "message": "VbwAseRSbeCTpYPI",
+      "created_at": "2026-08-24T21:33:45.520Z"
+    },
+    {
+      "id": "c2a41c2c-0826-441c-a226-9f2a0a2cfadd",
+      "name": "hCGxRqwZYRTlJesaQBeROXCt",
+      "email": "ine.y.ideno.z43@gmail.com",
+      "phone": "7035487463",
+      "message": "PMoxGEwyHUPPGuhfW",
+      "created_at": "2026-08-30T14:34:27.201Z"
+    },
+    {
+      "id": "0d2fa046-e887-4e1b-aa1f-6b5f97024bfd",
+      "name": "hCGxRqwZYRTlJesaQBeROXCt",
+      "email": "ine.y.ideno.z43@gmail.com",
+      "phone": "7035487463",
+      "message": "PMoxGEwyHUPPGuhfW",
+      "created_at": "2026-08-30T14:34:31.571Z"
+    },
+    {
+      "id": "83770068-fd99-4e3c-ad5e-630545a3508c",
+      "name": "hCGxRqwZYRTlJesaQBeROXCt",
+      "email": "ine.y.ideno.z43@gmail.com",
+      "phone": "7035487463",
+      "message": "PMoxGEwyHUPPGuhfW",
+      "created_at": "2026-08-30T14:34:36.499Z"
+    },
+    {
+      "id": "a93f9f24-4f50-44b2-9ea8-bd8347f76d63",
+      "name": "ccIhresKshhfPrACROhkx",
+      "email": "m.ignon.b.a.u.t.i.s.ta42.9@gmail.com",
+      "phone": "3983577899",
+      "message": "recbcukKwIEdmGWOhd",
+      "created_at": "2026-09-04T22:31:27.463Z"
+    },
+    {
+      "id": "6826096d-7192-4987-94dc-81827c69a92f",
+      "name": "ccIhresKshhfPrACROhkx",
+      "email": "m.ignon.b.a.u.t.i.s.ta42.9@gmail.com",
+      "phone": "3983577899",
+      "message": "recbcukKwIEdmGWOhd",
+      "created_at": "2026-09-04T22:31:31.907Z"
+    },
+    {
+      "id": "50ca6243-a8f3-40b7-a121-7eb6fc5954d5",
+      "name": "ccIhresKshhfPrACROhkx",
+      "email": "m.ignon.b.a.u.t.i.s.ta42.9@gmail.com",
+      "phone": "3983577899",
+      "message": "recbcukKwIEdmGWOhd",
+      "created_at": "2026-09-04T22:31:36.927Z"
+    },
+    {
+      "id": "95bb2321-149e-47fe-82de-56c7a6120cdd",
+      "name": "MAtneFqwulgBFGaaJXMPzO",
+      "email": "d.u.yam.a.tejo.83.6@gmail.com",
+      "phone": "9318537093",
+      "message": "XbPKGEbOxdKhMEsrY",
+      "created_at": "2026-09-11T07:18:36.236Z"
+    },
+    {
+      "id": "013517ba-cc60-48b2-9599-2c8d3a5dc0d0",
+      "name": "MAtneFqwulgBFGaaJXMPzO",
+      "email": "d.u.yam.a.tejo.83.6@gmail.com",
+      "phone": "9318537093",
+      "message": "XbPKGEbOxdKhMEsrY",
+      "created_at": "2026-09-11T07:18:40.447Z"
+    },
+    {
+      "id": "314a02d3-5f6c-4707-a45a-c7fc0fba29ca",
+      "name": "MAtneFqwulgBFGaaJXMPzO",
+      "email": "d.u.yam.a.tejo.83.6@gmail.com",
+      "phone": "9318537093",
+      "message": "XbPKGEbOxdKhMEsrY",
+      "created_at": "2026-09-11T07:18:45.550Z"
+    },
+    {
+      "id": "0660f64b-a42a-41a5-a99a-5396d73dac8c",
+      "name": "oQBoGsyAnxbxUwgTGrUcfo",
+      "email": "u.w.ol.e.vi90.2@gmail.com",
+      "phone": "4653818153",
+      "message": "nuUgoqSzfCYDEfsbMXsv",
+      "created_at": "2026-09-27T11:03:52.256Z"
+    },
+    {
+      "id": "9b2a382d-0d89-45c2-9e11-673e1d1e9a0f",
+      "name": "oQBoGsyAnxbxUwgTGrUcfo",
+      "email": "u.w.ol.e.vi90.2@gmail.com",
+      "phone": "4653818153",
+      "message": "nuUgoqSzfCYDEfsbMXsv",
+      "created_at": "2026-09-27T11:03:56.899Z"
+    },
+    {
+      "id": "7d95451c-8f7a-458b-afb1-0b5ec3f6a86c",
+      "name": "oQBoGsyAnxbxUwgTGrUcfo",
+      "email": "u.w.ol.e.vi90.2@gmail.com",
+      "phone": "4653818153",
+      "message": "nuUgoqSzfCYDEfsbMXsv",
+      "created_at": "2026-09-27T11:04:02.148Z"
+    },
+    {
+      "id": "61cec37d-8288-4107-b3c5-c414cc0b549e",
+      "name": "bzqhvGFYmTETWTVHCTnFI",
+      "email": "e.bose.s.u.b.67.3@gmail.com",
+      "phone": "5429851508",
+      "message": "IZFLRAfHmyzzKFgyqSqDv",
+      "created_at": "2026-09-29T14:58:15.861Z"
+    },
+    {
+      "id": "2254aaaa-02ba-41f0-870d-58a3b31d9122",
+      "name": "bzqhvGFYmTETWTVHCTnFI",
+      "email": "e.bose.s.u.b.67.3@gmail.com",
+      "phone": "5429851508",
+      "message": "IZFLRAfHmyzzKFgyqSqDv",
+      "created_at": "2026-09-29T14:58:19.794Z"
+    },
+    {
+      "id": "e69f9ce6-9759-4b41-b348-d130b470cf14",
+      "name": "bzqhvGFYmTETWTVHCTnFI",
+      "email": "e.bose.s.u.b.67.3@gmail.com",
+      "phone": "5429851508",
+      "message": "IZFLRAfHmyzzKFgyqSqDv",
+      "created_at": "2026-09-29T14:58:25.084Z"
+    },
+    {
+      "id": "18c02aaf-101c-4df7-aa5a-deb6ae68e7a4",
+      "name": "yqaEgHhiVPLFqHWCTAlAHVsL",
+      "email": "q.u.yo.t.ulama.q.4.51@gmail.com",
+      "phone": "3870926737",
+      "message": "huAJzqseOyyaOtsQUiV",
+      "created_at": "2026-10-01T10:52:00.788Z"
+    },
+    {
+      "id": "f792a473-1c3d-4206-831c-d34be655b3c3",
+      "name": "yqaEgHhiVPLFqHWCTAlAHVsL",
+      "email": "q.u.yo.t.ulama.q.4.51@gmail.com",
+      "phone": "3870926737",
+      "message": "huAJzqseOyyaOtsQUiV",
+      "created_at": "2026-10-01T10:52:05.231Z"
+    },
+    {
+      "id": "50458da4-aac5-49a3-80e9-b688b999fe13",
+      "name": "yqaEgHhiVPLFqHWCTAlAHVsL",
+      "email": "q.u.yo.t.ulama.q.4.51@gmail.com",
+      "phone": "3870926737",
+      "message": "huAJzqseOyyaOtsQUiV",
+      "created_at": "2026-10-01T10:52:13.149Z"
+    },
+    {
+      "id": "26a7f1b9-3fdf-4ef8-b857-45771d20bc1c",
+      "name": "LIZiSdMIdkAWRauZYSXJ",
+      "email": "u.h.udi.f.aw95@gmail.com",
+      "phone": "5425480065",
+      "message": "CCZjomtfFAcSaHjPmxfZgm",
+      "created_at": "2026-10-02T00:00:19.243Z"
+    },
+    {
+      "id": "01c09652-5107-4fc8-9911-50e1447033aa",
+      "name": "LIZiSdMIdkAWRauZYSXJ",
+      "email": "u.h.udi.f.aw95@gmail.com",
+      "phone": "5425480065",
+      "message": "CCZjomtfFAcSaHjPmxfZgm",
+      "created_at": "2026-10-02T00:00:23.416Z"
+    },
+    {
+      "id": "b7b44a72-938b-42b6-a1db-eafdb49f3365",
+      "name": "LIZiSdMIdkAWRauZYSXJ",
+      "email": "u.h.udi.f.aw95@gmail.com",
+      "phone": "5425480065",
+      "message": "CCZjomtfFAcSaHjPmxfZgm",
+      "created_at": "2026-10-02T00:00:28.439Z"
+    },
+    {
+      "id": "f1ad0acf-09ab-4da1-9bd5-3431f65ed130",
+      "name": "DDJPZbfUXdsVUiMAJPGXp",
+      "email": "r.ij.u.du.joce64.1@gmail.com",
+      "phone": "4386510910",
+      "message": "XzLkiXmQWVPCxRARDHiKeFlL",
+      "created_at": "2026-10-03T08:16:17.179Z"
+    },
+    {
+      "id": "3b05fb29-397d-433b-8154-6470b4affb6c",
+      "name": "DDJPZbfUXdsVUiMAJPGXp",
+      "email": "r.ij.u.du.joce64.1@gmail.com",
+      "phone": "4386510910",
+      "message": "XzLkiXmQWVPCxRARDHiKeFlL",
+      "created_at": "2026-10-03T08:16:21.351Z"
+    },
+    {
+      "id": "34b2de73-615b-4c14-ac70-9c27aae719b2",
+      "name": "DDJPZbfUXdsVUiMAJPGXp",
+      "email": "r.ij.u.du.joce64.1@gmail.com",
+      "phone": "4386510910",
+      "message": "XzLkiXmQWVPCxRARDHiKeFlL",
+      "created_at": "2026-10-03T08:16:26.522Z"
+    }
+  ],
+  "demo_requests": [],
+  "explore_leads": [
+    {
+      "id": "d4372416-a930-4461-b101-195e9031ed9f",
+      "name": "Sayed Adnan Ali",
+      "email": "sayedadnanali905@gmail.com",
+      "phone": "09778803677",
+      "product_name": "Pixel CRM",
+      "message": "Interested in exploring product details",
+      "created_at": "2026-02-02T09:53:01.294Z"
+    },
+    {
+      "id": "86e969ba-f2e9-4114-9d77-a74369e23520",
+      "name": "Anup Ojha",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "product_name": "Pixel CRM",
+      "message": "Interested in exploring product details",
+      "created_at": "2026-02-24T18:56:14.152Z"
+    },
+    {
+      "id": "ff08f5d5-438e-4dbd-9f2f-9d460eefb7f5",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "product_name": "Pixel CRM",
+      "message": "Interested in exploring product details",
+      "created_at": "2026-04-01T16:49:33.982Z"
+    },
+    {
+      "id": "79dc956b-36f6-40e6-ae22-ef473faaa920",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "product_name": "Pixel CRM",
+      "message": "Interested in exploring product details",
+      "created_at": "2026-04-01T16:50:58.453Z"
+    },
+    {
+      "id": "e6412e83-3a9a-464d-a827-a113eb1f9e9f",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "product_name": "Inventory OS",
+      "message": "Interested in exploring product details",
+      "created_at": "2026-04-01T16:51:18.124Z"
+    },
+    {
+      "id": "789e7d26-2fa2-4dbe-8869-f48c4bf19d7a",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "product_name": "Pixel CRM",
+      "message": "Interested in exploring product details",
+      "created_at": "2026-04-01T17:52:08.946Z"
+    },
+    {
+      "id": "fdf3a349-a9eb-456f-aee4-e083bcb3556f",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "product_name": "Pixel CRM",
+      "message": "Interested in exploring product details",
+      "created_at": "2026-04-01T17:59:14.796Z"
+    },
+    {
+      "id": "746a4516-5e28-42fd-9553-dc0a6b11c730",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "product_name": "Inventory OS",
+      "message": "Interested in exploring product details",
+      "created_at": "2026-04-01T18:04:55.600Z"
+    },
+    {
+      "id": "89ab836d-7827-4034-9241-8914e95b36f4",
+      "name": "ANUP ANIL OJHA",
+      "email": "anup2001ojha@gmail.com",
+      "phone": "09309109229",
+      "product_name": "Pixel CRM",
+      "message": "Interested in exploring product details",
+      "created_at": "2026-04-02T18:07:43.486Z"
+    },
+    {
+      "id": "7c77e8d1-abf6-4ddf-9e92-663279e104a6",
+      "name": "Adnan Ali",
+      "email": "sayedadnanali905@gmail.com",
+      "phone": "9778803677",
+      "product_name": "Pixel CRM",
+      "message": "Interested in exploring product details",
+      "created_at": "2026-09-30T16:00:50.269Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "709fbedf-a1c6-4a75-8d6f-4e2f7140dd82",
+      "name": "Inventory OS",
+      "icon_name": "box",
+      "color": "green",
+      "short_desc": "Real-time tracking.",
+      "description": "The nervous system of your supply chain.",
+      "benefits": [
+        "Real-Time Sync",
+        "Smart Alerts"
+      ],
+      "explore_url": "https://inventory.pixelwebpages.com/",
+      "col_span": false,
+      "created_at": "2026-01-31T17:01:56.743Z"
+    },
+    {
+      "id": "498df1e9-af91-4399-8c3f-15605f4e9225",
+      "name": "Retail Pro",
+      "icon_name": "shopping-cart",
+      "color": "orange",
+      "short_desc": "Next-gen Point of Sale.",
+      "description": "Redefines the in-store experience.",
+      "benefits": [
+        "Omnichannel Ready",
+        "Customer Loyalty"
+      ],
+      "explore_url": "#",
+      "col_span": true,
+      "created_at": "2026-01-31T17:01:56.743Z"
+    },
+    {
+      "id": "e63659e3-baf0-4e46-990c-4f301b8678fb",
+      "name": "Event Flow",
+      "icon_name": "calendar",
+      "color": "purple",
+      "short_desc": "Seamless event organization. From ticketing to guest management.",
+      "description": "Event Flow takes the stress out of event management by unifying every moving part into a single dashboard.",
+      "benefits": [
+        "End-to-End Management.",
+        "Vendor Coordination.",
+        "Live Guest Tracking via QR."
+      ],
+      "explore_url": "#",
+      "col_span": false,
+      "created_at": "2026-01-31T17:05:24.242Z"
+    },
+    {
+      "id": "078e3c95-05b1-495b-9461-3c15d47b5223",
+      "name": "Finance Hub",
+      "icon_name": "dollar",
+      "color": "bg-[#ffeb0f]",
+      "short_desc": "Track expenses, invoices, and growth.",
+      "description": "Finance Hub demystifies business accounting. It tracks income and expenses in real-time, automates invoice generation.",
+      "benefits": [
+        "Automated Invoicing.",
+        "Expense Categorization.",
+        "Growth Visualization."
+      ],
+      "explore_url": "https://tse4.mm.bing.net/th/id/OIP.TYdKzSeIC_YaWgSy-P3RzQHaEK?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "col_span": false,
+      "created_at": "2026-01-31T17:05:24.242Z"
+    },
+    {
+      "id": "fb20c808-2678-42c9-98aa-0d398e460ff9",
+      "name": "Pixel CRM",
+      "icon_name": "userss",
+      "color": "blue",
+      "short_desc": "Manage leads like a pro.",
+      "description": "Pixel CRM transforms chaos into clarity. It is an intelligent engine for sales.",
+      "benefits": [
+        "Visual Sales Pipeline",
+        "Automated Follow-ups"
+      ],
+      "explore_url": "https://testcrm.pixelwebpages.com/",
+      "col_span": false,
+      "created_at": "2026-01-31T17:01:56.743Z"
+    }
+  ],
+  "services": [
+    {
+      "id": "fb045275-cfce-4d55-ad4c-5364b21b3856",
+      "title": "Web Dev & Payments",
+      "description": "Custom sites & secure payments.",
+      "color": "bg-[#bef264]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "Robust online stores with payment gateways.",
+          "title": "E-Commerce Store",
+          "points": [
+            "Seamless Payment Integration",
+            "Inventory Management",
+            "Analytics"
+          ]
+        },
+        {
+          "desc": "Professional branding sites for firms.",
+          "title": "Corporate Portfolio",
+          "points": [
+            "Company History",
+            "Team Showcases",
+            "Careers Portal"
+          ]
+        },
+        {
+          "desc": "High-conversion single-page sites.",
+          "title": "Landing Pages",
+          "points": [
+            "A/B Testing",
+            "Fast Loading",
+            "Optimized CTAs"
+          ]
+        },
+        {
+          "desc": "Secure gateway setup.",
+          "title": "Payment Integration",
+          "points": [
+            "Razorpay",
+            "Stripe",
+            "UPI"
+          ]
+        },
+        {
+          "desc": "Complex web applications.",
+          "title": "SaaS Dashboard",
+          "points": [
+            "User Auth",
+            "Real-time Data",
+            "Billing"
+          ]
+        },
+        {
+          "desc": "Content-heavy platforms.",
+          "title": "CMS Blogs",
+          "points": [
+            "SEO Optimized",
+            "Admin Panel",
+            "Multi-author"
+          ]
+        },
+        {
+          "desc": "Donation-focused websites.",
+          "title": "Non-Profit/NGO",
+          "points": [
+            "Secure Donation Gateway",
+            "Event Management",
+            "Volunteer Signups"
+          ]
+        },
+        {
+          "desc": "Rapid retail setup.",
+          "title": "Shopify Store",
+          "points": [
+            "Custom Theme Design",
+            "App Integrations",
+            "Dropshipping Ready"
+          ]
+        },
+        {
+          "desc": "Flexible content management.",
+          "title": "WordPress Site",
+          "points": [
+            "Plugin Ecosystem",
+            "Easy-to-Edit Content",
+            "SEO Plugin Setup"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "e9673536-8183-4e8c-9b5a-0b00d4406ec0",
+      "title": "UI/UX Designing",
+      "description": "User-centric interfaces.",
+      "color": "bg-[#c084fc]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "iOS and Android interface design.",
+          "title": "Mobile App Design",
+          "points": [
+            "iOS & Android Guidelines",
+            "Gestures",
+            "Dark Mode"
+          ]
+        },
+        {
+          "desc": "Interactive mockups.",
+          "title": "Prototyping",
+          "points": [
+            "Clickable Demos",
+            "User Testing",
+            "Micro-interactions"
+          ]
+        },
+        {
+          "desc": "Low-fidelity structural blueprints.",
+          "title": "Wireframing",
+          "points": [
+            "User Journey",
+            "Info Architecture",
+            "Layouts"
+          ]
+        },
+        {
+          "desc": "Comprehensive style guides.",
+          "title": "Design Systems",
+          "points": [
+            "Typography",
+            "Color Palettes",
+            "Components"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "0c45c90c-5c7b-45bb-b725-2e01a998e972",
+      "title": "Trademark Registration",
+      "description": "Protect your brand identity.",
+      "color": "bg-[#a855f7]",
+      "text_color": "text-white",
+      "sub_services": [
+        {
+          "desc": "Secure your brand name and logo.",
+          "title": "Brand Protection",
+          "points": [
+            "Class Selection",
+            "Application Filing",
+            "Status Tracking"
+          ]
+        },
+        {
+          "desc": "Legal replies to registry objections.",
+          "title": "Objection Handling",
+          "points": [
+            "Drafting Responses",
+            "Hearing Representation",
+            "Affidavits"
+          ]
+        },
+        {
+          "desc": "Protect creative assets.",
+          "title": "Copyright Filing",
+          "points": [
+            "Software Code",
+            "Artistic Work",
+            "Literary Content"
+          ]
+        },
+        {
+          "desc": "Maintain valid trademark status.",
+          "title": "Renewal Services",
+          "points": [
+            "Timely Alerts",
+            "Fee Processing",
+            "10-Year Extension"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "e3238116-321d-4604-a9d6-2dd05872d9bc",
+      "title": "GST & Legal",
+      "description": "Compliance and business laws.",
+      "color": "bg-[#94a3b8]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "Pvt Ltd, LLP, or OPC registration.",
+          "title": "Company Inc.",
+          "points": [
+            "DSC & DIN",
+            "MoA & AoA",
+            "Certificate of Inc."
+          ]
+        },
+        {
+          "desc": "New setup & monthly return filing.",
+          "title": "GST Reg. & Filing",
+          "points": [
+            "New GSTIN",
+            "GSTR-1 & 3B",
+            "Input Tax Credit"
+          ]
+        },
+        {
+          "desc": "Contracts, NDAs, and bonds.",
+          "title": "Legal Agreements",
+          "points": [
+            "Client Contracts",
+            "Vendor Agreements",
+            "Employment Bonds"
+          ]
+        },
+        {
+          "desc": "Financial compliance and audits.",
+          "title": "Audit Support",
+          "points": [
+            "Bookkeeping",
+            "Tax Audit",
+            "Balance Sheet"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "9c186ab5-ddf2-4135-a743-06b1d66237eb",
+      "title": "Logo Designing",
+      "description": "Brand identity & visuals.",
+      "color": "bg-[#2dd4bf]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "Complete visual language for your brand.",
+          "title": "Brand Identity",
+          "points": [
+            "Visual Tone Voice",
+            "Color Psychology",
+            "Brand Guidelines"
+          ]
+        },
+        {
+          "desc": "Minimalist lettermark logos.",
+          "title": "Monograms",
+          "points": [
+            "Initials Based",
+            "Geometric Design",
+            "Scalable Vector"
+          ]
+        },
+        {
+          "desc": "Typography-based logos.",
+          "title": "Wordmarks",
+          "points": [
+            "Custom Fonts",
+            "Kerning",
+            "Distinctive Style"
+          ]
+        },
+        {
+          "desc": "Modernizing existing brand assets.",
+          "title": "Rebranding",
+          "points": [
+            "Market Alignment",
+            "Modern Aesthetics",
+            "Asset Updates"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "db497fd0-7b19-4b9b-92b2-2363c4c34b58",
+      "title": "Performance Marketing",
+      "description": "Data-driven growth.",
+      "color": "bg-[#f472b6]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "Search engine optimization & marketing.",
+          "title": "SEO/SEM",
+          "points": [
+            "Keyword Research",
+            "On-Page Optimization",
+            "Backlink Strategy"
+          ]
+        },
+        {
+          "desc": "Targeted campaigns on IG, LinkedIn & FB.",
+          "title": "Social Ads",
+          "points": [
+            "Audience Targeting",
+            "A/B Testing",
+            "ROI Tracking"
+          ]
+        },
+        {
+          "desc": "Deep dive into user behavior.",
+          "title": "Analytics",
+          "points": [
+            "Funnel Analysis",
+            "Heatmaps",
+            "Traffic Reports"
+          ]
+        },
+        {
+          "desc": "Engaging content for higher retention.",
+          "title": "Content Strategy",
+          "points": [
+            "Blog Planning",
+            "Social Calendars",
+            "Engagement Metrics"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "b844b11b-0498-4954-a017-6ca95c3b843d",
+      "title": "Application & Software",
+      "description": "Mobile and desktop solutions.",
+      "color": "bg-[#60a5fa]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "High-performance mobile apps.",
+          "title": "Native iOS/Android",
+          "points": [
+            "Swift & Kotlin",
+            "Device Features",
+            "Store Approval"
+          ]
+        },
+        {
+          "desc": "React Native or Flutter apps.",
+          "title": "Cross-Platform",
+          "points": [
+            "Single Codebase",
+            "Faster Delivery",
+            "Cost Effective"
+          ]
+        },
+        {
+          "desc": "Electron or native desktop apps.",
+          "title": "Desktop Software",
+          "points": [
+            "Offline Capabilities",
+            "System Integration",
+            "Large Screen UX"
+          ]
+        },
+        {
+          "desc": "Custom operations software.",
+          "title": "Internal Tools",
+          "points": [
+            "Automation",
+            "Data Entry",
+            "Admin Controls"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "2061ecdb-99a8-4e2e-9a21-7f3417e1611a",
+      "title": "Cloud Migration",
+      "description": "Scalable infrastructure.",
+      "color": "bg-[#fb923c]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "Secure, scalable environments.",
+          "title": "AWS/Azure Setup",
+          "points": [
+            "Instances",
+            "Load Balancing",
+            "Security Groups"
+          ]
+        },
+        {
+          "desc": "Moving legacy data systems.",
+          "title": "Database Migration",
+          "points": [
+            "Zero Downtime",
+            "Data Integrity",
+            "Schema Mapping"
+          ]
+        },
+        {
+          "desc": "Cost-effective functions.",
+          "title": "Serverless Arch",
+          "points": [
+            "Pay-per-use",
+            "Auto-scaling",
+            "Event Driven"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "9d21d762-f6e6-45ae-b454-99ff0d9f4389",
+      "title": "Poster/Flyer Design",
+      "description": "Print and digital visual assets.",
+      "color": "bg-[#f472b6]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "Eye-catching visuals.",
+          "title": "Event Posters",
+          "points": [
+            "High Resolution",
+            "Visual Hierarchy",
+            "Call To Action"
+          ]
+        },
+        {
+          "desc": "Informational handouts.",
+          "title": "Business Flyers",
+          "points": [
+            "Compact Info",
+            "Distributable",
+            "QR Codes"
+          ]
+        },
+        {
+          "desc": "Technical details for printing.",
+          "title": "Print Management",
+          "points": [
+            "CMYK Color Mode",
+            "Bleed & Trim Setup",
+            "Paper Selection"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "3dfc7250-c0a8-453b-a131-ad6100786055",
+      "title": "Signage Designing",
+      "description": "Large format outdoor advertising.",
+      "color": "bg-[#facc15]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "Large-scale visuals.",
+          "title": "Billboards",
+          "points": [
+            "High Impact",
+            "Simple Messaging",
+            "Distance Readability"
+          ]
+        },
+        {
+          "desc": "Window decals and 3D lettering.",
+          "title": "Storefronts",
+          "points": [
+            "Vinyl Decals",
+            "Channel Letters",
+            "Lighting Effects"
+          ]
+        },
+        {
+          "desc": "Directional signage.",
+          "title": "Wayfinding",
+          "points": [
+            "Clear Icons",
+            "Directory Maps",
+            "Accessibility"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "ead56309-50b2-4e6d-a03f-f418c60e32dd",
+      "title": "PPT Making",
+      "description": "Professional decks.",
+      "color": "bg-[#f87171]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "Compelling narratives.",
+          "title": "Investor Pitch",
+          "points": [
+            "Financial Projections",
+            "Market Sizing",
+            "Problem/Solution"
+          ]
+        },
+        {
+          "desc": "Standardized templates.",
+          "title": "Corporate Sales",
+          "points": [
+            "Product Specs",
+            "Case Studies",
+            "Pricing Tables"
+          ]
+        },
+        {
+          "desc": "Clear, engaging slides.",
+          "title": "Educational",
+          "points": [
+            "Visual Aids",
+            "Summaries",
+            "Interactive Elements"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "870441a3-a1bc-4a5b-87c5-eede737eb187",
+      "title": "Sales & Marketing",
+      "description": "Accelerate revenue and growth.",
+      "color": "bg-[#4ade80]",
+      "text_color": "text-black",
+      "sub_services": [
+        {
+          "desc": "Optimizing the customer journey.",
+          "title": "Sales Funnel",
+          "points": [
+            "Lead Magnet Design",
+            "Landing Page Ops",
+            "Conversion Tracking"
+          ]
+        },
+        {
+          "desc": "Strategic roadmaps for growth.",
+          "title": "Marketing Plans",
+          "points": [
+            "Competitor Analysis",
+            "Channel Strategy",
+            "Budget Allocation"
+          ]
+        },
+        {
+          "desc": "Automated email sequences.",
+          "title": "Lead Nurturing",
+          "points": [
+            "Drip Campaigns",
+            "CRM Integration",
+            "Customer Segmentation"
+          ]
+        },
+        {
+          "desc": "Data-driven insights.",
+          "title": "Market Research",
+          "points": [
+            "Customer Surveys",
+            "Trend Analysis",
+            "SWOT Analysis"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    },
+    {
+      "id": "070cb851-341b-4e2c-9355-a5f509697fce",
+      "title": "LinkedIn Management",
+      "description": "Professional branding growth.",
+      "color": "bg-blue-500",
+      "text_color": "text-white",
+      "sub_services": [
+        {
+          "desc": "Revamping bios and headlines.",
+          "title": "Profile Optimization",
+          "points": [
+            "Headline Crafting",
+            "Skill Tagging",
+            "Banner Design"
+          ]
+        },
+        {
+          "desc": "Ghostwriting thought leadership.",
+          "title": "Content Strategy",
+          "points": [
+            "Industry Insights",
+            "Storytelling",
+            "Consistent Posting"
+          ]
+        },
+        {
+          "desc": "Targeted outreach campaigns.",
+          "title": "Lead Generation",
+          "points": [
+            "Connection Requests",
+            "Cold Messaging",
+            "Network Growth"
+          ]
+        }
+      ],
+      "created_at": "2026-01-31T18:08:59.453Z"
+    }
+  ],
+  "team_members": [
+    {
+      "id": "166c20cb-6c97-4d0d-b6f3-d8fec75d6f1b",
+      "name": "Ayush",
+      "role": "Co-Founder",
+      "quote": "Code to create, act to innovate",
+      "image": "https://i.ibb.co/Fbf7fBzC/Ayush.jpg",
+      "color": "bg-green-400",
+      "text_color": "text-black",
+      "created_at": "2026-01-31T17:01:56.743Z"
+    },
+    {
+      "id": "72f35a06-b9d3-43a5-84ca-95a5694d98ff",
+      "name": "Adnan",
+      "role": "Founder",
+      "quote": "Observe to learn, execute to lead",
+      "image": "https://i.ibb.co/fGFZVb43/PHOTO-2025-10-17-16-18-48.jpg",
+      "color": "bg-purple-400",
+      "text_color": "text-black",
+      "created_at": "2026-01-31T17:01:56.743Z"
+    },
+    {
+      "id": "11a63d82-cf0b-4475-a06a-103481834b64",
+      "name": "Anup Ojha",
+      "role": "Software Developer",
+      "quote": "Anything can be solved or achieved, you just need the right person.",
+      "image": "https://i.ibb.co/DPKntW6p/PHOTO-2026-04-29-12-50-01.jpg",
+      "color": "bg-green-500",
+      "text_color": null,
+      "created_at": "2026-04-29T12:23:10.104Z"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "a7ea1401-82ba-42b8-90c2-53c620632bac",
+      "name": "Raunak Singhal",
+      "role": "Sikhaid NGO",
+      "rating": "5",
+      "text": "Pixel WebPages helped us restart our donation drive.",
+      "created_at": "2026-01-31T17:01:56.743Z"
+    },
+    {
+      "id": "5b3b53fc-62b2-4835-b06d-4c430a65695b",
+      "name": "Badsha Magic",
+      "role": "Magician",
+      "rating": "5",
+      "text": "My booking calendar has never been busier.",
+      "created_at": "2026-01-31T17:01:56.743Z"
+    },
+    {
+      "id": "a9b4fbc5-54fa-4ac7-9c4a-e8bcf8e5cffb",
+      "name": "Mahesh Kumar",
+      "role": "Lead Architect",
+      "rating": "4.5",
+      "text": "Clean lines, modern structure—they understood my architectural philosophy and translated it into a stunning website.",
+      "created_at": "2026-01-31T17:05:24.242Z"
+    },
+    {
+      "id": "33e71cbe-c6a6-467c-85d5-0dc5bac69002",
+      "name": "Rohan Das",
+      "role": "Healthcare Ops",
+      "rating": "5",
+      "text": "Our medical services portal is now seamless. Patient bookings are smooth, and the backend is robust.",
+      "created_at": "2026-01-31T17:05:24.242Z"
+    },
+    {
+      "id": "9bb6f49e-9688-4fc1-b8d9-971c23d0210c",
+      "name": "Anjali Verma",
+      "role": "Home Baker",
+      "rating": "5",
+      "text": "They designed a mouth-watering landing page for my home bakery. Orders have poured in from Instagram!",
+      "created_at": "2026-01-31T17:05:24.242Z"
+    },
+    {
+      "id": "dfde6cd0-78f1-4659-b0fc-1b759613a95a",
+      "name": "Priya Sharma",
+      "role": "Freelance Writer",
+      "rating": "4",
+      "text": "As a freelance writer, I needed a simple yet professional showcase. Pixel delivered exactly that. Highly recommended.",
+      "created_at": "2026-01-31T17:05:24.242Z"
+    }
+  ]
+}

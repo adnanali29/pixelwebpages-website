@@ -437,3 +437,20 @@ export const Bell: React.FC<IconProps> = (props) => (
         <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
     </IconBase>
 );
+
+export const Headphones: React.FC<IconProps> = (props) => (
+    <IconBase {...props}>
+        <path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" />
+    </IconBase>
+);
+
+export const Sparkles: React.FC<IconProps> = (props) => (
+    <IconBase {...props}>
+        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+        <path d="M5 3v4" />
+        <path d="M19 17v4" />
+        <path d="M3 5h4" />
+        <path d="M17 19h4" />
+    </IconBase>
+);
+

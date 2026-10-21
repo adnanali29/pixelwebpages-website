@@ -1,45 +1,98 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import { Mail, Phone, Instagram, Facebook, Linkedin, Globe } from '../icons';
+import { usePathname } from 'next/navigation';
+import { Mail, Phone, Instagram, Facebook, Linkedin, Globe, ArrowRight } from '../icons';
 import { siteConfig } from '@/lib/constants';
+import InteractiveRobot from './InteractiveRobot';
 
 export default function Footer() {
+    const pathname = usePathname();
+
     return (
-        <div className="bg-black pt-20">
-            {/* CTA Section - "Have something in mind?" */}
-            <div className="max-w-7xl mx-auto px-4 mb-20">
-                <div className="bg-[#bef264] rounded-[3rem] p-8 md:p-14 flex flex-col md:flex-row items-center justify-between shadow-[8px_8px_0px_0px_rgba(0,0,0,0.25)] border-4 border-black transform hover:scale-[1.01] transition-transform duration-300">
-                    <div>
-                        <h2 className="text-4xl md:text-6xl font-black text-black mb-3 tracking-tighter">
-                            Have something in mind?
-                        </h2>
-                        <p className="text-zinc-800 font-bold text-lg md:text-xl">
-                            We might have missed it. Tell us!
-                        </p>
+        <div className="bg-black pt-4 sm:pt-6">
+            {/* ========================================================
+                1. PRE-FOOTER CTA BANNER (DISPLAYED ACROSS ALL PAGES)
+               ======================================================== */}
+            <div className="max-w-7xl mx-auto px-4 mb-16 sm:mb-20">
+                <div className="bg-zinc-950 border border-zinc-800/90 rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 lg:p-12 relative overflow-hidden shadow-2xl backdrop-blur-md">
+                    {/* Ambient subtle glow */}
+                    <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[#bef264]/10 rounded-full blur-[140px] pointer-events-none" />
+                    
+                    {/* Subtle grid background pattern */}
+                    <div 
+                        className="absolute inset-0 opacity-15 pointer-events-none"
+                        style={{
+                            backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px)',
+                            backgroundSize: '24px 24px'
+                        }}
+                    />
+
+                    <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+                        {/* Left Side: Robot Image & Headline */}
+                        <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 sm:gap-8 flex-1">
+                            {/* Interactive 2D Robot Mascot */}
+                            <InteractiveRobot compact={true} />
+
+                            {/* Copy & Headline */}
+                            <div className="space-y-3 max-w-2xl">
+                                <div className="inline-flex">
+                                    <span className="px-3.5 py-1 rounded-full bg-[#bef264] text-black font-mono text-[11px] font-black tracking-widest uppercase shadow-[0_0_12px_rgba(190,242,100,0.3)]">
+                                        LET'S BUILD TOGETHER
+                                    </span>
+                                </div>
+
+                                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white uppercase tracking-tight leading-[1.1]">
+                                    GREAT IDEAS DESERVE <br className="hidden sm:block" />
+                                    A GREAT <span className="text-[#bef264]">TECHNOLOGY PARTNER.</span>
+                                </h2>
+
+                                <p className="text-zinc-400 text-xs sm:text-sm font-medium leading-relaxed">
+                                    Have a project, product idea or a bigger vision? Let's build it together.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Right Side: Action Buttons */}
+                        <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto shrink-0">
+                            <Link
+                                href="/contact"
+                                className="w-full sm:w-auto px-7 py-4 bg-white text-black font-black text-xs sm:text-sm uppercase tracking-wider rounded-2xl hover:bg-[#bef264] transition-all flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(255,255,255,0.2)] hover:scale-105 active:scale-95 whitespace-nowrap"
+                            >
+                                <span>START A PROJECT</span>
+                                <ArrowRight size={16} />
+                            </Link>
+
+                            <Link
+                                href="tel:+919778803677"
+                                className="w-full sm:w-auto px-7 py-4 bg-black border border-zinc-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider rounded-2xl hover:border-zinc-600 transition-all text-center hover:scale-105 active:scale-95 whitespace-nowrap"
+                            >
+                                TALK TO PIXEL
+                            </Link>
+                        </div>
                     </div>
-                    <Link
-                        href="/contact"
-                        className="mt-8 md:mt-0 px-10 py-5 bg-black text-white font-black text-xl rounded-2xl shadow-[6px_6px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-none hover:translate-y-1 active:scale-95 transition-all text-center"
-                    >
-                        Contact Us
-                    </Link>
                 </div>
             </div>
 
-            {/* Footer */}
+            {/* ========================================================
+                2. MAIN FOOTER
+               ======================================================== */}
             <footer className="bg-black border-t border-zinc-900 pt-16 pb-12">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-zinc-900 pb-16">
                         {/* Brand Column */}
                         <div className="md:col-span-2">
                             <Link href="/" className="flex items-center gap-3 mb-8 group w-fit">
-                                <img
-                                    src="https://i.ibb.co/MDRZ7svJ/1.png"
-                                    alt="Pixel WebPages Logo"
-                                    className="w-12 h-12 rounded-2xl object-contain border border-zinc-800 bg-black group-hover:rotate-12 transition-transform"
-                                />
-                                <span className="text-white font-black text-2xl tracking-tighter group-hover:text-[#bef264] transition-colors">
-                                    Pixel WebPages
+                                <div className="w-12 h-12 flex items-center justify-center">
+                                    <img
+                                        src="/images/logo-white.png"
+                                        alt="Pixel WebPages Logo"
+                                        className="w-full h-full object-contain group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300"
+                                    />
+                                </div>
+                                <span className="text-white font-black text-2xl tracking-tighter uppercase">
+                                    PIXEL WEBPAGES
                                 </span>
                             </Link>
                             <p className="text-zinc-400 font-bold text-lg max-w-sm mb-10 leading-relaxed">
@@ -119,6 +172,16 @@ export default function Footer() {
                             </h3>
                             <ul className="space-y-4">
                                 <li>
+                                    <Link href="/work" className="text-zinc-500 hover:text-[#bef264] transition-colors font-bold block">
+                                        Our Work
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/case-studies" className="text-zinc-500 hover:text-[#bef264] transition-colors font-bold block">
+                                        Case Studies
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link href="/services" className="text-zinc-500 hover:text-[#bef264] transition-colors font-bold block">
                                         Our Services
                                     </Link>
@@ -126,6 +189,11 @@ export default function Footer() {
                                 <li>
                                     <Link href="/blogs" className="text-zinc-500 hover:text-[#bef264] transition-colors font-bold block">
                                         Blogs
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/about" className="text-zinc-500 hover:text-[#bef264] transition-colors font-bold block">
+                                        About Us
                                     </Link>
                                 </li>
                                 <li>
@@ -148,7 +216,7 @@ export default function Footer() {
                             © {new Date().getFullYear()} Pixel WebPages. All rights reserved.
                         </p>
                         <div className="flex items-center gap-2 text-zinc-600 font-bold text-sm">
-                            Designed with <span className="text-red-500 animate-pulse">♥</span>
+                            Designed with <span className="text-red-500 animate-pulse">♥</span> in India
                         </div>
                     </div>
                 </div>

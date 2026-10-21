@@ -14,8 +14,57 @@ import type {
 
 // Projects
 export async function getProjects() {
-    const data = await getSql()`SELECT * FROM projects ORDER BY created_at DESC`;
-    return data as Project[];
+    try {
+        const data = await getSql()`SELECT * FROM projects ORDER BY created_at DESC`;
+        if (data && data.length > 0) {
+            return data as Project[];
+        }
+    } catch (error) {
+        console.error('Error fetching projects from DB:', error);
+    }
+
+    return [
+        {
+            id: 'p-addymeals',
+            name: 'Addy Meals',
+            url: 'https://www.addymeals.com/',
+            description: 'Fit Food & Healthy Meal Prep Platform',
+            color: 'bg-[#60a5fa]',
+            image: 'https://i.ibb.co/cc1RgLLz/BEIGE-VERTICAL-LOGO-ALT.png'
+        },
+        {
+            id: 'p-deepets',
+            name: 'Dee Pets',
+            url: 'https://pethealth.deepetservices.com/',
+            description: 'Veterinary & Pet Health Blood Test Services',
+            color: 'bg-[#fb923c]',
+            image: 'https://i.ibb.co/MDRZ7svJ/1.png'
+        },
+        {
+            id: 'p-beluga',
+            name: 'Beluga Global Exports',
+            url: 'https://www.belugaglobalexports.com/',
+            description: 'Seafood Cold-Chain & Global Logistics',
+            color: 'bg-[#f472b6]',
+            image: 'https://i.ibb.co/kgBj0d0Z/5.png'
+        },
+        {
+            id: 'p-viberoot',
+            name: 'Viberoot Essentials',
+            url: 'https://www.viberootessentials.com/',
+            description: 'Organic Beauty & Wellness Store',
+            color: 'bg-[#c084fc]',
+            image: 'https://i.ibb.co/YTPj0HN5/3.png'
+        },
+        {
+            id: 'p-sikhaid',
+            name: 'Sikhaid NGO',
+            url: 'https://sikhaid.ngo/',
+            description: 'Non-Profit Organization',
+            color: 'bg-[#4ade80]',
+            image: 'https://i.ibb.co/xqtNbtmF/4.png'
+        }
+    ] as Project[];
 }
 
 // Testimonials
@@ -57,8 +106,41 @@ export async function getTestimonials() {
 
 // Team Members
 export async function getTeamMembers() {
-    const data = await getSql()`SELECT * FROM team_members ORDER BY created_at ASC`;
-    return data as TeamMember[];
+    try {
+        const data = await getSql()`SELECT * FROM team_members ORDER BY created_at ASC`;
+        if (data && data.length > 0) {
+            return data as TeamMember[];
+        }
+    } catch (error) {
+        console.error('Error fetching team members:', error);
+    }
+
+    return [
+        {
+            id: '1',
+            name: 'Adnan',
+            role: 'Founder',
+            quote: 'Observe to learn, execute to lead',
+            image: 'https://i.ibb.co/fGFZVb43/PHOTO-2025-10-17-16-18-48.jpg',
+            color: 'bg-[#131316]'
+        },
+        {
+            id: '2',
+            name: 'Ayush',
+            role: 'Co-Founder',
+            quote: 'Code to create, act to innovate',
+            image: 'https://i.ibb.co/Fbf7fBzC/Ayush.jpg',
+            color: 'bg-[#131316]'
+        },
+        {
+            id: '3',
+            name: 'Anup Ojha',
+            role: 'Software Developer',
+            quote: 'Anything can be solved or achieved, you just need the right person.',
+            image: 'https://i.ibb.co/DPKntW6p/PHOTO-2026-04-29-12-50-01.jpg',
+            color: 'bg-[#131316]'
+        }
+    ] as TeamMember[];
 }
 
 // Products

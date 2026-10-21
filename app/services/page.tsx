@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { getServices, addContactSubmission } from '@/lib/actions';
 import {
-    ArrowRight, ShoppingCart, DollarSign, TrendingUp, Shield, Scale, Brain, Globe, Smartphone, Cloud, Database, Code, Rocket, Palette, Video, Music, Monitor, Users, CheckCircle, FileText, Mail, Phone, Linkedin, Calendar, Coffee, Heart, Truck, Zap, Box, X, Check
+    ArrowRight, ShoppingCart, DollarSign, TrendingUp, Shield, Scale, Brain, Globe, Smartphone, Cloud, Database, Code, Rocket, Palette, Video, Music, Monitor, Users, CheckCircle, FileText, Mail, Phone, Linkedin, Calendar, Coffee, Heart, Truck, Zap, Box, X, Check, Search
 } from '@/components/icons';
 import type { Service, SubService } from '@/lib/types';
+
+import RollingLetterHeading from '@/components/ui/RollingLetterHeading';
 
 // Icon mapping function
 const getSmartIcon = (name: string = "", size: number = 32, className: string = "") => {
@@ -61,9 +63,20 @@ const getSmartIcon = (name: string = "", size: number = 32, className: string = 
     return <Box {...props} />;
 };
 
+const SERVICE_CATEGORIES = [
+    'All Services',
+    'Web & Engineering',
+    'UI/UX & Design',
+    'Mobile Apps',
+    'Growth & Marketing',
+    'Cloud & Systems'
+];
+
 export default function ServicesPage() {
     const [services, setServices] = useState<Service[]>([]);
     const [activeCategory, setActiveCategory] = useState<Service | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string>('All Services');
+    const [searchQuery, setSearchQuery] = useState<string>('');
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedSubService, setSelectedSubService] = useState('');
     const [isLoading, setIsLoading] = useState(true);
@@ -128,62 +141,197 @@ export default function ServicesPage() {
         }
     };
 
+    // Filter services based on category and search query
+    const filteredServices = useMemo(() => {
+        return services.filter((cat) => {
+            const query = searchQuery.toLowerCase().trim();
+            const subList = Array.isArray(cat.sub_services) ? cat.sub_services : [];
+
+            // 1. Search Query Match
+            const matchesQuery = !query ||
+                cat.title.toLowerCase().includes(query) ||
+                cat.description.toLowerCase().includes(query) ||
+                subList.some(sub =>
+                    sub.title.toLowerCase().includes(query) ||
+                    sub.desc.toLowerCase().includes(query) ||
+                    (Array.isArray(sub.points) && sub.points.some(p => p.toLowerCase().includes(query)))
+                );
+
+            // 2. Category Tab Match
+            let matchesCategory = true;
+            if (selectedCategory !== 'All Services') {
+                const title = cat.title.toLowerCase();
+                const desc = cat.description.toLowerCase();
+                if (selectedCategory === 'Web & Engineering') {
+                    matchesCategory = title.includes('web') || title.includes('develop') || title.includes('software') || title.includes('code') || title.includes('full') || desc.includes('engineering');
+                } else if (selectedCategory === 'UI/UX & Design') {
+                    matchesCategory = title.includes('design') || title.includes('ui') || title.includes('ux') || title.includes('brand') || title.includes('creative') || desc.includes('visual');
+                } else if (selectedCategory === 'Mobile Apps') {
+                    matchesCategory = title.includes('app') || title.includes('mobile') || title.includes('ios') || title.includes('android');
+                } else if (selectedCategory === 'Growth & Marketing') {
+                    matchesCategory = title.includes('market') || title.includes('growth') || title.includes('seo') || title.includes('ads') || title.includes('campaign') || desc.includes('leads');
+                } else if (selectedCategory === 'Cloud & Systems') {
+                    matchesCategory = title.includes('cloud') || title.includes('system') || title.includes('data') || title.includes('automat') || title.includes('infra') || title.includes('server');
+                }
+            }
+
+            return matchesQuery && matchesCategory;
+        });
+    }, [services, searchQuery, selectedCategory]);
+
     if (isLoading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <div className="text-2xl font-bold text-white">Loading...</div>
+                <div className="text-2xl font-bold text-white">Loading services...</div>
             </div>
         );
     }
 
     if (!activeCategory) {
         return (
-            <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto min-h-screen relative overflow-hidden">
-                <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-[120px] animate-pulse pointer-events-none" />
-                <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#bef264]/10 rounded-full blur-[150px] animate-pulse delay-1000 pointer-events-none" />
-                <h1 className="text-4xl md:text-8xl font-black text-white mb-12 text-center">
-                    OUR <span className="text-[#bef264]">SERVICES.</span>
-                </h1>
+            <div className="pt-28 sm:pt-32 pb-24 px-4 max-w-7xl mx-auto min-h-screen relative overflow-hidden space-y-14 font-sans">
+                {/* Ambient Glows */}
+                <div className="absolute top-20 left-10 w-96 h-96 bg-[#bef264]/10 rounded-full blur-[140px] pointer-events-none" />
+                <div className="absolute top-1/2 right-10 w-96 h-96 bg-purple-900/10 rounded-full blur-[160px] pointer-events-none" />
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    {services.map((cat, i) => {
-                        const total = services.length;
-                        const itemsInLastRow = total % 4;
-                        let spanClass = 'md:col-span-1';
+                {/* ========================================================
+                    1. HERO SECTION (CENTER-ALIGNED LIKE PRODUCT & WORK)
+                   ======================================================== */}
+                <section className="relative z-10 text-center max-w-4xl mx-auto space-y-6">
+                    <div className="inline-flex">
+                        <span className="px-4 py-1.5 rounded-full bg-[#bef264] text-black font-mono text-xs font-black tracking-widest uppercase shadow-[0_0_15px_rgba(190,242,100,0.4)]">
+                            OUR SERVICES
+                        </span>
+                    </div>
 
-                        if (itemsInLastRow === 1 && i === total - 1) spanClass = 'md:col-span-4';
-                        if (itemsInLastRow === 2 && i >= total - 2) spanClass = 'md:col-span-2';
-                        if (itemsInLastRow === 3 && i === total - 3) spanClass = 'md:col-span-2';
+                    <RollingLetterHeading
+                        className="text-4xl sm:text-6xl md:text-7xl"
+                        lines={[
+                            [{ text: 'EVERY DIGITAL LAYER.' }],
+                            [{ text: 'UNDER ONE ROOF.', highlight: true }]
+                        ]}
+                    />
 
-                        return (
-                            <div
-                                key={cat.id}
-                                onClick={() => setActiveCategory(cat)}
-                                className={`group relative p-6 rounded-[2rem] cursor-pointer transition-all duration-300 ${cat.color} border-4 border-black shadow-[6px_6px_0px_0px_#fff] hover:shadow-[10px_10px_0px_0px_#fff] hover:-translate-y-1 active:scale-95 ${spanClass} min-h-[240px] flex flex-col justify-between overflow-hidden`}
-                            >
-                                <div className="flex justify-between items-start relative z-10">
-                                    <div className="bg-black/20 p-3 rounded-xl text-black backdrop-blur-sm">
-                                        {getSmartIcon(cat.title, 32)}
-                                    </div>
-                                    <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all -rotate-45 group-hover:rotate-0 shadow-lg">
-                                        <ArrowRight size={20} />
-                                    </div>
-                                </div>
+                    <p className="text-zinc-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                        From high-converting UI/UX design and brand systems to robust full-stack software, mobile apps, and automated cloud backends.
+                    </p>
+                </section>
 
-                                <div className="relative z-10 mt-2">
-                                    <h3 className={`text-2xl font-black leading-tight mb-2 ${cat.text_color}`}>
-                                        {cat.title}
-                                    </h3>
-                                    <p className={`font-bold text-xs line-clamp-2 ${cat.text_color === 'text-white' ? 'text-white/80' : 'text-black/70'}`}>
-                                        {cat.description}
-                                    </p>
-                                </div>
+                {/* ========================================================
+                    2. CATEGORY FILTER & SEARCH BAR (EXACT SCREENSHOT STYLE)
+                   ======================================================== */}
+                <section className="relative z-10 max-w-5xl mx-auto">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-zinc-950/90 border border-zinc-800/90 p-2 sm:p-2.5 rounded-3xl md:rounded-full shadow-2xl backdrop-blur-md">
+                        {/* Category Tabs */}
+                        <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto px-2 py-1 no-scrollbar">
+                            {SERVICE_CATEGORIES.map((cat) => (
+                                <button
+                                    key={cat}
+                                    onClick={() => setSelectedCategory(cat)}
+                                    className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 active:scale-95 ${
+                                        selectedCategory === cat
+                                            ? 'bg-[#bef264] text-black shadow-[0_0_15px_rgba(190,242,100,0.4)]'
+                                            : 'text-zinc-400 hover:text-white hover:bg-zinc-900/80'
+                                    }`}
+                                >
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
 
-                                <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-white opacity-20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+                        {/* Search Bar */}
+                        <div className="relative w-full md:w-80 px-2 md:px-0 md:pr-2">
+                            <input
+                                type="text"
+                                placeholder="Search services..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full bg-zinc-900/90 border border-zinc-800 rounded-full px-4 py-2.5 pl-10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#bef264] transition-colors"
+                            />
+                            <div className="absolute left-5 md:left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
+                                <Search size={15} />
                             </div>
-                        );
-                    })}
-                </div>
+                            {searchQuery && (
+                                <button
+                                    onClick={() => setSearchQuery('')}
+                                    className="absolute right-5 md:right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white text-xs"
+                                >
+                                    ✕
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </section>
+
+                {/* ========================================================
+                    3. GRID OF COLORFUL SERVICE CARDS (2-COL ON MOBILE)
+                   ======================================================== */}
+                {filteredServices.length > 0 ? (
+                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 relative z-10">
+                        {filteredServices.map((cat, i) => {
+                            const total = filteredServices.length;
+                            const itemsInLastRow = total % 4;
+                            let spanClass = 'col-span-1 md:col-span-1';
+
+                            if (itemsInLastRow === 1 && i === total - 1) spanClass = 'col-span-2 md:col-span-4 lg:col-span-4';
+                            else if (itemsInLastRow === 2 && i >= total - 2) spanClass = 'col-span-1 md:col-span-2 lg:col-span-2';
+                            else if (itemsInLastRow === 3 && i === total - 3) spanClass = 'col-span-2 md:col-span-2 lg:col-span-2';
+
+                            return (
+                                <div
+                                    key={cat.id}
+                                    onClick={() => setActiveCategory(cat)}
+                                    className={`group relative p-3.5 sm:p-6 md:p-7 rounded-[1.5rem] sm:rounded-[2.2rem] cursor-pointer transition-all duration-300 ${cat.color} border-[3px] sm:border-4 border-black shadow-[4px_4px_0px_0px_#fff] sm:shadow-[6px_6px_0px_0px_#fff] hover:shadow-[8px_8px_0px_0px_#fff] sm:hover:shadow-[10px_10px_0px_0px_#fff] hover:-translate-y-1 active:scale-95 ${spanClass} min-h-[165px] sm:min-h-[220px] md:min-h-[250px] flex flex-col justify-between overflow-hidden`}
+                                >
+                                    <div className="flex justify-between items-start relative z-10">
+                                        <div className="bg-black/20 p-2 sm:p-3 rounded-xl sm:rounded-2xl text-black backdrop-blur-sm">
+                                            <div className="sm:hidden">
+                                                {getSmartIcon(cat.title, 20)}
+                                            </div>
+                                            <div className="hidden sm:block">
+                                                {getSmartIcon(cat.title, 32)}
+                                            </div>
+                                        </div>
+                                        <div className="w-7 h-7 sm:w-10 sm:h-10 bg-black rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all -rotate-45 group-hover:rotate-0 shadow-lg">
+                                            <ArrowRight size={14} className="sm:hidden" />
+                                            <ArrowRight size={20} className="hidden sm:block" />
+                                        </div>
+                                    </div>
+
+                                    <div className="relative z-10 mt-2 sm:mt-3">
+                                        <h3 className={`text-sm sm:text-lg md:text-2xl font-black leading-snug sm:leading-tight mb-1 sm:mb-2 ${cat.text_color}`}>
+                                            {cat.title}
+                                        </h3>
+                                        <p className={`font-bold text-[10.5px] sm:text-xs md:text-[13px] line-clamp-2 ${cat.text_color === 'text-white' ? 'text-white/80' : 'text-black/75'}`}>
+                                            {cat.description}
+                                        </p>
+                                    </div>
+
+                                    <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-white opacity-20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500 pointer-events-none" />
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <div className="relative z-10 py-16 text-center bg-zinc-950/80 border border-zinc-800 rounded-3xl p-8 max-w-lg mx-auto">
+                        <div className="w-16 h-16 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 mx-auto mb-4">
+                            <Search size={28} />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">No services found</h3>
+                        <p className="text-zinc-400 text-sm mb-6">
+                            No service matches <span className="text-[#bef264] font-semibold">"{searchQuery}"</span>. Try searching another capability or reset filters.
+                        </p>
+                        <button
+                            onClick={() => {
+                                setSearchQuery('');
+                                setSelectedCategory('All Services');
+                            }}
+                            className="px-6 py-2.5 bg-[#bef264] text-black font-bold text-xs rounded-full uppercase tracking-wider hover:bg-white transition-all shadow-md active:scale-95"
+                        >
+                            Clear Filters
+                        </button>
+                    </div>
+                )}
             </div>
         );
     }
@@ -232,97 +380,105 @@ export default function ServicesPage() {
                             <p className="text-zinc-400 text-sm font-medium leading-relaxed mb-6 line-clamp-3">
                                 {sub.desc}
                             </p>
-                            <ul className="space-y-2">
-                                {sub.points && sub.points.slice(0, 3).map((point, i) => (
-                                    <li key={i} className="flex items-start gap-3 text-xs text-zinc-500 group-hover:text-zinc-400 transition-colors">
-                                        <span className="w-1.5 h-1.5 bg-[#bef264] rounded-full mt-1.5 shrink-0" />
-                                        <span className="line-clamp-1">{point}</span>
-                                    </li>
-                                ))}
-                            </ul>
                         </div>
-                        <button
-                            onClick={() => handleSubServiceClick(sub.title)}
-                            className="mt-8 w-full py-4 bg-black border border-zinc-700 rounded-2xl text-white font-bold hover:bg-[#bef264] hover:text-black hover:border-black transition-all active:scale-95 flex items-center justify-center gap-2 group-hover:shadow-[4px_4px_0px_0px_#bef264]"
-                        >
-                            Start Project <ArrowRight size={18} />
-                        </button>
+
+                        <div>
+                            {Array.isArray(sub.points) && sub.points.length > 0 && (
+                                <div className="space-y-2 mb-6 border-t border-zinc-800/80 pt-4">
+                                    {sub.points.slice(0, 3).map((point: string, idx: number) => (
+                                        <div key={idx} className="flex items-center gap-2 text-xs font-semibold text-zinc-400">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-[#bef264]" />
+                                            <span className="truncate">{point}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            <button
+                                onClick={() => handleSubServiceClick(sub.title)}
+                                className="w-full py-4 bg-zinc-800 hover:bg-[#bef264] hover:text-black text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 group/btn"
+                            >
+                                <span>Get Started</span>
+                                <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>
 
+            {/* Modal for Service Inquiry */}
             {modalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-                    <div className="bg-[#f0fdf4] border-4 border-black rounded-[2.5rem] w-full max-w-md p-8 relative animate-in fade-in zoom-in duration-300 shadow-[15px_15px_0px_0px_rgba(0,0,0,0.1)]">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+                    <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 max-w-lg w-full relative animate-in fade-in zoom-in duration-200">
                         <button
                             onClick={() => setModalOpen(false)}
-                            className="absolute top-4 right-4 bg-black text-white p-1 rounded-full hover:scale-110 transition-transform z-10"
+                            className="absolute top-6 right-6 text-zinc-400 hover:text-white"
                         >
-                            <X size={20} />
+                            <X size={24} />
                         </button>
 
+                        <h3 className="text-2xl font-black text-white mb-2">Request Service</h3>
+                        <p className="text-zinc-400 text-sm mb-6">
+                            Let's discuss how we can help you with <span className="text-[#bef264] font-bold">{selectedSubService}</span>.
+                        </p>
+
                         {isSubmitted ? (
-                            <div className="text-center py-12">
-                                <div className="w-16 h-16 bg-[#22c55e] rounded-full flex items-center justify-center mx-auto mb-6 text-white shadow-lg shadow-green-200">
-                                    <Check size={32} strokeWidth={4} />
+                            <div className="text-center py-8">
+                                <div className="w-16 h-16 bg-[#bef264]/10 text-[#bef264] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#bef264]/20">
+                                    <Check size={32} />
                                 </div>
-                                <h2 className="text-3xl font-black text-black mb-2">Message Sent!</h2>
-                                <p className="text-zinc-600 font-bold text-lg">We will reach out in 24-48 hours.</p>
+                                <h4 className="text-xl font-bold text-white mb-2">Request Sent!</h4>
+                                <p className="text-zinc-400 text-sm">We'll get back to you within 24 hours.</p>
                             </div>
                         ) : (
-                            <>
-                                <h2 className="text-3xl font-black text-black mb-2 uppercase">Let&apos;s Build It.</h2>
-                                <p className="text-zinc-600 mb-6 text-sm font-medium">
-                                    Requesting:{' '}
-                                    <span className="bg-[#bef264] px-1 text-black border border-black">
-                                        {activeCategory.title} - {selectedSubService}
-                                    </span>
-                                </p>
-
-                                <form onSubmit={handleSubmit} className="space-y-4">
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Your Name</label>
                                     <input
-                                        name="name"
                                         required
                                         type="text"
-                                        className="w-full bg-white border-2 border-black rounded-xl p-3 text-black font-bold placeholder:text-zinc-400 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all"
-                                        placeholder="Your Name"
+                                        name="name"
+                                        placeholder="John Doe"
+                                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#bef264]"
                                     />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Email Address</label>
                                     <input
-                                        name="email"
                                         required
                                         type="email"
-                                        className="w-full bg-white border-2 border-black rounded-xl p-3 text-black font-bold placeholder:text-zinc-400 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all"
-                                        placeholder="Your Email"
+                                        name="email"
+                                        placeholder="john@example.com"
+                                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#bef264]"
                                     />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Phone Number</label>
                                     <input
-                                        name="number"
-                                        required
                                         type="tel"
-                                        onInput={(e) => e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '')}
-                                        className="w-full bg-white border-2 border-black rounded-xl p-3 text-black font-bold placeholder:text-zinc-400 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all"
-                                        placeholder="Your Phone Number"
+                                        name="number"
+                                        placeholder="+1 (555) 000-0000"
+                                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#bef264]"
                                     />
-                                    <input
-                                        name="service"
-                                        type="hidden"
-                                        value={`${activeCategory.title} - ${selectedSubService}`}
-                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Project Details</label>
                                     <textarea
-                                        name="description"
                                         required
+                                        name="description"
                                         rows={3}
-                                        className="w-full bg-white border-2 border-black rounded-xl p-3 text-black font-bold placeholder:text-zinc-400 focus:outline-none focus:shadow-[4px_4px_0px_0px_#000] transition-all"
-                                        placeholder="Brief Description..."
+                                        placeholder="Tell us about your requirements..."
+                                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#bef264]"
                                     />
-                                    <button
-                                        type="submit"
-                                        disabled={isSending}
-                                        className="w-full bg-black text-white font-bold py-3 rounded-xl hover:bg-[#bef264] hover:text-black border-2 border-black hover:shadow-[4px_4px_0px_0px_#000] transition-all active:scale-95 disabled:opacity-50"
-                                    >
-                                        {isSending ? 'Sending...' : 'Send Request'}
-                                    </button>
-                                </form>
-                            </>
+                                </div>
+                                <button
+                                    type="submit"
+                                    disabled={isSending}
+                                    className="w-full py-4 bg-[#bef264] text-black font-black uppercase tracking-wider text-sm rounded-xl hover:bg-white transition-colors disabled:opacity-50 mt-4"
+                                >
+                                    {isSending ? 'Sending...' : 'Submit Request'}
+                                </button>
+                            </form>
                         )}
                     </div>
                 </div>

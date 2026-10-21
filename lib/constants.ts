@@ -1,9 +1,10 @@
-// Navigation items
 export const navItems = [
     { text: 'Home', href: '/' },
     { text: 'About Us', href: '/about' },
     { text: 'Product', href: '/products' },
     { text: 'Services', href: '/services' },
+    { text: 'Work', href: '/work' },
+    { text: 'Case Studies', href: '/case-studies' },
     { text: 'Blogs', href: '/blogs' },
     { text: 'Contact', href: '/contact' }
 ];

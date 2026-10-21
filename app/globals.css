@@ -131,3 +131,38 @@
 .hover-theme-color:hover {
   background-color: var(--hover-bg) !important;
 }
+
+@keyframes marquee-scroll-rtl {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-rtl {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: max-content !important;
+  animation: marquee-scroll-rtl 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-rtl:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-rtl-slow {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: max-content !important;
+  animation: marquee-scroll-rtl 70s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-rtl-slow:hover {
+  animation-play-state: paused;
+}

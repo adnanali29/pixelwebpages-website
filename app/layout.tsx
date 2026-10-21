@@ -39,9 +39,12 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: 'https://i.ibb.co/MDRZ7svJ/1.png',
-    shortcut: 'https://i.ibb.co/MDRZ7svJ/1.png',
-    apple: 'https://i.ibb.co/MDRZ7svJ/1.png',
+    icon: [
+      { url: '/images/logo-white.png', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' }
+    ],
+    shortcut: '/images/logo-white.png',
+    apple: '/images/logo-white.png',
   },
 };
 
